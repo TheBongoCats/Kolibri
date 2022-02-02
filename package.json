@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@airgap/beacon-sdk": "^2.3.9",
+    "@taquito/beacon-wallet": "^11.0.2",
+    "@taquito/local-forging": "^11.0.2",
+    "@taquito/taquito": "^11.0.2",
+    "@taquito/utils": "^11.0.2",
+    "@temple-wallet/dapp": "^6.1.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -39,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.8.0",
+    "prettier": "2.5.1"
   }
 }
