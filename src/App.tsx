@@ -1,11 +1,18 @@
-import React from 'react';
+import Test from './ATest';
 
-function App() {
-  return (
-    <div className="App">
+type AppProps = {
+  test?: string;
+};
 
-    </div>
-  );
-}
+const App = ({ test }: AppProps) => (
+  <div className="App">
+    {test}
+    <Test text="papa" />
+  </div>
+);
+
+App.defaultProps = {
+  test: 'john',
+};
 
 export default App;
