@@ -10,7 +10,7 @@ import {
 import {
   useTempleWalletDispatchContex,
   useTempleWalletStateContex,
-} from './templeWalletContext';
+} from '../contexts/templeWalletContext';
 
 const Test = () => {
   // @ts-ignore
