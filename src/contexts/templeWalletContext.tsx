@@ -46,6 +46,7 @@ const TempleWalletProvider = ({ children }) => {
   const [templeAdress, setTempleAdress] = useState();
   const [templePublickKey, setTemplePublickKey] = useState();
   const [templeWalletResponse, setTempleWalletResponse] = useState();
+  const [templeBalnce, settempleBalnce] = useState();
   const connectTempleWallet = async (
     forcePermissions: boolean,
     network: string,
@@ -92,6 +93,11 @@ const TempleWalletProvider = ({ children }) => {
     setTempleWalletResponse(wallet);
     // @ts-ignore
     setTemplePublickKey(pk);
+    settempleBalnce(
+      // @ts-ignore
+
+      await tezos.tz.getBalance(pkh).then((bigNum) => +bigNum / 1000000),
+    );
   };
 
   const stateValue = useMemo(
@@ -99,8 +105,9 @@ const TempleWalletProvider = ({ children }) => {
       templeAdress,
       templeWalletResponse,
       templePublickKey,
+      templeBalnce,
     }),
-    [templeAdress, templeWalletResponse, templePublickKey],
+    [templeAdress, templeWalletResponse, templePublickKey, templeBalnce],
   );
 
   const dispatchValue = useMemo(

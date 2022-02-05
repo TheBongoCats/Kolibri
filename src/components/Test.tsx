@@ -23,7 +23,7 @@ const Test = () => {
   // @ts-ignore
   const { allOwens, tezosPrice, tezosPriceDate } = useKolibriStateContext();
   // @ts-ignore
-  const { templeAdress } = useTempleWalletStateContex();
+  const { templeAdress, templeBalnce } = useTempleWalletStateContex();
   // @ts-ignore
   const { connectTempleWallet } = useTempleWalletDispatchContex();
   return (
@@ -51,7 +51,12 @@ const Test = () => {
           <div>{`Your balance: ${beaconBalance}`}</div>
         </div>
       )}
-      {templeAdress && <div>{templeAdress}</div>}
+      {templeAdress && (
+        <>
+          <div>{templeAdress}</div>
+          <div>{templeBalnce}</div>
+        </>
+      )}
       {allOwens && <div>{allOwens.length}</div>}
       {tezosPrice && (
         <div>{`date: ${tezosPriceDate}, price: ${tezosPrice}`}</div>
