@@ -3,6 +3,7 @@ import {
   Network,
   HarbingerClient,
   OvenClient,
+  CONTRACTS,
 } from '@hover-labs/kolibri-js';
 import propTypes from 'prop-types';
 import { createContext, useContext, useMemo, useState } from 'react';
@@ -57,9 +58,9 @@ const KolibriProvider = ({ children }) => {
   const stableCoinClient = new StableCoinClient(
     NODE_URL,
     Network.Hangzhou,
-    'KT1U4dr4RHRWBTUQ9Fj63k78RYNB4diqvMUy',
-    'KT1ECitbrVyYeVQJQXC8CLpyGsumSXNjm72R',
-    'KT1GpuNB3CBnX7vv9fdfNbisUqJpXgb1SQxr',
+    CONTRACTS.TEST.OVEN_REGISTRY,
+    CONTRACTS.TEST.MINTER,
+    CONTRACTS.TEST.OVEN_FACTORY,
   );
 
   const ovenClient = new OvenClient(
