@@ -23,7 +23,6 @@ const useTempleWalletStateContext = () => {
   return context;
 };
 
-// @ts-ignore
 const TempleWalletDispatchContext = createContext();
 TempleWalletDispatchContext.displayName = 'templeWalletDispatchContext';
 

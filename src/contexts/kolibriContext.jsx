@@ -64,7 +64,6 @@ const KolibriProvider = ({ children }) => {
 
   const ovenClient = new OvenClient(
     NODE_URL,
-    // @ts-ignore
     templeWalletResponse,
     'KT1VXhDpn5sqQEmhS2H3wmGALVimkLcD9AKH',
     stableCoinClient,
@@ -78,7 +77,6 @@ const KolibriProvider = ({ children }) => {
       .then((result) => setBalance(+result));
   };
 
-  // @ts-ignore
   const deposit = () => ovenClient.deposit(new BigNumber(1 * MUTEZ_IN_TEZOS));
   const withdraw = () => ovenClient.withdraw(new BigNumber(5 * MUTEZ_IN_TEZOS));
 
@@ -103,7 +101,6 @@ const KolibriProvider = ({ children }) => {
   const deployOven = async () => {
     if (templeWalletResponse) {
       await stableCoinClient
-        // @ts-ignore
         .deployOven(templeWalletResponse)
         .then((result) => console.log(result));
     }
