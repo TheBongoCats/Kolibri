@@ -1,20 +1,9 @@
 import { NetworkType as BeaconNetwork } from '@airgap/beacon-sdk';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import { MichelCodecPacker, TezosToolkit } from '@taquito/taquito';
-import { TempleWallet } from '@temple-wallet/dapp';
+import propTypes from 'prop-types';
 import { createContext, useContext, useMemo, useState } from 'react';
-import { ReadOnlySigner } from '../utils/ReadOnlySigner';
-
-export interface DAppConnection {
-  type: 'temple' | 'beacon';
-  pkh: string;
-  pk: string;
-  tezos: TezosToolkit;
-  balance: number;
-  templeWallet?: TempleWallet;
-}
-
-type Network = 'hangzhounet';
+import { ReadOnlySigner } from '../utils/ReadOnlySigner.mjs';
 
 const APP_NAME = 'Kolibri';
 
@@ -59,8 +48,6 @@ const useBeaconDispatchContext = () => {
   return context;
 };
 
-// @ts-ignore
-// eslint-disable-next-line react/prop-types
 const BeaconProvider = ({ children }) => {
   const [beaconAdress, setBeaconAdress] = useState();
   const [beaconNet, setBeaconNet] = useState();
@@ -69,11 +56,7 @@ const BeaconProvider = ({ children }) => {
   const [beaconPk, setBeaconPk] = useState();
   // const [walletData, setWalletData] = useState();
 
-  const connectWallet = async (
-    forcePermission: boolean,
-    network: Network,
-    // @ts-ignore
-  ): Promise<DAppConnection> => {
+  const connectWallet = async (forcePermission, network) => {
     const beaconNetwork =
       network === 'hangzhounet'
         ? BeaconNetwork.HANGZHOUNET
@@ -91,7 +74,6 @@ const BeaconProvider = ({ children }) => {
       });
     }
 
-    // @ts-ignore
     const tezos = new TezosToolkit(defaultRpcUrls[beaconNetwork]);
     tezos.setPackerProvider(michelEncoder);
     tezos.setWalletProvider(beaconWallet);
@@ -105,19 +87,14 @@ const BeaconProvider = ({ children }) => {
     );
 
     setBeaconBalance(
-      // @ts-ignore
       await tezos.tz
         .getBalance(activeAcc.address)
         .then((bigNum) => +bigNum / 1000000),
     );
 
-    // @ts-ignore
     setBeaconAdress(activeAcc.address);
-    // @ts-ignore
     setBeaconNet(activeAcc.network.type);
-    // @ts-ignore
     setBeaconTezos(tezos);
-    // @ts-ignore
     setBeaconPk(activeAcc.publicKey);
   };
 
@@ -149,3 +126,7 @@ const BeaconProvider = ({ children }) => {
 };
 
 export { useBeaconStateContext, useBeaconDispatchContext, BeaconProvider };
+
+BeaconProvider.propTypes = {
+  children: propTypes.node.isRequired,
+};

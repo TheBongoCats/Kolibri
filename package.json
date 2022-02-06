@@ -1,5 +1,5 @@
 {
-  "name": "kolibri-ts",
+  "name": "kolibri-js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,14 +13,11 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.4.0",
-    "@types/node": "^16.11.22",
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
+    "bignumber.js": "^9.0.1",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
-    "typescript": "^4.5.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -48,12 +45,8 @@
     ]
   },
   "devDependencies": {
-    "react-error-overlay": "6.0.9",
-    "@typescript-eslint/eslint-plugin": "^5.10.2",
-    "@typescript-eslint/parser": "^5.10.2",
     "eslint": "^7.11.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",

@@ -6,11 +6,11 @@ import { TempleWalletProvider } from './contexts/templeWalletContext';
 const App = () => {
   return (
     <BeaconProvider>
-      <KolibriProvider>
-        <TempleWalletProvider>
+      <TempleWalletProvider>
+        <KolibriProvider>
           <Test />
-        </TempleWalletProvider>
-      </KolibriProvider>
+        </KolibriProvider>
+      </TempleWalletProvider>
     </BeaconProvider>
   );
 };

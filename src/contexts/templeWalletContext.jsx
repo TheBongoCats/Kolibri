@@ -1,17 +1,17 @@
 import { TempleWallet } from '@temple-wallet/dapp';
 import { MichelCodecPacker, TezosToolkit } from '@taquito/taquito';
+import propTypes from 'prop-types';
 import { createContext, useContext, useMemo, useState } from 'react';
-import { ReadOnlySigner } from '../utils/ReadOnlySigner';
+import { ReadOnlySigner } from '../utils/ReadOnlySigner.mjs';
 
 const michelEncoder = new MichelCodecPacker();
 
 // state context
 
-// @ts-ignore
 const TempleWalletStateContext = createContext();
 TempleWalletStateContext.displayName = 'templeWalletStateContext';
 
-const useTempleWalletStateContex = () => {
+const useTempleWalletStateContext = () => {
   const context = useContext(TempleWalletStateContext);
 
   if (!context) {
@@ -39,18 +39,13 @@ const useTempleWalletDispatchContex = () => {
   return context;
 };
 
-// eslint-disable-next-line react/prop-types
-// @ts-ignore
-// eslint-disable-next-line react/prop-types
 const TempleWalletProvider = ({ children }) => {
   const [templeAdress, setTempleAdress] = useState();
   const [templePublickKey, setTemplePublickKey] = useState();
   const [templeWalletResponse, setTempleWalletResponse] = useState();
-  const [templeBalnce, settempleBalnce] = useState();
-  const connectTempleWallet = async (
-    forcePermissions: boolean,
-    network: string,
-  ) => {
+  const [templeBalance, setTempleBalance] = useState();
+
+  const connectTempleWallet = async (forcePermissions, network) => {
     const available = await TempleWallet.isAvailable();
     if (!available) {
       throw new Error("Wallet isn't available");
@@ -65,7 +60,6 @@ const TempleWalletProvider = ({ children }) => {
     const wallet = new TempleWallet('Kolibri', perm);
 
     if (!wallet.connected) {
-      // @ts-ignore
       await wallet.connect(network, { forcePermission: true });
     }
 
@@ -79,25 +73,22 @@ const TempleWalletProvider = ({ children }) => {
     let pk;
 
     if (wallet.connected && pkh) {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const { pkh, publicKey } = wallet.permission!;
+      // eslint-disable-next-line no-shadow
+      const { pkh, publicKey } = wallet.permission;
       pk = publicKey;
       tezos.setSignerProvider(new ReadOnlySigner(pkh, publicKey));
     } else {
       throw new Error('Wallet was not connected');
     }
 
-    // @ts-ignore
-    setTempleAdress(pkh);
-    // @ts-ignore
-    setTempleWalletResponse(wallet);
-    // @ts-ignore
-    setTemplePublickKey(pk);
-    settempleBalnce(
-      // @ts-ignore
+    const balance = await tezos.tz
+      .getBalance(pkh)
+      .then((bigNum) => +bigNum / 1000000);
 
-      await tezos.tz.getBalance(pkh).then((bigNum) => +bigNum / 1000000),
-    );
+    setTempleAdress(pkh);
+    setTempleWalletResponse(wallet);
+    setTemplePublickKey(pk);
+    setTempleBalance(balance);
   };
 
   const stateValue = useMemo(
@@ -105,9 +96,9 @@ const TempleWalletProvider = ({ children }) => {
       templeAdress,
       templeWalletResponse,
       templePublickKey,
-      templeBalnce,
+      templeBalance,
     }),
-    [templeAdress, templeWalletResponse, templePublickKey, templeBalnce],
+    [templeAdress, templeWalletResponse, templePublickKey, templeBalance],
   );
 
   const dispatchValue = useMemo(
@@ -127,7 +118,11 @@ const TempleWalletProvider = ({ children }) => {
 };
 
 export {
-  useTempleWalletStateContex,
+  useTempleWalletStateContext,
   useTempleWalletDispatchContex,
   TempleWalletProvider,
+};
+
+TempleWalletProvider.propTypes = {
+  children: propTypes.node.isRequired,
 };

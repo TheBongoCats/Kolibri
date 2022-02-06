@@ -9,22 +9,18 @@ import {
 
 import {
   useTempleWalletDispatchContex,
-  useTempleWalletStateContex,
+  useTempleWalletStateContext,
 } from '../contexts/templeWalletContext';
 
 const Test = () => {
-  // @ts-ignore
   const { connectWallet } = useBeaconDispatchContext();
-  // @ts-ignore
   const { beaconAdress, beaconNet, beaconBalance, beaconTezos, beaconPk } =
     useBeaconStateContext();
-  // @ts-ignore
-  const { getOvens, getActualPrice } = useKolibriDispatchContext();
-  // @ts-ignore
-  const { allOwens, tezosPrice, tezosPriceDate } = useKolibriStateContext();
-  // @ts-ignore
-  const { templeAdress, templeBalnce } = useTempleWalletStateContex();
-  // @ts-ignore
+  const { getOvens, deployOven, getOvenBalance, deposit, withdraw } =
+    useKolibriDispatchContext();
+  const { allOvens, tezosPrice, tezosPriceDate, balance } =
+    useKolibriStateContext();
+  const { templeAdress, templeBalnce } = useTempleWalletStateContext();
   const { connectTempleWallet } = useTempleWalletDispatchContex();
   return (
     <>
@@ -34,8 +30,17 @@ const Test = () => {
       <button onClick={getOvens} type="button">
         Show ovens
       </button>
-      <button onClick={getActualPrice} type="button">
-        Get tezos price
+      <button onClick={deployOven} type="button">
+        deploy
+      </button>
+      <button onClick={getOvenBalance} type="button">
+        getOvenBalance
+      </button>
+      <button onClick={deposit} type="button">
+        deposit
+      </button>
+      <button onClick={withdraw} type="button">
+        withdraw
       </button>
       <button
         onClick={() => connectTempleWallet(true, 'hangzhounet')}
@@ -43,6 +48,8 @@ const Test = () => {
       >
         Connect Temple Wallet
       </button>
+      {balance && `balance: ${balance}`}
+
       {beaconTezos && (
         <div>
           <div>{`Your address: ${beaconAdress}`}</div>
@@ -57,7 +64,7 @@ const Test = () => {
           <div>{templeBalnce}</div>
         </>
       )}
-      {allOwens && <div>{allOwens.length}</div>}
+      {allOvens && <div>{allOvens.length}</div>}
       {tezosPrice && (
         <div>{`date: ${tezosPriceDate}, price: ${tezosPrice}`}</div>
       )}

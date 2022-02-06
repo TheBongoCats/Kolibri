@@ -5,7 +5,6 @@
   },
   "extends": [
     "airbnb",
-    "airbnb-typescript",
     "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
@@ -13,16 +12,15 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": "latest",
-    "sourceType": "module",
-    "project": "./tsconfig.json"
+    "ecmaVersion": 12,
+    "sourceType": "module"
   },
-  "plugins": ["react", "prettier", "@typescript-eslint"],
+  "plugins": ["react", "prettier"],
   "rules": {
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".js", ".jsx", ".tsx"]
+        "extensions": [".js", ".jsx"]
       }
     ],
     "react/react-in-jsx-scope": "off",

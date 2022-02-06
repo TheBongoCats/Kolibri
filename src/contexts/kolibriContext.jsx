@@ -1,10 +1,14 @@
 import {
-  // HarbingerClient,
   StableCoinClient,
   Network,
   HarbingerClient,
+  OvenClient,
 } from '@hover-labs/kolibri-js';
+import propTypes from 'prop-types';
 import { createContext, useContext, useMemo, useState } from 'react';
+import { BigNumber } from 'bignumber.js';
+import { useTempleWalletStateContext } from './templeWalletContext';
+import { NODE_URL, MUTEZ_IN_TEZOS } from '../utils/constants';
 
 // state context
 const KolibriStateContext = createContext({});
@@ -38,61 +42,93 @@ const useKolibriDispatchContext = () => {
   return context;
 };
 
-// @ts-ignore
-// eslint-disable-next-line react/prop-types
 const KolibriProvider = ({ children }) => {
-  const [allOwens, setAllOwens] = useState();
+  const [allOvens, setAllOvens] = useState();
   const [tezosPrice, setTezosPrice] = useState();
+  const [balance, setBalance] = useState();
   const [tezosPriceDate, setTezosPriceDate] = useState();
+  const { templeWalletResponse } = useTempleWalletStateContext();
 
   const harbingerClient = new HarbingerClient(
-    'https://hangzhounet.api.tez.ie',
+    NODE_URL,
     'KT1PMQZxQTrFPJn3pEaj9rvGfJA9Hvx7Z1CL',
   );
 
   const stableCoinClient = new StableCoinClient(
-    'https://hangzhounet.api.tez.ie',
+    NODE_URL,
     Network.Hangzhou,
     'KT1U4dr4RHRWBTUQ9Fj63k78RYNB4diqvMUy',
     'KT1ECitbrVyYeVQJQXC8CLpyGsumSXNjm72R',
-    'KT1QAiqr7TfMvQu1g7DCBoHnR6mEsRD6UstC',
+    'KT1GpuNB3CBnX7vv9fdfNbisUqJpXgb1SQxr',
   );
 
-  const getOvens = async () => {
-    await stableCoinClient
+  const ovenClient = new OvenClient(
+    NODE_URL,
+    // @ts-ignore
+    templeWalletResponse,
+    'KT1VXhDpn5sqQEmhS2H3wmGALVimkLcD9AKH',
+    stableCoinClient,
+    harbingerClient,
+  );
+
+  const getOvenBalance = () => {
+    ovenClient
+      .getBalance()
+      .then((result) => result)
+      .then((result) => setBalance(+result));
+  };
+
+  // @ts-ignore
+  const deposit = () => ovenClient.deposit(new BigNumber(1 * MUTEZ_IN_TEZOS));
+  const withdraw = () => ovenClient.withdraw(new BigNumber(5 * MUTEZ_IN_TEZOS));
+
+  const getOvens = () => {
+    stableCoinClient
       .getAllOvens()
       .then((response) => response)
-      // @ts-ignore
-      .then((ovens) => setAllOwens(ovens));
+      .then((ovens) => setAllOvens(ovens));
   };
 
   const getActualPrice = async () => {
     await harbingerClient
       .getPriceData()
-      .then((responce) => responce)
+      .then((response) => response)
       .then((result) => {
-        // @ts-ignore
+        console.log(result);
         setTezosPrice(+result.price / 1000000);
-        // @ts-ignore
         setTezosPriceDate(result.time);
       });
   };
 
+  const deployOven = async () => {
+    if (templeWalletResponse) {
+      await stableCoinClient
+        // @ts-ignore
+        .deployOven(templeWalletResponse)
+        .then((result) => console.log(result));
+    }
+  };
+
   const stateValue = useMemo(
     () => ({
-      allOwens,
+      allOvens,
       tezosPrice,
       tezosPriceDate,
+      balance,
     }),
-    [allOwens, tezosPrice, tezosPriceDate],
+    [allOvens, tezosPrice, tezosPriceDate],
   );
 
   const dispatchValue = useMemo(
     () => ({
       getOvens,
       getActualPrice,
+      deployOven,
+      getOvenBalance,
+      deposit,
+      withdraw,
     }),
-    [getOvens, getActualPrice],
+    [getOvens, getActualPrice, deployOven, getOvenBalance],
   );
 
   return (
@@ -105,3 +141,7 @@ const KolibriProvider = ({ children }) => {
 };
 
 export { useKolibriStateContext, useKolibriDispatchContext, KolibriProvider };
+
+KolibriProvider.propTypes = {
+  children: propTypes.node.isRequired,
+};
