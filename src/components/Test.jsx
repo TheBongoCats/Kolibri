@@ -11,17 +11,25 @@ import {
   useTempleWalletDispatchContex,
   useTempleWalletStateContext,
 } from '../contexts/templeWalletContext';
+import Oven from './Oven';
 
 const Test = () => {
   const { connectWallet } = useBeaconDispatchContext();
   const { beaconAdress, beaconNet, beaconBalance, beaconTezos, beaconPk } =
     useBeaconStateContext();
-  const { getOvens, deployOven, getOvenBalance, deposit, withdraw } =
-    useKolibriDispatchContext();
-  const { allOvens, tezosPrice, tezosPriceDate, balance } =
+  const {
+    getOvens,
+    deployOven,
+    getOvenBalance,
+    deposit,
+    withdraw,
+    getAllMyOvens,
+  } = useKolibriDispatchContext();
+  const { allOvens, tezosPrice, tezosPriceDate, balance, myOvens } =
     useKolibriStateContext();
   const { templeAdress, templeBalnce } = useTempleWalletStateContext();
   const { connectTempleWallet } = useTempleWalletDispatchContex();
+
   return (
     <>
       <button onClick={() => connectWallet(true, 'hangzhounet')} type="button">
@@ -38,6 +46,9 @@ const Test = () => {
       </button>
       <button onClick={deposit} type="button">
         deposit
+      </button>
+      <button onClick={getAllMyOvens} type="button">
+        get my ovens
       </button>
       <button onClick={withdraw} type="button">
         withdraw
@@ -68,6 +79,10 @@ const Test = () => {
       {tezosPrice && (
         <div>{`date: ${tezosPriceDate}, price: ${tezosPrice}`}</div>
       )}
+
+      {myOvens.map((oven) => {
+        return <Oven key={oven.ovenAddress} oven={oven} />;
+      })}
     </>
   );
 };

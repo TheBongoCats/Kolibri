@@ -48,6 +48,7 @@ const KolibriProvider = ({ children }) => {
   const [tezosPrice, setTezosPrice] = useState();
   const [balance, setBalance] = useState();
   const [tezosPriceDate, setTezosPriceDate] = useState();
+  const [myOvens, setMyOvens] = useState([]);
   const { templeWalletResponse } = useTempleWalletStateContext();
 
   const harbingerClient = new HarbingerClient(
@@ -63,29 +64,70 @@ const KolibriProvider = ({ children }) => {
     CONTRACTS.TEST.OVEN_FACTORY,
   );
 
-  const ovenClient = new OvenClient(
+  const ovenClientTest = new OvenClient(
     NODE_URL,
     templeWalletResponse,
-    'KT1VXhDpn5sqQEmhS2H3wmGALVimkLcD9AKH',
+    'KT1AsuBApwJLwzzu5MwTe6KBr7zswZ9tJXy3',
     stableCoinClient,
     harbingerClient,
   );
 
+  const getAllMyOvens = async () => {
+    const ovens = await stableCoinClient.ovensOwnedByAddress(
+      'tz1LN3hTUtg8eohArm2T1S4wwxbbrY4umr3a',
+    );
+
+    // setMyOvens(
+    //   await Promise.all(
+    //     ovens.map(async (oven) => {
+    //       const ovenClient = new OvenClient(
+    //         NODE_URL,
+    //         templeWalletResponse,
+    //         oven,
+    //         stableCoinClient,
+    //         harbingerClient,
+    //       );
+
+    //       return {
+    //         address: ovenClient.ovenAddress,
+    //         baker: await ovenClient.getBaker(),
+    //         withdraw: ovenClient.withdraw,
+    //       };
+    //     }),
+    //   ),
+    // );
+
+    setMyOvens(
+      await Promise.all(
+        ovens.map(async (oven) => {
+          return new OvenClient(
+            NODE_URL,
+            templeWalletResponse,
+            oven,
+            stableCoinClient,
+            harbingerClient,
+          );
+        }),
+      ),
+    );
+
+    console.log(myOvens);
+  };
+
   const getOvenBalance = () => {
-    ovenClient
+    ovenClientTest
       .getBalance()
       .then((result) => result)
       .then((result) => setBalance(+result));
   };
 
-  const deposit = () => ovenClient.deposit(new BigNumber(1 * MUTEZ_IN_TEZOS));
-  const withdraw = () => ovenClient.withdraw(new BigNumber(5 * MUTEZ_IN_TEZOS));
+  const deposit = () =>
+    ovenClientTest.deposit(new BigNumber(1 * MUTEZ_IN_TEZOS));
+  const withdraw = () =>
+    ovenClientTest.withdraw(new BigNumber(5 * MUTEZ_IN_TEZOS));
 
   const getOvens = () => {
-    stableCoinClient
-      .getAllOvens()
-      .then((response) => response)
-      .then((ovens) => setAllOvens(ovens));
+    stableCoinClient.getAllOvens().then((ovens) => setAllOvens(ovens));
   };
 
   const getActualPrice = async () => {
@@ -113,8 +155,9 @@ const KolibriProvider = ({ children }) => {
       tezosPrice,
       tezosPriceDate,
       balance,
+      myOvens,
     }),
-    [allOvens, tezosPrice, tezosPriceDate],
+    [allOvens, tezosPrice, tezosPriceDate, balance, myOvens],
   );
 
   const dispatchValue = useMemo(
@@ -125,6 +168,7 @@ const KolibriProvider = ({ children }) => {
       getOvenBalance,
       deposit,
       withdraw,
+      getAllMyOvens,
     }),
     [getOvens, getActualPrice, deployOven, getOvenBalance],
   );
