@@ -16,11 +16,12 @@ const Oven = ({ oven }) => {
     oven.deposit(amount);
   };
 
-  useEffect(async () => {
-    setMyOven({
-      baker: await oven.getBaker(),
-      balance: await oven.getBalance(),
-    });
+  useEffect(() => {
+    (async () =>
+      setMyOven({
+        baker: await oven.getBaker(),
+        balance: await oven.getBalance(),
+      }))();
   }, []);
 
   return (
