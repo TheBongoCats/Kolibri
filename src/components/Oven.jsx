@@ -1,45 +1,52 @@
 import propTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import BigNumber from 'bignumber.js';
-import { MUTEZ_IN_TEZOS } from '../utils/constants';
+import CONSTANTS from '../utils/constants';
 
-const Oven = ({ oven }) => {
+const Oven = ({ ovenClient }) => {
   const [myOven, setMyOven] = useState({});
 
-  const { ovenAddress } = oven;
-
   const handleWithdraw = (amount) => {
-    oven.withdraw(amount);
+    ovenClient.withdraw(amount);
   };
 
-  const handleDeposit = (amount) => {
-    oven.deposit(amount);
+  // const handleDeposit = (amount) => {
+  //   ovenClient.deposit(amount);
+  // };
+
+  const handleLiquidate = () => {
+    ovenClient.liquidate();
   };
 
   useEffect(() => {
     (async () =>
       setMyOven({
-        baker: await oven.getBaker(),
-        balance: await oven.getBalance(),
+        baker: await ovenClient.getBaker(),
+        balance: await ovenClient.getBalance(),
+        borrowedTokens: await ovenClient.getBorrowedTokens(),
+        isLiquidated: await ovenClient.isLiquidated(),
+        outstandingTokens: await ovenClient.getTotalOutstandingTokens(),
+        ovenAddress: await ovenClient.ovenAddress,
+        ovenOwner: await ovenClient.getOwner(),
+        stabilityFees: await ovenClient.getStabilityFees(),
       }))();
   }, []);
 
   return (
     <div>
-      {`ADDRESS: ${ovenAddress} `}
+      {`ADDRESS: ${myOven.ovenAddress} `}
       {`BAKER: ${myOven.baker} `}
-      {`BALANCE: ${myOven.balance / MUTEZ_IN_TEZOS} `}
+      {`BALANCE: ${myOven.balance / CONSTANTS.MUTEZ_IN_TEZOS} `}
       <button
-        onClick={() => handleWithdraw(new BigNumber(5 * MUTEZ_IN_TEZOS))}
+        onClick={() =>
+          handleWithdraw(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
+        }
         type="button"
       >
         withdraw
       </button>
-      <button
-        onClick={() => handleDeposit(new BigNumber(5 * MUTEZ_IN_TEZOS))}
-        type="button"
-      >
-        deposit
+      <button onClick={handleLiquidate} type="button">
+        handleLiquidate
       </button>
     </div>
   );
@@ -49,5 +56,5 @@ export default Oven;
 
 Oven.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  oven: propTypes.object.isRequired,
+  ovenClient: propTypes.object.isRequired,
 };

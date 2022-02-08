@@ -6,10 +6,10 @@ import {
   CONTRACTS,
 } from '@hover-labs/kolibri-js';
 import propTypes from 'prop-types';
-import { createContext, useContext, useMemo, useState } from 'react';
-import { BigNumber } from 'bignumber.js';
-import { useTempleWalletStateContext } from './templeWalletContext';
-import { NODE_URL, MUTEZ_IN_TEZOS } from '../utils/constants';
+import { createContext, useContext, useMemo, useState, useEffect } from 'react';
+import axios from 'axios';
+import CONSTANTS from '../utils/constants';
+import { useBeaconStateContext } from './beaconContext';
 
 // state context
 const KolibriStateContext = createContext({});
@@ -46,131 +46,119 @@ const useKolibriDispatchContext = () => {
 const KolibriProvider = ({ children }) => {
   const [allOvens, setAllOvens] = useState();
   const [tezosPrice, setTezosPrice] = useState();
-  const [balance, setBalance] = useState();
-  const [tezosPriceDate, setTezosPriceDate] = useState();
-  const [myOvens, setMyOvens] = useState([]);
-  const { templeWalletResponse } = useTempleWalletStateContext();
+  const [myOvensClients, setMyOvensClients] = useState([]);
+
+  const { beaconWalletData, beaconAddress } = useBeaconStateContext();
 
   const harbingerClient = new HarbingerClient(
-    NODE_URL,
+    CONSTANTS.NODE_URL,
     'KT1PMQZxQTrFPJn3pEaj9rvGfJA9Hvx7Z1CL',
   );
 
   const stableCoinClient = new StableCoinClient(
-    NODE_URL,
+    CONSTANTS.NODE_URL,
     Network.Hangzhou,
     CONTRACTS.TEST.OVEN_REGISTRY,
     CONTRACTS.TEST.MINTER,
     CONTRACTS.TEST.OVEN_FACTORY,
   );
 
-  const ovenClientTest = new OvenClient(
-    NODE_URL,
-    templeWalletResponse,
-    'KT1AsuBApwJLwzzu5MwTe6KBr7zswZ9tJXy3',
-    stableCoinClient,
-    harbingerClient,
-  );
-
   const getAllMyOvens = async () => {
-    const ovens = await stableCoinClient.ovensOwnedByAddress(
-      'tz1LN3hTUtg8eohArm2T1S4wwxbbrY4umr3a',
+    const ovens = await stableCoinClient.ovensOwnedByAddress(beaconAddress);
+
+    const ovenClients = await Promise.all(
+      ovens.map(async (oven) => {
+        return new OvenClient(
+          CONSTANTS.NODE_URL,
+          beaconWalletData,
+          oven,
+          stableCoinClient,
+          harbingerClient,
+        );
+      }),
     );
 
-    // setMyOvens(
-    //   await Promise.all(
-    //     ovens.map(async (oven) => {
-    //       const ovenClient = new OvenClient(
-    //         NODE_URL,
-    //         templeWalletResponse,
-    //         oven,
-    //         stableCoinClient,
-    //         harbingerClient,
-    //       );
+    setMyOvensClients(ovenClients);
+  };
 
-    //       return {
-    //         address: ovenClient.ovenAddress,
-    //         baker: await ovenClient.getBaker(),
-    //         withdraw: ovenClient.withdraw,
-    //       };
-    //     }),
-    //   ),
-    // );
+  const getOvens = async () => {
+    const response = await axios(
+      'https://kolibri-data.s3.amazonaws.com/hangzhounet/oven-data.json',
+    );
 
-    setMyOvens(
-      await Promise.all(
+    if (response) {
+      console.log(response.data.allOvenData);
+      setAllOvens(response.data.allOvenData);
+    } else {
+      // backup
+      const ovens = await stableCoinClient.getAllOvens();
+
+      const ovenClients = await Promise.all(
         ovens.map(async (oven) => {
           return new OvenClient(
-            NODE_URL,
-            templeWalletResponse,
-            oven,
+            CONSTANTS.NODE_URL,
+            beaconWalletData,
+            oven.ovenAddress,
             stableCoinClient,
             harbingerClient,
           );
         }),
-      ),
-    );
+      );
 
-    console.log(myOvens);
-  };
+      const ovensData = await Promise.all(
+        ovenClients.map(async (ovenClient) => {
+          return {
+            baker: await ovenClient.getBaker(),
+            balance: await ovenClient.getBalance(),
+            borrowedTokens: await ovenClient.getBorrowedTokens(),
+            isLiquidated: await ovenClient.isLiquidated(),
+            outstandingTokens: await ovenClient.getTotalOutstandingTokens(),
+            ovenAddress: await ovenClient.ovenAddress,
+            ovenOwner: await ovenClient.getOwner(),
+            stabilityFees: await ovenClient.getStabilityFees(),
+          };
+        }),
+      );
 
-  const getOvenBalance = () => {
-    ovenClientTest
-      .getBalance()
-      .then((result) => result)
-      .then((result) => setBalance(+result));
-  };
-
-  const deposit = () =>
-    ovenClientTest.deposit(new BigNumber(1 * MUTEZ_IN_TEZOS));
-  const withdraw = () =>
-    ovenClientTest.withdraw(new BigNumber(5 * MUTEZ_IN_TEZOS));
-
-  const getOvens = () => {
-    stableCoinClient.getAllOvens().then((ovens) => setAllOvens(ovens));
+      setAllOvens(ovensData);
+    }
   };
 
   const getActualPrice = async () => {
-    await harbingerClient
-      .getPriceData()
-      .then((response) => response)
-      .then((result) => {
-        console.log(result);
-        setTezosPrice(+result.price / 1000000);
-        setTezosPriceDate(result.time);
-      });
+    const result = await harbingerClient.getPriceData();
+
+    setTezosPrice(result);
   };
 
   const deployOven = async () => {
-    if (templeWalletResponse) {
+    if (beaconWalletData) {
       await stableCoinClient
-        .deployOven(templeWalletResponse)
+        .deployOven(beaconWalletData)
         .then((result) => console.log(result));
     }
   };
+
+  useEffect(() => {
+    getAllMyOvens();
+  }, [beaconWalletData]);
 
   const stateValue = useMemo(
     () => ({
       allOvens,
       tezosPrice,
-      tezosPriceDate,
-      balance,
-      myOvens,
+      myOvensClients,
     }),
-    [allOvens, tezosPrice, tezosPriceDate, balance, myOvens],
+    [allOvens, tezosPrice, myOvensClients],
   );
 
   const dispatchValue = useMemo(
     () => ({
       getOvens,
       getActualPrice,
-      deployOven,
-      getOvenBalance,
-      deposit,
-      withdraw,
       getAllMyOvens,
+      deployOven,
     }),
-    [getOvens, getActualPrice, deployOven, getOvenBalance],
+    [getOvens, getActualPrice, deployOven, getAllMyOvens],
   );
 
   return (

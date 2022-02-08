@@ -49,12 +49,12 @@ const useBeaconDispatchContext = () => {
 };
 
 const BeaconProvider = ({ children }) => {
-  const [beaconAdress, setBeaconAdress] = useState();
+  const [beaconAddress, setBeaconAddress] = useState();
   const [beaconNet, setBeaconNet] = useState();
   const [beaconBalance, setBeaconBalance] = useState();
   const [beaconTezos, setBeaconTezos] = useState();
   const [beaconPk, setBeaconPk] = useState();
-  // const [walletData, setWalletData] = useState();
+  const [beaconWalletData, setBeaconWalletData] = useState();
 
   const connectWallet = async (forcePermission, network) => {
     const beaconNetwork =
@@ -92,10 +92,11 @@ const BeaconProvider = ({ children }) => {
         .then((bigNum) => +bigNum / 1000000),
     );
 
-    setBeaconAdress(activeAcc.address);
+    setBeaconAddress(activeAcc.address);
     setBeaconNet(activeAcc.network.type);
     setBeaconTezos(tezos);
     setBeaconPk(activeAcc.publicKey);
+    setBeaconWalletData(beaconWallet);
   };
 
   const dispatchValue = useMemo(
@@ -107,13 +108,21 @@ const BeaconProvider = ({ children }) => {
 
   const stateValue = useMemo(
     () => ({
-      beaconAdress,
+      beaconAddress,
       beaconNet,
       beaconBalance,
       beaconTezos,
       beaconPk,
+      beaconWalletData,
     }),
-    [beaconAdress, beaconNet, beaconTezos, beaconPk, beaconBalance],
+    [
+      beaconAddress,
+      beaconNet,
+      beaconTezos,
+      beaconPk,
+      beaconBalance,
+      beaconWalletData,
+    ],
   );
 
   return (
