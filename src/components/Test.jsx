@@ -13,9 +13,16 @@ const Test = () => {
   const { connectWallet } = useBeaconDispatchContext();
   const { beaconAddress, beaconNet, beaconBalance, beaconTezos, beaconPk } =
     useBeaconStateContext();
-  const { getOvens, deployOven, getAllMyOvens } = useKolibriDispatchContext();
-  const { allOvens, tezosPrice, tezosPriceDate, balance, myOvensClients } =
-    useKolibriStateContext();
+  const { getOvens, deployOven, getAllMyOvens, getOvensWithBalance } =
+    useKolibriDispatchContext();
+  const {
+    allOvens,
+    tezosPrice,
+    tezosPriceDate,
+    balance,
+    myOvensClients,
+    ovensWithBalance,
+  } = useKolibriStateContext();
 
   return (
     <>
@@ -30,6 +37,9 @@ const Test = () => {
       </button>
       <button onClick={getAllMyOvens} type="button">
         get my ovens
+      </button>
+      <button onClick={getOvensWithBalance} type="button">
+        getOvensWithBalance
       </button>
 
       {balance && `balance: ${balance}`}
@@ -56,6 +66,14 @@ const Test = () => {
           ))}
         </div>
       )}
+      {ovensWithBalance &&
+        ovensWithBalance.map((oven) => (
+          <div key={oven.ovenAddress}>
+            <div>{`Address: ${oven.ovenAddress}`}</div>
+            <div>{`Balance: ${oven.balance}`}</div>
+            <div>{`Owner: ${oven.ovenOwner}`}</div>
+          </div>
+        ))}
       {tezosPrice && (
         <div>{`date: ${tezosPriceDate}, price: ${tezosPrice}`}</div>
       )}

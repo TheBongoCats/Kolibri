@@ -45,6 +45,7 @@ const useKolibriDispatchContext = () => {
 
 const KolibriProvider = ({ children }) => {
   const [allOvens, setAllOvens] = useState();
+  const [ovensWithBalance, setOvensWithBalance] = useState();
   const [tezosPrice, setTezosPrice] = useState();
   const [myOvensClients, setMyOvensClients] = useState([]);
 
@@ -80,6 +81,9 @@ const KolibriProvider = ({ children }) => {
 
     setMyOvensClients(ovenClients);
   };
+
+  const getOvensWithBalance = () =>
+    setOvensWithBalance(allOvens.filter((oven) => oven.balance > 0));
 
   const getOvens = async () => {
     const response = await axios(
@@ -147,8 +151,9 @@ const KolibriProvider = ({ children }) => {
       allOvens,
       tezosPrice,
       myOvensClients,
+      ovensWithBalance,
     }),
-    [allOvens, tezosPrice, myOvensClients],
+    [allOvens, tezosPrice, myOvensClients, ovensWithBalance],
   );
 
   const dispatchValue = useMemo(
@@ -157,8 +162,9 @@ const KolibriProvider = ({ children }) => {
       getActualPrice,
       getAllMyOvens,
       deployOven,
+      getOvensWithBalance,
     }),
-    [getOvens, getActualPrice, deployOven, getAllMyOvens],
+    [getOvens, getActualPrice, deployOven, getAllMyOvens, getOvensWithBalance],
   );
 
   return (
