@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   useBeaconDispatchContext,
   useBeaconStateContext,
@@ -13,8 +14,7 @@ const Test = () => {
   const { connectWallet } = useBeaconDispatchContext();
   const { beaconAddress, beaconNet, beaconBalance, beaconTezos, beaconPk } =
     useBeaconStateContext();
-  const { getOvens, deployOven, getAllMyOvens, getOvensWithBalance } =
-    useKolibriDispatchContext();
+  const { getOvens, deployOven, getAllMyOvens } = useKolibriDispatchContext();
   const {
     allOvens,
     tezosPrice,
@@ -38,9 +38,9 @@ const Test = () => {
       <button onClick={getAllMyOvens} type="button">
         get my ovens
       </button>
-      <button onClick={getOvensWithBalance} type="button">
+      <Link to="/all-ovens" type="button">
         getOvensWithBalance
-      </button>
+      </Link>
 
       {balance && `balance: ${balance}`}
 

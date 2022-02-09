@@ -80,10 +80,8 @@ const KolibriProvider = ({ children }) => {
     );
 
     setMyOvensClients(ovenClients);
+    return OvenClient;
   };
-
-  const getOvensWithBalance = () =>
-    setOvensWithBalance(allOvens.filter((oven) => oven.balance > 0));
 
   const getOvens = async () => {
     const response = await axios(
@@ -91,41 +89,47 @@ const KolibriProvider = ({ children }) => {
     );
 
     if (response) {
-      console.log(response.data.allOvenData);
       setAllOvens(response.data.allOvenData);
-    } else {
-      // backup
-      const ovens = await stableCoinClient.getAllOvens();
-
-      const ovenClients = await Promise.all(
-        ovens.map(async (oven) => {
-          return new OvenClient(
-            CONSTANTS.NODE_URL,
-            beaconWalletData,
-            oven.ovenAddress,
-            stableCoinClient,
-            harbingerClient,
-          );
-        }),
-      );
-
-      const ovensData = await Promise.all(
-        ovenClients.map(async (ovenClient) => {
-          return {
-            baker: await ovenClient.getBaker(),
-            balance: await ovenClient.getBalance(),
-            borrowedTokens: await ovenClient.getBorrowedTokens(),
-            isLiquidated: await ovenClient.isLiquidated(),
-            outstandingTokens: await ovenClient.getTotalOutstandingTokens(),
-            ovenAddress: await ovenClient.ovenAddress,
-            ovenOwner: await ovenClient.getOwner(),
-            stabilityFees: await ovenClient.getStabilityFees(),
-          };
-        }),
-      );
-
-      setAllOvens(ovensData);
+      return response.data.allOvenData;
     }
+    // backup
+    const ovens = await stableCoinClient.getAllOvens();
+
+    const ovenClients = await Promise.all(
+      ovens.map(async (oven) => {
+        return new OvenClient(
+          CONSTANTS.NODE_URL,
+          beaconWalletData,
+          oven.ovenAddress,
+          stableCoinClient,
+          harbingerClient,
+        );
+      }),
+    );
+
+    const ovensData = await Promise.all(
+      ovenClients.map(async (ovenClient) => {
+        return {
+          baker: await ovenClient.getBaker(),
+          balance: await ovenClient.getBalance(),
+          borrowedTokens: await ovenClient.getBorrowedTokens(),
+          isLiquidated: await ovenClient.isLiquidated(),
+          outstandingTokens: await ovenClient.getTotalOutstandingTokens(),
+          ovenAddress: await ovenClient.ovenAddress,
+          ovenOwner: await ovenClient.getOwner(),
+          stabilityFees: await ovenClient.getStabilityFees(),
+        };
+      }),
+    );
+
+    setAllOvens(ovensData);
+    return ovensData;
+  };
+
+  const getOvensWithBalance = async () => {
+    await getOvens().then((response) =>
+      setOvensWithBalance(response.filter((oven) => oven.balance > 0)),
+    );
   };
 
   const getActualPrice = async () => {
