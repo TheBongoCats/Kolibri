@@ -3,6 +3,7 @@ import { BeaconProvider } from './contexts/beaconContext';
 import { KolibriProvider } from './contexts/kolibriContext';
 import AppRouter from './route/AppRouter';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
         <BrowserRouter>
           <Header />
           <AppRouter />
+          <Footer />
         </BrowserRouter>
       </KolibriProvider>
     </BeaconProvider>

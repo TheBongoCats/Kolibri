@@ -1,0 +1,12 @@
+.policy {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+
+  &__links {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
