@@ -2,10 +2,11 @@ import Logo from '../Logo';
 import Navigation from '../Navigation';
 import styles from './Header.module.scss';
 import Button from '../Button';
-import { useKolibriDispatchContext } from '../../contexts/kolibriContext';
+import { useBeaconDispatchContext } from '../../contexts/beaconContext';
 
 const Header = () => {
-  const { connectWallet } = useKolibriDispatchContext();
+  const { connectWallet } = useBeaconDispatchContext();
+
   return (
     <header className={styles.header}>
       <Logo />
