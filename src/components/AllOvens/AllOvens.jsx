@@ -4,6 +4,7 @@ import {
   useKolibriStateContext,
 } from '../../contexts/kolibriContext';
 import CONSTANTS from '../../utils/constants';
+import kolibri from '../../images/kolibri_logo.webp';
 
 const AllOvens = () => {
   const { allOvens, ovensWithBalance } = useKolibriStateContext();
@@ -17,6 +18,7 @@ const AllOvens = () => {
 
   return (
     <div>
+      <img src={kolibri} alt="kolibri-main" />
       <button type="button" onClick={() => setWithBalance(!withBalance)}>
         {withBalance ? `Show empty ovens` : `Hide empty ovens`}
       </button>
