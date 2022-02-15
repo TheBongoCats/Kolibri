@@ -5,6 +5,7 @@ import Oven from '../../components/Oven';
 const Home = () => {
   const { myOvens } = useKolibriStateContext();
   const { isLoggin } = useBeaconStateContext();
+
   return (
     <div>
       {isLoggin &&

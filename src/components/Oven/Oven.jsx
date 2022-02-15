@@ -1,10 +1,26 @@
 /* eslint-disable react/forbid-prop-types */
 import propTypes from 'prop-types';
+import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import CONSTANTS from '../../utils/constants';
 import OvenNav from '../OvenNav';
 import styled from './Oven.module.scss';
 
+const mutateNumber = (
+  number,
+  denominator = CONSTANTS.MUTEZ_IN_TEZOS,
+  toFixed = 2,
+) => (number / denominator).toFixed(toFixed);
+
 const Oven = ({ ovenData }) => {
+  const { tezosPrice } = useKolibriStateContext();
+
+  const xtzInOven = mutateNumber(ovenData.balance, CONSTANTS.MUTEZ_IN_TEZOS);
+
+  const collateralValue = mutateNumber(xtzInOven * tezosPrice.price);
+
+  console.log(xtzInOven);
+  console.log(collateralValue);
+
   return (
     <div className={styled.oven}>
       <div className={styled.oven__header}>
@@ -12,8 +28,18 @@ const Oven = ({ ovenData }) => {
         {ovenData.ovenClient && <OvenNav ovenClient={ovenData.ovenClient} />}
       </div>
       <div className={styled.oven__footer}>
-        {`BAKER: ${ovenData.baker} `}
-        {`BALANCE: ${ovenData.balance / CONSTANTS.MUTEZ_IN_TEZOS} `}
+        {`BAKER: ${ovenData.baker}`}
+        {!ovenData.ovenClient && `OWNER: ${ovenData.ovenOwner}`}
+        {`COLLATERAL VALUE: ${collateralValue}`}
+        {`BALANCE: ${xtzInOven} `}
+        {`BORROWED TOKENS: ${
+          ovenData.borrowedTokens / CONSTANTS.MUTEZ_IN_TEZOS
+        }`}
+        {`Outstanding tokens: ${
+          ovenData.outstandingTokens / CONSTANTS.MUTEZ_IN_TEZOS
+        }`}
+
+        {`STABILITY FEES: ${ovenData.borrowedTokens}`}
       </div>
     </div>
   );

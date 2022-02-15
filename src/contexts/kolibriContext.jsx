@@ -49,7 +49,7 @@ const KolibriProvider = ({ children }) => {
   const [tezosPrice, setTezosPrice] = useState();
   const [myOvens, setMyOvens] = useState([]);
 
-  const { beaconWalletData, beaconAddress } = useBeaconStateContext();
+  const { beaconWalletData, beaconAddress, isLoggin } = useBeaconStateContext();
 
   const harbingerClient = new HarbingerClient(
     CONSTANTS.NODE_URL,
@@ -159,7 +159,11 @@ const KolibriProvider = ({ children }) => {
 
   useEffect(() => {
     getAllMyOvens();
-  }, [beaconWalletData]);
+  }, [isLoggin]);
+
+  useEffect(() => {
+    getActualPrice();
+  }, []);
 
   const stateValue = useMemo(
     () => ({
