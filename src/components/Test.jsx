@@ -8,21 +8,13 @@ import {
   useKolibriStateContext,
 } from '../contexts/kolibriContext';
 
-import Oven from './Oven';
-
 const Test = () => {
   const { connectWallet } = useBeaconDispatchContext();
   const { beaconAddress, beaconNet, beaconBalance, beaconTezos, beaconPk } =
     useBeaconStateContext();
   const { getOvens, deployOven, getAllMyOvens } = useKolibriDispatchContext();
-  const {
-    allOvens,
-    tezosPrice,
-    tezosPriceDate,
-    balance,
-    myOvensClients,
-    ovensWithBalance,
-  } = useKolibriStateContext();
+  const { allOvens, tezosPrice, tezosPriceDate, balance, ovensWithBalance } =
+    useKolibriStateContext();
 
   return (
     <>
@@ -77,10 +69,6 @@ const Test = () => {
       {tezosPrice && (
         <div>{`date: ${tezosPriceDate}, price: ${tezosPrice}`}</div>
       )}
-
-      {myOvensClients.map((ovenClient) => {
-        return <Oven key={ovenClient.ovenAddress} ovenClient={ovenClient} />;
-      })}
     </>
   );
 };
