@@ -4,6 +4,9 @@ import { MichelCodecPacker, TezosToolkit } from '@taquito/taquito';
 import propTypes from 'prop-types';
 import { createContext, useContext, useMemo, useState } from 'react';
 import { ReadOnlySigner } from '../utils/ReadOnlySigner.mjs';
+import CONSTANTS from '../utils/constants';
+
+const { MUTEZ_IN_TEZOS } = CONSTANTS;
 
 const APP_NAME = 'Kolibri';
 
@@ -55,6 +58,7 @@ const BeaconProvider = ({ children }) => {
   const [beaconTezos, setBeaconTezos] = useState();
   const [beaconPk, setBeaconPk] = useState();
   const [beaconWalletData, setBeaconWalletData] = useState();
+  const [isLoggin, setIsLogin] = useState(false);
 
   const connectWallet = async (forcePermission, network) => {
     const beaconNetwork =
@@ -89,7 +93,7 @@ const BeaconProvider = ({ children }) => {
     setBeaconBalance(
       await tezos.tz
         .getBalance(activeAcc.address)
-        .then((bigNum) => +bigNum / 1000000),
+        .then((bigNum) => +bigNum / MUTEZ_IN_TEZOS),
     );
 
     setBeaconAddress(activeAcc.address);
@@ -97,13 +101,21 @@ const BeaconProvider = ({ children }) => {
     setBeaconTezos(tezos);
     setBeaconPk(activeAcc.publicKey);
     setBeaconWalletData(beaconWallet);
+    setIsLogin(true);
+  };
+
+  const disconnectWallet = async () => {
+    await beaconWallet.clearActiveAccount();
+    setIsLogin(false);
+    console.log(123);
   };
 
   const dispatchValue = useMemo(
     () => ({
       connectWallet,
+      disconnectWallet,
     }),
-    [connectWallet],
+    [connectWallet, disconnectWallet],
   );
 
   const stateValue = useMemo(
@@ -114,6 +126,7 @@ const BeaconProvider = ({ children }) => {
       beaconTezos,
       beaconPk,
       beaconWalletData,
+      isLoggin,
     }),
     [
       beaconAddress,
@@ -122,6 +135,7 @@ const BeaconProvider = ({ children }) => {
       beaconPk,
       beaconBalance,
       beaconWalletData,
+      isLoggin,
     ],
   );
 
