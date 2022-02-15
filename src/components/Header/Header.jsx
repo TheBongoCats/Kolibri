@@ -3,18 +3,23 @@ import Navigation from '../Navigation';
 import styles from './Header.module.scss';
 import Button from '../Button';
 import { useBeaconDispatchContext } from '../../contexts/beaconContext';
+import WalletData from '../WalletData';
 
 const Header = () => {
-  const { connectWallet } = useBeaconDispatchContext();
+  const { connectWallet, isLoggin } = useBeaconDispatchContext();
 
   return (
     <header className={styles.header}>
       <Logo />
       <Navigation />
-      <Button
-        callback={() => connectWallet(true, 'hangzhounet')}
-        text="Connect Wallet"
-      />
+      {isLoggin ? (
+        <WalletData />
+      ) : (
+        <Button
+          callback={() => connectWallet(true, 'hangzhounet')}
+          text="Connect Wallet"
+        />
+      )}
     </header>
   );
 };
