@@ -47,7 +47,7 @@ const KolibriProvider = ({ children }) => {
   const [allOvens, setAllOvens] = useState();
   const [ovensWithBalance, setOvensWithBalance] = useState();
   const [tezosPrice, setTezosPrice] = useState();
-  const [myOvensClients, setMyOvensClients] = useState([]);
+  const [myOvens, setMyOvens] = useState([]);
 
   const { beaconWalletData, beaconAddress } = useBeaconStateContext();
 
@@ -67,20 +67,31 @@ const KolibriProvider = ({ children }) => {
   const getAllMyOvens = async () => {
     const ovens = await stableCoinClient.ovensOwnedByAddress(beaconAddress);
 
-    const ovenClients = await Promise.all(
+    const ovensData = await Promise.all(
       ovens.map(async (oven) => {
-        return new OvenClient(
+        const ovenClient = new OvenClient(
           CONSTANTS.NODE_URL,
           beaconWalletData,
           oven,
           stableCoinClient,
           harbingerClient,
         );
+
+        return {
+          baker: await ovenClient.getBaker(),
+          balance: await ovenClient.getBalance(),
+          borrowedTokens: await ovenClient.getBorrowedTokens(),
+          isLiquidated: await ovenClient.isLiquidated(),
+          outstandingTokens: await ovenClient.getTotalOutstandingTokens(),
+          ovenAddress: await ovenClient.ovenAddress,
+          ovenOwner: await ovenClient.getOwner(),
+          stabilityFees: await ovenClient.getStabilityFees(),
+          ovenClient,
+        };
       }),
     );
 
-    setMyOvensClients(ovenClients);
-    return OvenClient;
+    setMyOvens(ovensData);
   };
 
   const getOvens = async () => {
@@ -154,10 +165,10 @@ const KolibriProvider = ({ children }) => {
     () => ({
       allOvens,
       tezosPrice,
-      myOvensClients,
+      myOvens,
       ovensWithBalance,
     }),
-    [allOvens, tezosPrice, myOvensClients, ovensWithBalance],
+    [allOvens, tezosPrice, myOvens, ovensWithBalance],
   );
 
   const dispatchValue = useMemo(

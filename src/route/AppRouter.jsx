@@ -1,9 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Test from '../components';
-import AllOvens from '../components/AllOvens';
+import AllOvens from '../pages/AllOvens';
+import Home from '../pages/Home';
 
 const ROUTE_CONFIG = [
-  { path: '/', component: <Test /> },
+  { path: '/', component: <Home /> },
+  { path: '/test', component: <Test /> },
   { path: '/all-ovens', component: <AllOvens /> },
 ];
 
@@ -13,6 +15,7 @@ const AppRouter = () => (
       {ROUTE_CONFIG.map((route) => (
         <Route key={route.path} path={route.path} element={route.component} />
       ))}
+      <Route path="*" element={<Navigate to="/Home" />} />
     </Routes>
   </main>
 );

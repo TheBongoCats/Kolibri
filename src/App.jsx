@@ -4,6 +4,7 @@ import { KolibriProvider } from './contexts/kolibriContext';
 import AppRouter from './route/AppRouter';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import './styles/index.scss';
 
 const App = () => {
   return (

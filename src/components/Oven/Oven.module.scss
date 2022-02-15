@@ -1,0 +1,12 @@
+.oven {
+  width: 1000px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+}
