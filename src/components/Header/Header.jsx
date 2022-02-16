@@ -9,13 +9,13 @@ import {
 
 const Header = () => {
   const { connectWallet, disconnectWallet } = useBeaconDispatchContext();
-  const { isLoggin } = useBeaconStateContext();
+  const { isLogin } = useBeaconStateContext();
 
   return (
     <header className={styles.header}>
       <Logo />
       <Navigation />
-      {isLoggin ? (
+      {isLogin ? (
         <Button callback={disconnectWallet} text="Disconnect Wallet" />
       ) : (
         <Button

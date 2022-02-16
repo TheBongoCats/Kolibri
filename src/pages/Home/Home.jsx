@@ -7,7 +7,7 @@ import Button from '../../components/Button';
 
 const Home = () => {
   const { myOvens } = useKolibriStateContext();
-  const { isLoggin } = useBeaconStateContext();
+  const { isLogin } = useBeaconStateContext();
 
   return (
     <div className={styled.home}>
@@ -94,7 +94,7 @@ const Home = () => {
       <p>Connect Your Wallet To Manage Your Ovens</p>
       <Button callback={() => null} text="Connect Wallet" isBig />
       <div>
-        {isLoggin &&
+        {isLogin &&
           (myOvens.length > 0 ? (
             myOvens.map((ovenData) => {
               return <Oven key={ovenData.ovenAddress} ovenData={ovenData} />;

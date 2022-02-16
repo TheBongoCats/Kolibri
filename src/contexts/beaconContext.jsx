@@ -2,7 +2,7 @@ import { NetworkType as BeaconNetwork } from '@airgap/beacon-sdk';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import { MichelCodecPacker, TezosToolkit } from '@taquito/taquito';
 import propTypes from 'prop-types';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import { ReadOnlySigner } from '../utils/ReadOnlySigner.mjs';
 import CONSTANTS from '../utils/constants';
 
@@ -58,24 +58,38 @@ const BeaconProvider = ({ children }) => {
   const [beaconTezos, setBeaconTezos] = useState();
   const [beaconPk, setBeaconPk] = useState();
   const [beaconWalletData, setBeaconWalletData] = useState();
-  const [isLoggin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+
+  // eslint-disable-next-line consistent-return
+
+  const beaconNetwork = BeaconNetwork.HANGZHOUNET;
+
+  const tezos = new TezosToolkit(defaultRpcUrls[beaconNetwork]);
+  tezos.setPackerProvider(michelEncoder);
+  tezos.setWalletProvider(beaconWallet);
 
   useEffect(async () => {
     const activeAccount = await beaconWallet.client.getActiveAccount();
 
     if (activeAccount) {
       setIsLogin(true);
+      setBeaconAddress(activeAccount.address);
+      setBeaconNet(activeAccount.network.type);
+      setBeaconTezos(tezos);
+      setBeaconPk(activeAccount.publicKey);
+      setBeaconWalletData(beaconWallet);
+      setBeaconBalance(
+        await tezos.tz
+          .getBalance(activeAccount.address)
+          .then((bigNum) => +bigNum / MUTEZ_IN_TEZOS),
+      );
     } else {
       setIsLogin(false);
     }
   }, []);
 
   // eslint-disable-next-line consistent-return
-  const connectWallet = async (forcePermission, network) => {
-    const beaconNetwork =
-      network === 'hangzhounet'
-        ? BeaconNetwork.HANGZHOUNET
-        : BeaconNetwork.MAINNET;
+  const connectWallet = async (forcePermission) => {
     beaconWallet.client.preferredNetwork = beaconNetwork;
 
     const activeAccount = await beaconWallet.client.getActiveAccount();
@@ -90,9 +104,6 @@ const BeaconProvider = ({ children }) => {
       });
     }
 
-    const tezos = new TezosToolkit(defaultRpcUrls[beaconNetwork]);
-    tezos.setPackerProvider(michelEncoder);
-    tezos.setWalletProvider(beaconWallet);
     const activeAcc = await beaconWallet.client.getActiveAccount();
     if (!activeAcc) {
       throw new Error("Wallet wasn't connected");
@@ -119,7 +130,6 @@ const BeaconProvider = ({ children }) => {
   const disconnectWallet = async () => {
     await beaconWallet.clearActiveAccount();
     setIsLogin(false);
-    console.log(123);
   };
 
   const dispatchValue = useMemo(
@@ -138,7 +148,7 @@ const BeaconProvider = ({ children }) => {
       beaconTezos,
       beaconPk,
       beaconWalletData,
-      isLoggin,
+      isLogin,
     }),
     [
       beaconAddress,
@@ -147,7 +157,7 @@ const BeaconProvider = ({ children }) => {
       beaconPk,
       beaconBalance,
       beaconWalletData,
-      isLoggin,
+      isLogin,
     ],
   );
 
