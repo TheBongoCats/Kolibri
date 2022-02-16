@@ -1,6 +1,10 @@
 .social-link{
   &__img {
-    //width: 24px;
-    //height: 24px;
+    width: 33px;
+    height: 33px;
+  }
+
+  &--wide {
+    width: 55px;
   }
 }

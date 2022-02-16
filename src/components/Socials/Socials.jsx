@@ -1,7 +1,7 @@
-import discord from '../../images/twitch.svg';
-import twitter from '../../images/twitter.svg';
-import medium from '../../images/medium.svg';
-import forum from '../../images/forum.svg';
+import discord from '../../images/discord.webp';
+import twitter from '../../images/twitter.webp';
+import medium from '../../images/medium.webp';
+import forum from '../../images/forum.webp';
 import SocialLink from '../SocialLink';
 import styles from './Socials.module.scss';
 
@@ -20,6 +20,7 @@ const SOCIALS_CONFIG = [
     src: medium,
     href: 'https://kolibri-xtz.medium.com/',
     alt: 'Our Medium',
+    isWide: true,
   },
   {
     src: forum,
@@ -31,9 +32,11 @@ const SOCIALS_CONFIG = [
 const Socials = () => (
   <div className={styles.socials}>
     {SOCIALS_CONFIG.map((social) => {
-      const { src, href, alt } = social;
+      const { src, href, alt, isWide } = social;
 
-      return <SocialLink href={href} alt={alt} src={src} key={src} />;
+      return (
+        <SocialLink href={href} alt={alt} src={src} key={src} isWide={isWide} />
+      );
     })}
   </div>
 );
