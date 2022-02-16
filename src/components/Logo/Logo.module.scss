@@ -1,20 +1,10 @@
 .logo {
   display: inline-block;
-  width: 28px;
-  height: 28px;
-  &__text {
-    font-size: 28px;
-  }
-}
+  width: 115px;
+  height: 55px;
 
-.wrapper {
-  display: flex;
-  align-items: center;
-
-  text-decoration: none;
-  color: #486581;
-
-  &:visited {
-    color: #486581;
+  &--sub-logo {
+    width: 126px;
+    height: 85px;
   }
 }

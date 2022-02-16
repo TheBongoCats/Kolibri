@@ -1,14 +1,22 @@
-.button {
-  width: 116px;
-  height: 30px;
+@import "./src/styles/variables";
 
-  //background: #3ebd93;
-  color: #000;
-  border: 0.0625rem solid #d1d9e6;
-  box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff;
+.button {
+  width: 150px;
+  height: 45px;
+  border: none;
+
+  background-color: $button-blue;
+  color: #fff;
+  transition: all .5s;
+  cursor: pointer;
+
 
   &:hover {
-    box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff;
-    border-color: #e6e7ee;
+    transform: scale(1.1);
+    transition: all .5s;
+  }
+
+  &--big {
+    padding: 25px 40px;
   }
 }
