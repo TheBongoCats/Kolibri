@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styles from './SocialLink.module.scss';
 
 const SocialLink = ({ href, src, alt, isWide }) => (
-  <a href={href}>
+  <a href={href} target="_blank" rel="noopener noreferrer">
     <img
       src={src}
       alt={alt}
