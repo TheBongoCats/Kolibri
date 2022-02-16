@@ -23,8 +23,9 @@ footer {
 
 body {
   background-color: #0f001d;
-  background-image: url('../images/background.png');
-  background-position: center;
+  background-image: url('../images/lines-left.svg'),
+    url('../images/lines-right.svg'), url('../images/background.svg');
+  background-position: top left, bottom right, center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 50%, 50%, cover;
 }
