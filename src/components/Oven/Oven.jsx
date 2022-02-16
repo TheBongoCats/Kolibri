@@ -15,7 +15,6 @@ const Oven = ({ ovenData }) => {
   const { tezosPrice } = useKolibriStateContext();
 
   const xtzInOven = mutateNumber(ovenData.balance, CONSTANTS.MUTEZ_IN_TEZOS);
-
   const collateralValue = mutateNumber(xtzInOven * tezosPrice.price);
 
   console.log(xtzInOven);
@@ -32,12 +31,8 @@ const Oven = ({ ovenData }) => {
         {!ovenData.ovenClient && `OWNER: ${ovenData.ovenOwner}`}
         {`COLLATERAL VALUE: ${collateralValue}`}
         {`BALANCE: ${xtzInOven} `}
-        {`BORROWED TOKENS: ${
-          ovenData.borrowedTokens / CONSTANTS.MUTEZ_IN_TEZOS
-        }`}
-        {`Outstanding tokens: ${
-          ovenData.outstandingTokens / CONSTANTS.MUTEZ_IN_TEZOS
-        }`}
+        {`BORROWED TOKENS: ${ovenData.borrowedTokens}`}
+        {`Outstanding tokens: ${ovenData.outstandingTokens}`}
 
         {`STABILITY FEES: ${ovenData.borrowedTokens}`}
       </div>
