@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import logo from '../../images/Logo.svg';
-import subLogo from '../../images/sub-logo.svg';
+import logo from '../../images/Logo.webp';
+import subLogo from '../../images/sub-logo.webp';
 import styles from './Logo.module.scss';
 
 const Logo = ({ isSubLogo }) => (
