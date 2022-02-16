@@ -5,7 +5,7 @@ import subLogo from '../../images/sub-logo.webp';
 import styles from './Logo.module.scss';
 
 const Logo = ({ isSubLogo }) => (
-  <Link to="/">
+  <Link to="/" className={styles.logo__link}>
     <img
       className={`${styles.logo} ${
         isSubLogo ? `${styles['logo--sub-logo']}` : ''

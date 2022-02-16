@@ -13,9 +13,7 @@ const Navigation = () => (
         const { path, text } = navItem;
         return (
           <li key={path} className={styles.navigation__item}>
-            <Link to={path} className={styles.navigation__link}>
-              {text}
-            </Link>
+            <Link to={path}>{text}</Link>
           </li>
         );
       })}
