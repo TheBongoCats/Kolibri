@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="253px" height="252px" viewBox="0 0 253 252" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>icon-discourse</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="icon-discourse" transform="translate(0.247647, 0.000000)" fill="#486581" fill-rule="nonzero">
-            <path d="M127.06875,0 C58.10625,0 0,55.40625 0,123.80625 C0,126 0.05625,252 0.05625,252 L127.06875,251.8875 C196.0875,251.8875 252,194.34375 252,125.94375 C252,57.54375 196.0875,0 127.06875,0 Z M126,198 C115.0875,198 104.68125,195.58125 95.4,191.19375 L49.78125,202.5 L62.6625,160.3125 C57.15,150.13125 54,138.43125 54,126 C54,86.23125 86.23125,54 126,54 C165.76875,54 198,86.23125 198,126 C198,165.76875 165.76875,198 126,198 Z" id="Shape"></path>
-        </g>
-    </g>
-</svg>
