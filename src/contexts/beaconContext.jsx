@@ -2,7 +2,7 @@ import { NetworkType as BeaconNetwork } from '@airgap/beacon-sdk';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import { MichelCodecPacker, TezosToolkit } from '@taquito/taquito';
 import propTypes from 'prop-types';
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { ReadOnlySigner } from '../utils/ReadOnlySigner.mjs';
 import CONSTANTS from '../utils/constants';
 
@@ -60,6 +60,17 @@ const BeaconProvider = ({ children }) => {
   const [beaconWalletData, setBeaconWalletData] = useState();
   const [isLoggin, setIsLogin] = useState(false);
 
+  useEffect(async () => {
+    const activeAccount = await beaconWallet.client.getActiveAccount();
+
+    if (activeAccount) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, []);
+
+  // eslint-disable-next-line consistent-return
   const connectWallet = async (forcePermission, network) => {
     const beaconNetwork =
       network === 'hangzhounet'
@@ -71,7 +82,8 @@ const BeaconProvider = ({ children }) => {
 
     if (forcePermission || !activeAccount) {
       if (activeAccount) {
-        await beaconWallet.clearActiveAccount();
+        setIsLogin(true);
+        return activeAccount;
       }
       await beaconWallet.requestPermissions({
         network: { type: beaconNetwork },
