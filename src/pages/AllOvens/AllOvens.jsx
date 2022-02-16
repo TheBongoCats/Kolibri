@@ -3,33 +3,35 @@ import {
   useKolibriDispatchContext,
   useKolibriStateContext,
 } from '../../contexts/kolibriContext';
-import CONSTANTS from '../../utils/constants';
+import Oven from '../../components/Oven';
 
 const AllOvens = () => {
   const { allOvens, ovensWithBalance } = useKolibriStateContext();
   const { getOvensWithBalance } = useKolibriDispatchContext();
   const [withBalance, setWithBalance] = useState(true);
   const ovensForRender = withBalance ? ovensWithBalance : allOvens;
-
+  let ovensArr;
   useEffect(() => {
     getOvensWithBalance();
   }, []);
+
+  useEffect(() => {
+    if (allOvens) {
+      ovensArr = [...allOvens];
+    }
+  }, [allOvens]);
+
+  console.log(ovensArr);
 
   return (
     <div>
       <button type="button" onClick={() => setWithBalance(!withBalance)}>
         {withBalance ? `Show empty ovens` : `Hide empty ovens`}
       </button>
+      <input type="text" />
       {ovensWithBalance &&
         ovensForRender.map((oven) => {
-          const { ovenAddress, balance, ovenOwner } = oven;
-          return (
-            <div key={ovenAddress}>
-              <div>{`Address: ${ovenAddress}`}</div>
-              <div>{`Balance: ${+balance / CONSTANTS.MUTEZ_IN_TEZOS}`}</div>
-              <div>{`Owner: ${ovenOwner}`}</div>
-            </div>
-          );
+          return <Oven ovenData={oven} key={oven.ovenAddress} />;
         })}
     </div>
   );

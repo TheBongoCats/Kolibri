@@ -1,26 +1,28 @@
-.navigation {
-  width: 70%;
+@import './src/styles/mixins';
 
+.navigation {
   &__list {
+    color: #fff;
     display: flex;
     justify-content: center;
-    margin: 0;
-    padding: 0;
-
-    list-style: none;
   }
 
   &__item {
+    @include typography(400, 24px, 29px);
+
     display: flex;
     align-items: center;
-    height: 64px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+
     padding: {
       left: 12px;
       right: 12px;
     };
-  }
 
-  &__link {
-    text-decoration: none;
+    &:hover {
+      border: 1px solid #382267;
+      box-shadow: 0 0 1px 1px #33167B;
+    }
   }
 }

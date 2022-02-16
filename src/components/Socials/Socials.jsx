@@ -1,7 +1,7 @@
-import discord from '../../images/discord.svg';
-import twitter from '../../images/twitter-icon.svg';
-import medium from '../../images/medium-icon.3e716df3.svg';
-import forum from '../../images/icon-discourse.545380bc.svg';
+import discord from '../../images/twitch.svg';
+import twitter from '../../images/twitter.svg';
+import medium from '../../images/medium.svg';
+import forum from '../../images/forum.svg';
 import SocialLink from '../SocialLink';
 import styles from './Socials.module.scss';
 

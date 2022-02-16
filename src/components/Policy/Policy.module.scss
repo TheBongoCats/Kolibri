@@ -1,12 +1,17 @@
+@import "./src/styles/variables";
+@import "./src/styles/mixins";
+
 .policy {
+  @include typography(500, 14px, 17px);
   width: 100%;
-  max-width: 600px;
+  max-width: 236px;
+  color: white;
   display: flex;
+  flex-direction: column;
 
   &__links {
+    color: $text-blue;
     width: 100%;
     max-width: 400px;
-    display: flex;
-    justify-content: space-between;
   }
 }
