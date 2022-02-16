@@ -3,6 +3,7 @@ import { useBeaconStateContext } from '../../contexts/beaconContext';
 import Oven from '../../components/Oven';
 import kolibri from '../../images/kolibri.svg';
 import styled from './Home.module.scss';
+import Button from '../../components/Button';
 
 const Home = () => {
   const { myOvens } = useKolibriStateContext();
@@ -16,8 +17,18 @@ const Home = () => {
           <span className={styled['home__title--s--big']}>KOLIBRI</span>
           <span className={styled['home__title--s--small']}>Stablecoin</span>
           <div>
-            <button type="button">Learn more</button>
-            <button type="button">Metrics</button>
+            <Button
+              callback={() => null}
+              text="Learn more"
+              isTransparent
+              isRounded
+            />
+            <Button
+              callback={() => null}
+              text="Metrics"
+              isTransparent
+              isRounded
+            />
           </div>
         </div>
       </div>
@@ -81,7 +92,7 @@ const Home = () => {
         </div>
       </div>
       <p>Connect Your Wallet To Manage Your Ovens</p>
-      <button type="button">Connect Wallet</button>
+      <Button callback={() => null} text="Connect Wallet" isBig />
       <div>
         {isLoggin &&
           (myOvens.length > 0 ? (
