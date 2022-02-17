@@ -1,0 +1,7 @@
+@import "./src/styles/extends";
+
+.all-ovens {
+  &__wrapper {
+    @extend %ovens-template;
+  }
+}
