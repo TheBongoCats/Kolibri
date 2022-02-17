@@ -3,6 +3,7 @@
 import propTypes from 'prop-types';
 import BigNumber from 'bignumber.js';
 import CONSTANTS from '../utils/constants';
+import Button from './Button';
 
 const OvenNav = ({ ovenClient }) => {
   const handleWithdraw = (amount) => {
@@ -22,25 +23,36 @@ const OvenNav = ({ ovenClient }) => {
   };
 
   return (
-    <div>
-      <button
-        onClick={() =>
+    <>
+      <Button
+        callback={() =>
           handleWithdraw(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
         }
-        type="button"
-      >
-        withdraw
-      </button>
-      <button onClick={handleDeposit} type="button">
-        handleDeposit
-      </button>
-      <button onClick={handleBorrow} type="button">
-        handleBorrow
-      </button>
-      <button onClick={handleRepay} type="button">
-        handleRepay
-      </button>
-    </div>
+        text="Withdraw"
+        isRounded
+      />
+      <Button
+        callback={() =>
+          handleDeposit(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
+        }
+        text="Deposit"
+        isRounded
+      />
+      <Button
+        callback={() =>
+          handleBorrow(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
+        }
+        text="Borrow"
+        isRounded
+      />
+      <Button
+        callback={() =>
+          handleRepay(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
+        }
+        text="Repay"
+        isRounded
+      />
+    </>
   );
 };
 

@@ -33,3 +33,15 @@ body {
   background-position: top left, bottom right;
   background-repeat: no-repeat;
 }
+
+.CircularProgressbar-path {
+  stroke: #307ff4;
+}
+.CircularProgressbar-trail {
+  stroke: white;
+}
+.CircularProgressbar-text {
+  fill: white;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
