@@ -4,35 +4,36 @@ import {
   useKolibriStateContext,
 } from '../../contexts/kolibriContext';
 import Oven from '../../components/Oven';
+import Loader from '../../components/Loader';
+import Button from '../../components/Button';
 
 const AllOvens = () => {
-  const { allOvens, ovensWithBalance } = useKolibriStateContext();
+  const { allOvens, ovensWithBalance, tezosPrice } = useKolibriStateContext();
   const { getOvensWithBalance } = useKolibriDispatchContext();
   const [withBalance, setWithBalance] = useState(true);
-  const ovensForRender = withBalance ? ovensWithBalance : allOvens;
-  let ovensArr;
-  useEffect(() => {
-    getOvensWithBalance();
+  const ovensForRender = withBalance ? [...ovensWithBalance] : [...allOvens];
+  useEffect(async () => {
+    await getOvensWithBalance();
   }, []);
-
-  useEffect(() => {
-    if (allOvens) {
-      ovensArr = [...allOvens];
-    }
-  }, [allOvens]);
-
-  console.log(ovensArr);
 
   return (
     <div>
-      <button type="button" onClick={() => setWithBalance(!withBalance)}>
-        {withBalance ? `Show empty ovens` : `Hide empty ovens`}
-      </button>
+      <Button
+        type="button"
+        callback={() => setWithBalance(!withBalance)}
+        text={withBalance ? `Show empty ovens` : `Hide empty ovens`}
+      />
+
       <input type="text" />
-      {ovensWithBalance &&
-        ovensForRender.map((oven) => {
-          return <Oven ovenData={oven} key={oven.ovenAddress} />;
-        })}
+      <div>
+        {tezosPrice ? (
+          ovensForRender.map((oven) => {
+            return <Oven ovenData={oven} key={oven.ovenAddress} />;
+          })
+        ) : (
+          <Loader />
+        )}
+      </div>
     </div>
   );
 };
