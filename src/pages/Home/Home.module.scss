@@ -25,16 +25,25 @@ $red: #ff5050;
   }
 
   &__title {
+    line-height: 1;
     &--s {
       &--big {
         font-size: 70px;
+        font-weight: 800;
+        letter-spacing: 0.09em;
       }
 
       &--small {
         font-size: 48px;
         letter-spacing: 0.065em;
+        margin-bottom: 20px;
       }
     }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
   }
 
   &__central {
@@ -106,6 +115,7 @@ $red: #ff5050;
 
   &__value {
     font-size: 48px;
+    font-weight: 800;
 
     &--b {
       color: $blue;
@@ -152,12 +162,9 @@ $red: #ff5050;
   align-items: center;
   gap: 10px;
 
-  &__title {
-  }
-
   &__price {
     color: $blue;
-    font-weight: 700;
+    font-weight: 800;
   }
 
   &__updated {
@@ -166,5 +173,6 @@ $red: #ff5050;
 
   &__time {
     color: $red;
+    font-weight: 600;
   }
 }

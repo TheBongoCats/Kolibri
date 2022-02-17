@@ -1,22 +1,20 @@
-@import "./src/styles/variables";
-@import "./src/styles/mixins";
+@import './src/styles/variables';
+@import './src/styles/mixins';
 
 .button {
-  width: 150px;
-  height: 45px;
+  padding: 10px 20px;
   border: none;
 
   background-color: $button-blue;
   color: #fff;
-  transition: all .5s;
+  transition: all 0.5s;
   cursor: pointer;
 
   @include typography(400, 16px, 19.5px);
 
-
   &:hover {
     transform: scale(1.1);
-    transition: all .5s;
+    transition: all 0.5s;
   }
 
   &--big {
@@ -29,11 +27,11 @@
   &--transparent {
     background-color: transparent;
     border: 1px solid $text-blue;
-    transition: all .5s;
+    transition: all 0.5s;
 
     &:hover {
       background-color: $text-blue;
-      transition: all .5s;
+      transition: all 0.5s;
     }
   }
 

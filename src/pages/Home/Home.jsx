@@ -14,9 +14,17 @@ const Home = () => {
       <div className={styled.home__upper}>
         <img src={kolibri} alt={kolibri} className={styled.home__kolibri} />
         <div className={styled.home__info}>
-          <span className={styled['home__title--s--big']}>KOLIBRI</span>
-          <span className={styled['home__title--s--small']}>Stablecoin</span>
-          <div>
+          <span
+            className={`${styled['home__title--s--big']} ${styled.home__title}`}
+          >
+            Kolibri
+          </span>
+          <span
+            className={`${styled['home__title--s--small']}  ${styled.home__title}`}
+          >
+            Stablecoin
+          </span>
+          <div className={styled.home__buttons}>
             <Button
               callback={() => null}
               text="Learn more"

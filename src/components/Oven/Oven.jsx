@@ -19,8 +19,10 @@ const Oven = ({ ovenData }) => {
   const collateralValue = mutateNumber(balance * tezosPrice.price);
   const loan = mutateNumber(ovenData.outstandingTokens, 1e18);
   const stabilityFees = (ovenData.stabilityFees / 1e18).toFixed(12);
+  const CollateralizationRatio =
+    loan !== '0.00' ? ((loan / collateralValue) * 200).toFixed(2) : '0';
 
-  // const borrowedTokens = mutateNumber(ovenData.borrowedTokens, 1e18);
+  console.log(CollateralizationRatio);
 
   return (
     <div className={styled.oven}>
@@ -45,7 +47,7 @@ const Oven = ({ ovenData }) => {
             <p
               className={`${styled.oven__title} ${styled['oven__title--s--s']}`}
             >
-              Liquidatable when XTZ = <span>$1.32</span>
+              Liquidatable when XTZ: <span>$1.32</span>
             </p>
           ) : (
             <div>
@@ -63,7 +65,10 @@ const Oven = ({ ovenData }) => {
           )}
         </div>
         <div className={styled.oven__progress}>
-          <CircularProgressbar value={60} text="50%" />
+          <CircularProgressbar
+            value={CollateralizationRatio}
+            text={`${CollateralizationRatio}%`}
+          />
         </div>
       </div>
       <div className={styled.oven__metrics}>
