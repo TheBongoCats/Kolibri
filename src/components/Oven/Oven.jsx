@@ -14,28 +14,90 @@ const mutateNumber = (
 const Oven = ({ ovenData }) => {
   const { tezosPrice } = useKolibriStateContext();
 
-  const xtzInOven = mutateNumber(ovenData.balance, CONSTANTS.MUTEZ_IN_TEZOS);
-  const collateralValue = mutateNumber(xtzInOven * tezosPrice.price);
+  const balance = mutateNumber(ovenData.balance);
+  const collateralValue = mutateNumber(balance * tezosPrice.price);
+  const loan = mutateNumber(ovenData.outstandingTokens, 1e18);
+  const stabilityFees = (ovenData.stabilityFees / 1e18).toFixed(12);
 
-  console.log(xtzInOven);
-  console.log(collateralValue);
+  // const borrowedTokens = mutateNumber(ovenData.borrowedTokens, 1e18);
 
   return (
     <div className={styled.oven}>
-      <div className={styled.oven__header}>
-        {`ADDRESS: ${ovenData.ovenAddress} `}
-        {ovenData.ovenClient && <OvenNav ovenClient={ovenData.ovenClient} />}
+      <p className={`${styled.oven__title} ${styled['oven__title--s--l']}`}>
+        {ovenData.ovenAddress}
+      </p>
+      <div className={styled.oven__flexbox}>
+        <div className={styled.oven__info}>
+          <div>
+            <p
+              className={`${styled.oven__title} ${styled['oven__title--s--s']}`}
+            >
+              DELEGATED BAKER:
+            </p>
+            <p
+              className={`${styled.oven__value} ${styled['oven__value--s--s']}`}
+            >
+              {ovenData.baker}
+            </p>
+          </div>
+          {ovenData.ovenClient ? (
+            <p
+              className={`${styled.oven__title} ${styled['oven__title--s--s']}`}
+            >
+              Liquidatable when XTZ = <span>$1.32</span>
+            </p>
+          ) : (
+            <div>
+              <p
+                className={`${styled.oven__title} ${styled['oven__title--s--s']}`}
+              >
+                OWNER:
+              </p>
+              <p
+                className={`${styled.oven__value} ${styled['oven__value--s--s']}`}
+              >
+                {ovenData.ovenOwner}
+              </p>
+            </div>
+          )}
+        </div>
+        <div className={styled.oven__chart}>CHART</div>
       </div>
-      <div className={styled.oven__footer}>
-        {`BAKER: ${ovenData.baker}`}
-        {!ovenData.ovenClient && `OWNER: ${ovenData.ovenOwner}`}
-        {`COLLATERAL VALUE: ${collateralValue}`}
-        {`BALANCE: ${xtzInOven} `}
-        {`BORROWED TOKENS: ${ovenData.borrowedTokens}`}
-        {`Outstanding tokens: ${ovenData.outstandingTokens}`}
-
-        {`STABILITY FEES: ${ovenData.borrowedTokens}`}
+      <div className={styled.oven__metrics}>
+        <div className={styled.oven__metric}>
+          <p className={`${styled.oven__title} ${styled['oven__title--s--m']}`}>
+            COLLATERAL VALUE:
+          </p>
+          <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
+            {collateralValue}
+          </p>
+        </div>
+        <div className={styled.oven__metric}>
+          <p className={`${styled.oven__title} ${styled['oven__title--s--m']}`}>
+            BALANCE:
+          </p>
+          <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
+            {balance}
+          </p>
+        </div>
+        <div className={styled.oven__metric}>
+          <p className={`${styled.oven__title} ${styled['oven__title--s--m']}`}>
+            LOAN:
+          </p>
+          <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
+            {loan}
+          </p>
+        </div>
+        <div className={styled.oven__metric}>
+          <p className={`${styled.oven__title} ${styled['oven__title--s--m']}`}>
+            STABILITY FEES:
+          </p>
+          <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
+            {stabilityFees}
+          </p>
+        </div>
       </div>
+      {ovenData.ovenClient && <OvenNav ovenClient={ovenData.ovenClient} />}
     </div>
   );
 };

@@ -82,7 +82,7 @@ const Home = () => {
       </div>
       <p>Connect Your Wallet To Manage Your Ovens</p>
       <button type="button">Connect Wallet</button>
-      <div>
+      <div className={styled.home__ovens}>
         {isLoggin &&
           (myOvens.length > 0 ? (
             myOvens.map((ovenData) => {
