@@ -93,7 +93,7 @@ const Home = () => {
       </div>
       <p>Connect Your Wallet To Manage Your Ovens</p>
       <Button callback={() => null} text="Connect Wallet" isBig />
-      <div>
+      <div className={styled.home__ovens}>
         {isLogin &&
           (myOvens.length > 0 ? (
             myOvens.map((ovenData) => {
