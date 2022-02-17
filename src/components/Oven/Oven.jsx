@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import propTypes from 'prop-types';
+import { CircularProgress } from '@chakra-ui/react';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import CONSTANTS from '../../utils/constants';
 import OvenNav from '../OvenNav';
@@ -61,7 +62,7 @@ const Oven = ({ ovenData }) => {
             </div>
           )}
         </div>
-        <div className={styled.oven__chart}>CHART</div>
+        <CircularProgress value={40} color="#14104b" size="120px" />
       </div>
       <div className={styled.oven__metrics}>
         <div className={styled.oven__metric}>

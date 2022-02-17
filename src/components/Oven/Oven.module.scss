@@ -10,7 +10,7 @@ $blue: #307ff4;
   color: white;
   box-shadow: 5px 5px 30px #0f001db4,
     inset 0px 0px 30px rgba(255, 255, 255, 0.15);
-  background: linear-gradient(135deg, #8d49e8, #241860);
+  background: linear-gradient(135deg, #974af9, #14104b);
   border-radius: 40px;
 
   &__flexbox {
@@ -70,11 +70,5 @@ $blue: #307ff4;
     align-items: center;
     max-width: 170px;
     width: 100%;
-  }
-
-  &__chart {
-    width: 150px;
-    height: 150px;
-    background-color: #241860;
   }
 }

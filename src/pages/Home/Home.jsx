@@ -91,8 +91,12 @@ const Home = () => {
           </p>
         </div>
       </div>
-      <p>Connect Your Wallet To Manage Your Ovens</p>
-      <Button callback={() => null} text="Connect Wallet" isBig />
+      {!isLogin && (
+        <>
+          <p>Connect Your Wallet To Manage Your Ovens</p>
+          <Button callback={() => null} text="Connect Wallet" isBig />
+        </>
+      )}
       <div className={styled.home__ovens}>
         {isLogin &&
           (myOvens.length > 0 ? (
