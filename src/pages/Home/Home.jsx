@@ -4,6 +4,7 @@ import Oven from '../../components/Oven';
 import kolibri from '../../images/kolibri.svg';
 import styled from './Home.module.scss';
 import Button from '../../components/Button';
+import Loader from '../../components/Loader';
 
 const Home = () => {
   const { myOvens } = useKolibriStateContext();
@@ -112,7 +113,7 @@ const Home = () => {
               return <Oven key={ovenData.ovenAddress} ovenData={ovenData} />;
             })
           ) : (
-            <p>Loading</p>
+            <Loader />
           ))}
       </div>
     </div>
