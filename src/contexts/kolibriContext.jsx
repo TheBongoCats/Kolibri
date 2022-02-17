@@ -145,15 +145,12 @@ const KolibriProvider = ({ children }) => {
 
   const getActualPrice = async () => {
     const result = await harbingerClient.getPriceData();
-
     setTezosPrice(result);
   };
 
   const deployOven = async () => {
     if (beaconWalletData) {
-      await stableCoinClient
-        .deployOven(beaconWalletData)
-        .then((result) => console.log(result));
+      await stableCoinClient.deployOven(beaconWalletData);
     }
   };
 
@@ -161,8 +158,8 @@ const KolibriProvider = ({ children }) => {
     getAllMyOvens();
   }, [beaconWalletData]);
 
-  useEffect(() => {
-    getActualPrice();
+  useEffect(async () => {
+    await getActualPrice();
   }, []);
 
   const stateValue = useMemo(
