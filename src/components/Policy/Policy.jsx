@@ -33,8 +33,8 @@ const Policy = () => (
         className={styles.policy__links}
       >
         Terms Of Service
-      </a>
-      |
+      </a>{' '}
+      <span className={styles.policy__links}>|</span>{' '}
       <a
         href="https://testnet.kolibri.finance/privacy-policy"
         target="_blank"
