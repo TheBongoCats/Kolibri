@@ -152,6 +152,16 @@ const KolibriProvider = ({ children }) => {
     setTezosPrice(result);
   };
 
+  const getStabilityFeeYear = async () => {
+    const result = await stableCoinClient.getSimpleStabilityFee();
+    setStabilityFeeYear(mutateBigNumber(result));
+  };
+
+  const getCollaterlRatio = async () => {
+    const result = await stableCoinClient.getRequiredCollateralizationRatio();
+    setCollaterlRatio(mutateBigNumber(result, 1e18, 0));
+  };
+
   const deployOven = async () => {
     if (beaconWalletData) {
       await stableCoinClient.deployOven(beaconWalletData);
@@ -162,19 +172,20 @@ const KolibriProvider = ({ children }) => {
     getAllMyOvens();
   }, [beaconWalletData]);
 
-  useEffect(async () => {
-    await getActualPrice();
-    await getOvens();
-    setStabilityFeeYear(
-      mutateBigNumber(await stableCoinClient.getSimpleStabilityFee()),
-    );
-    setCollaterlRatio(
-      mutateBigNumber(
-        await stableCoinClient.getRequiredCollateralizationRatio(),
-        1e18,
-        0,
-      ),
-    );
+  useEffect(() => {
+    getOvens();
+    getStabilityFeeYear();
+    getCollaterlRatio();
+  }, []);
+
+  useEffect(() => {
+    getActualPrice();
+
+    const intervalId = setInterval(() => {
+      console.log('tick');
+      getActualPrice();
+    }, 60000);
+    return () => clearInterval(intervalId);
   }, []);
 
   const stateValue = useMemo(
@@ -199,12 +210,10 @@ const KolibriProvider = ({ children }) => {
   const dispatchValue = useMemo(
     () => ({
       getOvens,
-      getActualPrice,
-      getAllMyOvens,
       deployOven,
       getOvensWithBalance,
     }),
-    [getOvens, getActualPrice, deployOven, getAllMyOvens, getOvensWithBalance],
+    [getOvens, deployOven, getOvensWithBalance],
   );
 
   return (

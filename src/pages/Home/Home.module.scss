@@ -170,7 +170,16 @@ $red: #ff5050;
   }
 
   &__time {
-    color: $red;
     font-weight: 600;
+
+    &--s {
+      &--error {
+        color: $red;
+      }
+
+      &--ok {
+        color: $blue;
+      }
+    }
   }
 }

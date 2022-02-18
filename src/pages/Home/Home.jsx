@@ -6,6 +6,7 @@ import styled from './Home.module.scss';
 import Button from '../../components/Button';
 import Loader from '../../components/Loader';
 import { mutateBigNumber } from '../../utils';
+import CONSTANTS from '../../utils/constants';
 
 const Home = () => {
   const { myOvens, tezosPrice, allOvens, stabilityFeeYear, collateralRatio } =
@@ -13,6 +14,66 @@ const Home = () => {
   const { isLogin } = useBeaconStateContext();
 
   const price = mutateBigNumber(tezosPrice?.price);
+  const lastUpdateTime = tezosPrice?.time;
+  const lastUpdate = () => {
+    const minutes = mutateBigNumber(
+      Date.now() - lastUpdateTime,
+      CONSTANTS.MS_PER_MINUTE,
+      0,
+    );
+
+    switch (true) {
+      case minutes >= 30:
+        return (
+          <span
+            className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
+          >
+            {minutes} minutes ago
+          </span>
+        );
+      case minutes > 60:
+        return (
+          <span
+            className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
+          >
+            An hour ago
+          </span>
+        );
+      default:
+        return (
+          <span
+            className={`${styled.oracle__time} ${styled['oracle__time--s--ok']}`}
+          >
+            {minutes} minutes ago
+          </span>
+        );
+    }
+    // if (minutes > 30) {
+    //   return (
+    //     <span
+    //       className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
+    //     >
+    //       {minutes} minutes
+    //     </span>
+    //   );
+    // } else if (minutes > 60) {
+    //   return (
+    //     <span
+    //       className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
+    //     >
+    //       An hour ago
+    //     </span>
+    //   );
+    // } else {
+    //   return (
+    //     <span
+    //       className={`${styled.oracle__time} ${styled['oracle__time--s--ok']}`}
+    //     >
+    //       {minutes} minutes
+    //     </span>
+    //   );
+    // }
+  };
 
   return (
     <div className={styled.home}>
@@ -106,18 +167,17 @@ const Home = () => {
           </div>
         </div>
         <div className={styled.oracle}>
-          <p className={styled.title}>
+          <div className={styled.title}>
             Lates <b>XTZ/USD Oracle</b> Price:{' '}
             {tezosPrice ? (
               <span className={styled.oracle__price}>${price}</span>
             ) : (
               <Loader />
             )}
-          </p>
-          <p className={styled.oracle__updated}>
-            Oracle last updated:{' '}
-            <span className={styled.oracle__time}>an hour ago</span>
-          </p>
+          </div>
+          <div className={styled.oracle__updated}>
+            Oracle last updated: {lastUpdateTime ? lastUpdate() : <Loader />}
+          </div>
         </div>
       </div>
       {!isLogin && (
@@ -133,7 +193,7 @@ const Home = () => {
               return <Oven key={ovenData.ovenAddress} ovenData={ovenData} />;
             })
           ) : (
-            <Loader text="Loading.." />
+            <Loader text="Looking for your ovens" />
           ))}
       </div>
     </div>
