@@ -5,11 +5,14 @@ import kolibri from '../../images/kolibri.svg';
 import styled from './Home.module.scss';
 import Button from '../../components/Button';
 import Loader from '../../components/Loader';
+import { mutateBigNumber } from '../../utils';
 
 const Home = () => {
   const { myOvens, tezosPrice, allOvens, stabilityFeeYear, collateralRatio } =
     useKolibriStateContext();
   const { isLogin } = useBeaconStateContext();
+
+  const price = mutateBigNumber(tezosPrice?.price);
 
   return (
     <div className={styled.home}>
@@ -106,7 +109,7 @@ const Home = () => {
           <p className={styled.title}>
             Lates <b>XTZ/USD Oracle</b> Price:{' '}
             {tezosPrice ? (
-              <span className={styled.oracle__price}>${tezosPrice.price}</span>
+              <span className={styled.oracle__price}>${price}</span>
             ) : (
               <Loader />
             )}

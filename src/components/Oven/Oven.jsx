@@ -11,7 +11,7 @@ const Oven = ({ ovenData }) => {
   const { tezosPrice } = useKolibriStateContext();
 
   const balance = mutateBigNumber(ovenData.balance);
-  const collateralValue = balance * tezosPrice.price;
+  const collateralValue = mutateBigNumber(balance * tezosPrice.price);
   const loan = mutateBigNumber(ovenData.outstandingTokens, 1e18);
   const stabilityFees = mutateBigNumber(ovenData.stabilityFees, 1e18, 6);
   const stabilityFeesFull = mutateBigNumber(ovenData.stabilityFees, 1e18, 12);
@@ -20,7 +20,7 @@ const Oven = ({ ovenData }) => {
     : '0.00';
   const liquidatablePrice = mutateBigNumber(
     tezosPrice.price * collateralizationRatio,
-    1e2,
+    1e8,
   );
 
   return (

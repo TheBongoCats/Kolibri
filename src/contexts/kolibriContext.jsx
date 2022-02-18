@@ -149,10 +149,7 @@ const KolibriProvider = ({ children }) => {
 
   const getActualPrice = async () => {
     const result = await harbingerClient.getPriceData();
-    setTezosPrice({
-      time: result.time,
-      price: mutateBigNumber(result.price),
-    });
+    setTezosPrice(result);
   };
 
   const deployOven = async () => {
