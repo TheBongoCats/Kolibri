@@ -6,6 +6,7 @@ import {
 import Oven from '../../components/Oven';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
+import styles from './AllOvens.module.scss';
 
 const AllOvens = () => {
   const { allOvens, ovensWithBalance, tezosPrice } = useKolibriStateContext();
@@ -24,8 +25,8 @@ const AllOvens = () => {
     if (e.target.value.length >= 2) {
       const arr = ovensForSearch.filter(
         (oven) =>
-          oven.ovenOwner.includes(e.target.value) ||
-          oven.ovenAddress.includes(e.target.value),
+          oven.ovenOwner.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          oven.ovenAddress.toLowerCase().includes(e.target.value.toLowerCase()),
       );
 
       setSearchedOvens(arr);
@@ -47,7 +48,7 @@ const AllOvens = () => {
       />
 
       <input type="text" onChange={(e) => changeHandler(e)} />
-      <div>
+      <div className={styles['all-ovens__wrapper']}>
         {tezosPrice ? (
           ovensForRender.map((oven) => (
             <Oven ovenData={oven} key={oven.ovenAddress} />
