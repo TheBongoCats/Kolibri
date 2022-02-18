@@ -29,16 +29,15 @@ $red: #ff5050;
   &__title {
     line-height: 1;
     &--s {
-      &--big {
-        font-size: 70px;
-        font-weight: 800;
-        letter-spacing: 0.09em;
-      }
-
-      &--small {
+      &--s {
         font-size: 48px;
         letter-spacing: 0.065em;
         margin-bottom: 20px;
+      }
+      &--l {
+        font-size: 70px;
+        font-weight: 800;
+        letter-spacing: 0.09em;
       }
     }
   }

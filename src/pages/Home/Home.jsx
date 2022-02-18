@@ -7,7 +7,8 @@ import Button from '../../components/Button';
 import Loader from '../../components/Loader';
 
 const Home = () => {
-  const { myOvens, tezosPrice } = useKolibriStateContext();
+  const { myOvens, tezosPrice, allOvens, stabilityFeeYear, collateralRatio } =
+    useKolibriStateContext();
   const { isLogin } = useBeaconStateContext();
 
   return (
@@ -16,12 +17,12 @@ const Home = () => {
         <img src={kolibri} alt={kolibri} className={styled.home__kolibri} />
         <div className={styled.home__info}>
           <span
-            className={`${styled['home__title--s--big']} ${styled.home__title}`}
+            className={`${styled['home__title--s--l']} ${styled.home__title}`}
           >
             Kolibri
           </span>
           <span
-            className={`${styled['home__title--s--small']}  ${styled.home__title}`}
+            className={`${styled['home__title--s--s']}  ${styled.home__title}`}
           >
             Stablecoin
           </span>
@@ -45,19 +46,31 @@ const Home = () => {
         <div className={styled.home__metrics}>
           <div className={styled.metric}>
             <p className={styled.metric__title}>ACTIVE OVENS</p>
-            <p className={styled.metric__value}>15</p>
+            {allOvens ? (
+              <p className={styled.metric__value}>{allOvens.length}</p>
+            ) : (
+              <Loader />
+            )}
           </div>
           <div className={styled.metric}>
             <p className={styled.metric__title}>Stability fee (Yearly)</p>
-            <p className={styled.metric__value}>0.00%</p>
+            {stabilityFeeYear ? (
+              <p className={styled.metric__value}>{stabilityFeeYear}%</p>
+            ) : (
+              <Loader />
+            )}
           </div>
           <div className={styled.metric}>
             <p className={styled.metric__title}>Collateral value</p>
-            <p
-              className={`${styled.metric__value} ${styled['metric__value--b']}`}
-            >
-              200%
-            </p>
+            {collateralRatio ? (
+              <p
+                className={`${styled.metric__value} ${styled['metric__value--b']}`}
+              >
+                {collateralRatio}%
+              </p>
+            ) : (
+              <Loader />
+            )}
           </div>
         </div>
 
@@ -93,7 +106,7 @@ const Home = () => {
           <p className={styled.title}>
             Lates <b>XTZ/USD Oracle</b> Price:{' '}
             {tezosPrice ? (
-              <span className={styled.oracle__price}>${+tezosPrice.price}</span>
+              <span className={styled.oracle__price}>${tezosPrice.price}</span>
             ) : (
               <Loader />
             )}
@@ -117,7 +130,7 @@ const Home = () => {
               return <Oven key={ovenData.ovenAddress} ovenData={ovenData} />;
             })
           ) : (
-            <Loader />
+            <Loader text="Loading.." />
           ))}
       </div>
     </div>
