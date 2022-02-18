@@ -2,27 +2,23 @@
 import propTypes from 'prop-types';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
-import CONSTANTS from '../../utils/constants';
+import { mutateBigNumber } from '../../utils';
+
 import OvenNav from '../OvenNav';
 import styled from './Oven.module.scss';
-
-const mutateNumber = (
-  number,
-  denominator = CONSTANTS.MUTEZ_IN_TEZOS,
-  toFixed = 2,
-) => (number / denominator).toFixed(toFixed);
 
 const Oven = ({ ovenData }) => {
   const { tezosPrice } = useKolibriStateContext();
 
-  const balance = mutateNumber(ovenData.balance);
-  const collateralValue = mutateNumber(balance * tezosPrice.price);
-  const loan = mutateNumber(ovenData.outstandingTokens, 1e18);
-  const stabilityFees = (ovenData.stabilityFees / 1e18).toFixed(12);
-  const CollateralizationRatio =
+  const balance = mutateBigNumber(ovenData.balance);
+  const collateralValue = mutateBigNumber(balance * tezosPrice.price);
+  const loan = mutateBigNumber(ovenData.outstandingTokens, 1e18);
+  const stabilityFees = mutateBigNumber(ovenData.stabilityFees, 1e18, 6);
+  const collateralizationRatio =
     loan !== '0.00' ? ((loan / collateralValue) * 200).toFixed(2) : '0';
-
-  console.log(CollateralizationRatio);
+  const liquidatablePrice = mutateBigNumber(
+    (tezosPrice.price * collateralizationRatio) / 100,
+  );
 
   return (
     <div className={styled.oven}>
@@ -47,7 +43,7 @@ const Oven = ({ ovenData }) => {
             <p
               className={`${styled.oven__title} ${styled['oven__title--s--s']}`}
             >
-              Liquidatable when XTZ: <span>$1.32</span>
+              Liquidatable when XTZ: <span>${liquidatablePrice}</span>
             </p>
           ) : (
             <div>
@@ -66,8 +62,8 @@ const Oven = ({ ovenData }) => {
         </div>
         <div className={styled.oven__progress}>
           <CircularProgressbar
-            value={CollateralizationRatio}
-            text={`${CollateralizationRatio}%`}
+            value={collateralizationRatio}
+            text={`${collateralizationRatio}%`}
           />
         </div>
       </div>
@@ -77,7 +73,7 @@ const Oven = ({ ovenData }) => {
             COLLATERAL VALUE:
           </p>
           <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
-            {collateralValue}
+            {collateralValue} USD
           </p>
         </div>
         <div className={styled.oven__metric}>
@@ -85,7 +81,7 @@ const Oven = ({ ovenData }) => {
             BALANCE:
           </p>
           <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
-            {balance}
+            {balance} ꜩ
           </p>
         </div>
         <div className={styled.oven__metric}>
@@ -93,19 +89,20 @@ const Oven = ({ ovenData }) => {
             LOAN:
           </p>
           <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
-            {loan}
+            {loan} kUSD
           </p>
         </div>
         <div className={styled.oven__metric}>
           <p className={`${styled.oven__title} ${styled['oven__title--s--m']}`}>
             STABILITY FEES:
           </p>
-          <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
-            {stabilityFees}
+          <p
+            className={`${styled.oven__value} ${styled['oven__value--s--l']}`}
+            data-title={mutateBigNumber(ovenData.stabilityFees, 1e18, 12)}
+          >
+            {stabilityFees} kUSD
           </p>
         </div>
-      </div>
-      <div className={styled.oven__nav}>
         {ovenData.ovenClient && <OvenNav ovenClient={ovenData.ovenClient} />}
       </div>
     </div>

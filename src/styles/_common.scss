@@ -35,7 +35,7 @@ body {
 }
 
 .CircularProgressbar-path {
-  stroke: #307ff4;
+  stroke: $button-blue;
 }
 .CircularProgressbar-trail {
   stroke: white;
@@ -44,4 +44,29 @@ body {
   fill: white;
   dominant-baseline: middle;
   text-anchor: middle;
+}
+
+[data-title] {
+  position: relative;
+
+  &:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.3s;
+    visibility: visible;
+  }
+
+  &:after {
+    content: attr(data-title);
+    background-color: $button-blue;
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    padding: 2px 5px 5px;
+    bottom: -1.6em;
+    left: 100%;
+    white-space: nowrap;
+    box-shadow: 1px 1px 3px #222222;
+    z-index: 99999;
+    visibility: hidden;
+  }
 }
