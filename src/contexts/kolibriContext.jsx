@@ -47,7 +47,6 @@ const useKolibriDispatchContext = () => {
 // Provider
 const KolibriProvider = ({ children }) => {
   const [allOvens, setAllOvens] = useState();
-  const [ovensWithBalance, setOvensWithBalance] = useState();
   const [tezosPrice, setTezosPrice] = useState();
   const [myOvens, setMyOvens] = useState([]);
   const [stabilityFeeYear, setStabilityFeeYear] = useState();
@@ -98,6 +97,7 @@ const KolibriProvider = ({ children }) => {
     setMyOvens(ovensData);
   };
 
+  // eslint-disable-next-line consistent-return
   const getOvens = async () => {
     const response = await axios(
       'https://kolibri-data.s3.amazonaws.com/hangzhounet/oven-data.json',
@@ -138,13 +138,6 @@ const KolibriProvider = ({ children }) => {
     );
 
     setAllOvens(ovensData);
-    return ovensData;
-  };
-
-  const getOvensWithBalance = async () => {
-    await getOvens().then((response) =>
-      setOvensWithBalance(response.filter((oven) => oven.balance > 0)),
-    );
   };
 
   const getActualPrice = async () => {
@@ -193,27 +186,18 @@ const KolibriProvider = ({ children }) => {
       allOvens,
       tezosPrice,
       myOvens,
-      ovensWithBalance,
       stabilityFeeYear,
       collateralRatio,
     }),
-    [
-      allOvens,
-      tezosPrice,
-      myOvens,
-      ovensWithBalance,
-      stabilityFeeYear,
-      collateralRatio,
-    ],
+    [allOvens, tezosPrice, myOvens, stabilityFeeYear, collateralRatio],
   );
 
   const dispatchValue = useMemo(
     () => ({
       getOvens,
       deployOven,
-      getOvensWithBalance,
     }),
-    [getOvens, deployOven, getOvensWithBalance],
+    [getOvens, deployOven],
   );
 
   return (
