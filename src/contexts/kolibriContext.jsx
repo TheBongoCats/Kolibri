@@ -10,6 +10,7 @@ import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import axios from 'axios';
 import CONSTANTS from '../utils/constants';
 import { useBeaconStateContext } from './beaconContext';
+import { mutateBigNumber } from '../utils';
 
 // state context
 const KolibriStateContext = createContext({});
@@ -29,7 +30,7 @@ const useKolibriStateContext = () => {
 
 // dispatch context
 const KolibriDispatchContext = createContext({});
-KolibriDispatchContext.displayName = 'Kolibri state context';
+KolibriDispatchContext.displayName = 'Kolibri dispatch context';
 
 const useKolibriDispatchContext = () => {
   const context = useContext(KolibriDispatchContext);
@@ -43,17 +44,20 @@ const useKolibriDispatchContext = () => {
   return context;
 };
 
+// Provider
 const KolibriProvider = ({ children }) => {
   const [allOvens, setAllOvens] = useState();
   const [ovensWithBalance, setOvensWithBalance] = useState();
-  const [tezosPrice, setTezosPrice] = useState({});
+  const [tezosPrice, setTezosPrice] = useState();
   const [myOvens, setMyOvens] = useState([]);
+  const [stabilityFeeYear, setStabilityFeeYear] = useState();
+  const [collateralRatio, setCollaterlRatio] = useState();
 
   const { beaconWalletData, beaconAddress } = useBeaconStateContext();
 
   const harbingerClient = new HarbingerClient(
     CONSTANTS.NODE_URL,
-    'KT1PMQZxQTrFPJn3pEaj9rvGfJA9Hvx7Z1CL',
+    CONTRACTS.TEST.HARBINGER_NORMALIZER,
   );
 
   const stableCoinClient = new StableCoinClient(
@@ -145,7 +149,10 @@ const KolibriProvider = ({ children }) => {
 
   const getActualPrice = async () => {
     const result = await harbingerClient.getPriceData();
-    setTezosPrice(result);
+    setTezosPrice({
+      time: result.time,
+      price: mutateBigNumber(result.price),
+    });
   };
 
   const deployOven = async () => {
@@ -160,6 +167,17 @@ const KolibriProvider = ({ children }) => {
 
   useEffect(async () => {
     await getActualPrice();
+    await getOvens();
+    setStabilityFeeYear(
+      mutateBigNumber(await stableCoinClient.getSimpleStabilityFee()),
+    );
+    setCollaterlRatio(
+      mutateBigNumber(
+        await stableCoinClient.getRequiredCollateralizationRatio(),
+        1e18,
+        0,
+      ),
+    );
   }, []);
 
   const stateValue = useMemo(
@@ -168,8 +186,17 @@ const KolibriProvider = ({ children }) => {
       tezosPrice,
       myOvens,
       ovensWithBalance,
+      stabilityFeeYear,
+      collateralRatio,
     }),
-    [allOvens, tezosPrice, myOvens, ovensWithBalance],
+    [
+      allOvens,
+      tezosPrice,
+      myOvens,
+      ovensWithBalance,
+      stabilityFeeYear,
+      collateralRatio,
+    ],
   );
 
   const dispatchValue = useMemo(

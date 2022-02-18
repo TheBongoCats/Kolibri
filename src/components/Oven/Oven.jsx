@@ -11,13 +11,16 @@ const Oven = ({ ovenData }) => {
   const { tezosPrice } = useKolibriStateContext();
 
   const balance = mutateBigNumber(ovenData.balance);
-  const collateralValue = mutateBigNumber(balance * tezosPrice.price);
+  const collateralValue = balance * tezosPrice.price;
   const loan = mutateBigNumber(ovenData.outstandingTokens, 1e18);
   const stabilityFees = mutateBigNumber(ovenData.stabilityFees, 1e18, 6);
-  const collateralizationRatio =
-    loan !== '0.00' ? ((loan / collateralValue) * 200).toFixed(2) : '0';
+  const stabilityFeesFull = mutateBigNumber(ovenData.stabilityFees, 1e18, 12);
+  const collateralizationRatio = +loan
+    ? ((loan / collateralValue) * 200).toFixed(2)
+    : '0.00';
   const liquidatablePrice = mutateBigNumber(
-    (tezosPrice.price * collateralizationRatio) / 100,
+    tezosPrice.price * collateralizationRatio,
+    1e2,
   );
 
   return (
@@ -43,7 +46,7 @@ const Oven = ({ ovenData }) => {
             <p
               className={`${styled.oven__title} ${styled['oven__title--s--s']}`}
             >
-              Liquidatable when XTZ: <span>${liquidatablePrice}</span>
+              LIQUDATABLE WHEN XTZ: <span>${liquidatablePrice}</span>
             </p>
           ) : (
             <div>
@@ -98,7 +101,7 @@ const Oven = ({ ovenData }) => {
           </p>
           <p
             className={`${styled.oven__value} ${styled['oven__value--s--l']}`}
-            data-title={mutateBigNumber(ovenData.stabilityFees, 1e18, 12)}
+            data-title={stabilityFeesFull}
           >
             {stabilityFees} kUSD
           </p>
