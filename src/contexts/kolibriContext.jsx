@@ -46,7 +46,7 @@ const useKolibriDispatchContext = () => {
 const KolibriProvider = ({ children }) => {
   const [allOvens, setAllOvens] = useState();
   const [ovensWithBalance, setOvensWithBalance] = useState();
-  const [tezosPrice, setTezosPrice] = useState();
+  const [tezosPrice, setTezosPrice] = useState({});
   const [myOvens, setMyOvens] = useState([]);
 
   const { beaconWalletData, beaconAddress } = useBeaconStateContext();

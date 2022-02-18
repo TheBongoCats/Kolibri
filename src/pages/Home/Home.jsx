@@ -7,7 +7,7 @@ import Button from '../../components/Button';
 import Loader from '../../components/Loader';
 
 const Home = () => {
-  const { myOvens } = useKolibriStateContext();
+  const { myOvens, tezosPrice } = useKolibriStateContext();
   const { isLogin } = useBeaconStateContext();
 
   return (
@@ -92,7 +92,11 @@ const Home = () => {
         <div className={styled.oracle}>
           <p className={styled.title}>
             Lates <b>XTZ/USD Oracle</b> Price:{' '}
-            <span className={styled.oracle__price}>$4.13</span>
+            {tezosPrice ? (
+              <span className={styled.oracle__price}>${+tezosPrice.price}</span>
+            ) : (
+              <Loader />
+            )}
           </p>
           <p className={styled.oracle__updated}>
             Oracle last updated:{' '}

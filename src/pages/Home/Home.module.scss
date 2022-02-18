@@ -1,7 +1,7 @@
 @import './src/styles/extends';
 
 $blue: #307ff4;
-$light-blue: #307ff4;
+$light-blue: #579bff;
 $red: #ff5050;
 
 .home {
@@ -98,7 +98,7 @@ $red: #ff5050;
   }
 
   &__ovens {
-   @extend %ovens-template;
+    @extend %ovens-template;
   }
 }
 

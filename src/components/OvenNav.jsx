@@ -28,29 +28,33 @@ const OvenNav = ({ ovenClient }) => {
         callback={() =>
           handleWithdraw(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
         }
-        text="Withdraw"
+        text="Withdraw ꜩ"
         isRounded
+        isTransparent
       />
       <Button
         callback={() =>
           handleDeposit(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
         }
-        text="Deposit"
+        text="Deposit ꜩ"
         isRounded
+        isTransparent
       />
       <Button
         callback={() =>
           handleBorrow(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
         }
-        text="Borrow"
+        text="Borrow kUSD"
         isRounded
+        isTransparent
       />
       <Button
         callback={() =>
           handleRepay(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
         }
-        text="Repay"
+        text="Repay kUSD"
         isRounded
+        isTransparent
       />
     </>
   );
