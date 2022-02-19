@@ -117,13 +117,13 @@ export default Oven;
 Oven.propTypes = {
   ovenData: propTypes.shape({
     baker: propTypes.string,
-    balance: propTypes.object,
-    borrowedTokens: propTypes.object,
+    balance: propTypes.string,
+    borrowedTokens: propTypes.string,
     isLiquidated: propTypes.bool,
-    outstandingTokens: propTypes.object,
+    outstandingTokens: propTypes.string,
     ovenAddress: propTypes.string,
     ovenOwner: propTypes.string,
-    stabilityFees: propTypes.object,
+    stabilityFees: propTypes.string,
     ovenClient: () => null,
   }),
 };
