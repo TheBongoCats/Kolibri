@@ -13,16 +13,13 @@ const I18n = () => {
       onChange={(e) => {
         handleSetLang(e.target.value);
       }}
+      defaultValue={localStorage.lang || 'en'}
     >
       {i18nConfig.map((item) => {
         const { value, text } = item;
 
         return (
-          <option
-            key={text}
-            value={value}
-            selected={value === localStorage.lang}
-          >
+          <option key={text} value={value}>
             {text}
           </option>
         );
