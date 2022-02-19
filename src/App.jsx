@@ -1,4 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
+import { I18nProvider } from './contexts/i18nContext';
 import { BeaconProvider } from './contexts/beaconContext';
 import { KolibriProvider } from './contexts/kolibriContext';
 import AppRouter from './route/AppRouter';
@@ -8,15 +9,17 @@ import './styles/index.scss';
 
 const App = () => {
   return (
-    <BeaconProvider>
-      <KolibriProvider>
-        <BrowserRouter>
-          <Header />
-          <AppRouter />
-          <Footer />
-        </BrowserRouter>
-      </KolibriProvider>
-    </BeaconProvider>
+    <I18nProvider>
+      <BeaconProvider>
+        <KolibriProvider>
+          <BrowserRouter>
+            <Header />
+            <AppRouter />
+            <Footer />
+          </BrowserRouter>
+        </KolibriProvider>
+      </BeaconProvider>
+    </I18nProvider>
   );
 };
 
