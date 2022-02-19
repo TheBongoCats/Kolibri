@@ -5,9 +5,17 @@ import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import styles from './AllOvens.module.scss';
 import { mutateBigNumber } from '../../utils';
+import {
+  showEmptyButton,
+  hideEmptyButton,
+  outstandingTokensSort,
+  valueSort,
+} from './texts.json';
+import { useI18nStateContext } from '../../contexts/i18nContext';
 
 const AllOvens = () => {
   const { allOvens, tezosPrice } = useKolibriStateContext();
+  const { lang } = useI18nStateContext();
   const [ovens, setOvens] = useState([]);
   const [withBalance, setWithBalance] = useState(true);
   const [searchedOvens, setSearchedOvens] = useState([]);
@@ -24,8 +32,8 @@ const AllOvens = () => {
     let paramA;
     let paramB;
     if (isSorted) {
-      paramA = mutateBigNumber(balanceA * tezosPrice.price);
-      paramB = mutateBigNumber(balanceB * tezosPrice.price);
+      paramA = balanceA;
+      paramB = balanceB;
     } else {
       const collateralValueA = mutateBigNumber(balanceA * tezosPrice.price);
       const collateralValueB = mutateBigNumber(balanceB * tezosPrice.price);
@@ -78,12 +86,16 @@ const AllOvens = () => {
       <Button
         type="button"
         callback={() => setWithBalance(!withBalance)}
-        text={withBalance ? `Show empty ovens` : `Hide empty ovens`}
+        text={
+          withBalance ? showEmptyButton[`${lang}`] : hideEmptyButton[`${lang}`]
+        }
       />
       <Button
         type="button"
         callback={() => setIsSorted(!isSorted)}
-        text={isSorted ? `Sort by value` : `Sort by outstanding tokens`}
+        text={
+          isSorted ? outstandingTokensSort[`${lang}`] : valueSort[`${lang}`]
+        }
       />
 
       <input type="text" onChange={(e) => changeHandler(e)} />

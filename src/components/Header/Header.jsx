@@ -7,7 +7,7 @@ import {
   useBeaconStateContext,
 } from '../../contexts/beaconContext';
 import I18n from '../I18n';
-import { buttonConnect, buttonDisconnect } from './texts';
+import { walletConnect, walletDisconnect } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 
 const Header = () => {
@@ -22,12 +22,12 @@ const Header = () => {
       {isLogin ? (
         <Button
           callback={disconnectWallet}
-          text={buttonDisconnect[`${lang}`]}
+          text={walletDisconnect[`${lang}`]}
         />
       ) : (
         <Button
           callback={() => connectWallet(true, 'hangzhounet')}
-          text={buttonConnect[`${lang}`]}
+          text={walletConnect[`${lang}`]}
         />
       )}
       <I18n />
