@@ -20,11 +20,14 @@ const Header = () => {
       <Logo />
       <Navigation />
       {isLogin ? (
-        <Button callback={disconnectWallet} text={buttonConnect[`${lang}`]} />
+        <Button
+          callback={disconnectWallet}
+          text={buttonDisconnect[`${lang}`]}
+        />
       ) : (
         <Button
           callback={() => connectWallet(true, 'hangzhounet')}
-          text={buttonDisconnect[`${lang}`]}
+          text={buttonConnect[`${lang}`]}
         />
       )}
       <I18n />

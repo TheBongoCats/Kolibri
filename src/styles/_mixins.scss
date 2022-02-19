@@ -1,4 +1,4 @@
-@mixin typography($weight, $size, $height) {
+@mixin typography($weight, $size, $height: 1.5) {
   font: {
     weight: $weight;
     size: $size;
