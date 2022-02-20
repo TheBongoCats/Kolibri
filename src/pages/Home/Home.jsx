@@ -10,15 +10,28 @@ import Metric from '../../components/Oven/Metric';
 
 import styled from './Home.module.scss';
 import kolibri from '../../images/kolibri.svg';
+import {
+  metricsButton,
+  learnMoreButton,
+  activeOvensCount,
+  stabilityFeeCount,
+  collateralValueCount,
+  moreButton,
+  connectWalletParagraph,
+  connectButton,
+  loaderText,
+} from './texts.json';
 import Peg from '../../components/Home/Peg';
 import Oracle from '../../components/Home/Oracle/Oracle';
 import OvenList from '../../components/OvenList/OvenList';
+import { useI18nStateContext } from '../../contexts/i18nContext';
 
 const Home = () => {
   const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
     useKolibriStateContext();
   const { connectWallet } = useBeaconDispatchContext();
   const { isLogin } = useBeaconStateContext();
+  const { lang } = useI18nStateContext();
 
   return (
     <div className={styled.home}>
@@ -30,13 +43,13 @@ const Home = () => {
           <div className={styled.home__buttons}>
             <Button
               callback={() => null}
-              text="Learn more"
+              text={learnMoreButton[`${lang}`]}
               isTransparent
               isRounded
             />
             <Button
               callback={() => null}
-              text="Metrics"
+              text={metricsButton[`${lang}`]}
               isTransparent
               isRounded
             />
@@ -45,15 +58,19 @@ const Home = () => {
       </div>
       <div className={styled.home__container}>
         <div className={styled.home__metrics}>
-          <Metric title="Active ovens" value={allOvens?.length} size="l" />
           <Metric
-            title="Stability fee (Yearly)"
+            title={activeOvensCount[`${lang}`]}
+            value={allOvens?.length}
+            size="l"
+          />
+          <Metric
+            title={stabilityFeeCount[`${lang}`]}
             value={stabilityFeeYear}
             unit="%"
             size="l"
           />
           <Metric
-            title="Collateral value"
+            title={collateralValueCount[`${lang}`]}
             value={collateralRatio}
             unit="%"
             size="l"
@@ -62,7 +79,7 @@ const Home = () => {
         <Peg percents="-95" />
         <div className={styled.home__line}>
           <button type="button" className={styled.home__more}>
-            MORE
+            {moreButton[`${lang}`]}
           </button>
         </div>
         <Oracle />
@@ -70,11 +87,11 @@ const Home = () => {
       {!isLogin && (
         <>
           <p className={styled.home__connect}>
-            Connect Your Wallet To Manage Your Ovens
+            {connectWalletParagraph[`${lang}`]}
           </p>
           <Button
             callback={() => connectWallet(true, 'hangzhounet')}
-            text="Connect Wallet"
+            text={connectButton[`${lang}`]}
             isBig
           />
         </>
@@ -84,7 +101,7 @@ const Home = () => {
           (myOvens.length > 0 ? (
             <OvenList ovens={myOvens} />
           ) : (
-            <Loader text="Looking for your ovens" />
+            <Loader text={loaderText[`${lang}`]} />
           ))}
       </div>
     </div>

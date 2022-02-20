@@ -2,10 +2,19 @@ import { useKolibriStateContext } from '../../../contexts/kolibriContext';
 import { mutateBigNumber } from '../../../utils';
 import CONSTANTS from '../../../utils/constants';
 import Loader from '../../Loader';
+import {
+  latest,
+  priceText,
+  oracleUpdate,
+  minutesUpdate,
+  hoursUpdate,
+} from './text.json';
 
 import styled from './Oracle.module.scss';
+import { useI18nStateContext } from '../../../contexts/i18nContext';
 
 const Oracle = () => {
+  const { lang } = useI18nStateContext();
   const { tezosPrice } = useKolibriStateContext();
 
   const price = mutateBigNumber(tezosPrice?.price);
@@ -23,7 +32,7 @@ const Oracle = () => {
           <span
             className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
           >
-            {minutes} minutes ago
+            {minutes} {minutesUpdate[`${lang}`]}
           </span>
         );
       case minutes > 60:
@@ -31,7 +40,7 @@ const Oracle = () => {
           <span
             className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
           >
-            An hour ago
+            {hoursUpdate[`${lang}`]}
           </span>
         );
       default:
@@ -39,7 +48,7 @@ const Oracle = () => {
           <span
             className={`${styled.oracle__time} ${styled['oracle__time--s--ok']}`}
           >
-            {minutes} minutes ago
+            {minutes} {minutesUpdate[`${lang}`]}
           </span>
         );
     }
@@ -48,7 +57,7 @@ const Oracle = () => {
   return (
     <div className={styled.oracle}>
       <div className={styled.oracle__title}>
-        Lates <b>XTZ/USD Oracle</b> Price:
+        {latest[`${lang}`]} <b>XTZ/USD Oracle</b> {priceText[`${lang}`]}
         {tezosPrice ? (
           <span className={styled.oracle__price}> ${price}</span>
         ) : (
@@ -56,7 +65,7 @@ const Oracle = () => {
         )}
       </div>
       <div className={styled.oracle__updated}>
-        Oracle last updated: {lastUpdateTime ? lastUpdate() : <Loader />}
+        {oracleUpdate[`${lang}`]} {lastUpdateTime ? lastUpdate() : <Loader />}
       </div>
     </div>
   );

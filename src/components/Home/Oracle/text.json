@@ -1,0 +1,22 @@
+{
+  "latest": {
+    "en": "Latest",
+    "ru": "Актуальная"
+  },
+  "priceText": {
+    "en": "Price:",
+    "ru": "Цена:"
+  },
+  "oracleUpdate": {
+    "en": "Oracle last updated:",
+    "ru": "Последнее обновление Oracle"
+  },
+  "minutesUpdate": {
+    "en": "minutes ago",
+    "ru": "минут назад"
+  },
+  "hoursUpdate": {
+    "en": "An hour ago",
+    "ru": "Час назад"
+  }
+}
