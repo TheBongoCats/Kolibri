@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
-import Oven from '../../components/Oven';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import styles from './AllOvens.module.scss';
@@ -12,6 +11,7 @@ import {
   valueSort,
 } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
+import OvenList from '../../components/OvenList/OvenList';
 
 const AllOvens = () => {
   const { allOvens, tezosPrice } = useKolibriStateContext();
@@ -99,11 +99,9 @@ const AllOvens = () => {
       />
 
       <input type="text" onChange={(e) => changeHandler(e)} />
-      <div className={styles['all-ovens__wrapper']}>
+      <div>
         {ovensForRender && tezosPrice ? (
-          ovensForRender
-            .sort(compare)
-            .map((oven) => <Oven ovenData={oven} key={oven.ovenAddress} />)
+          <OvenList ovens={ovensForRender.sort(compare)} />
         ) : (
           <Loader text="Loading..." />
         )}

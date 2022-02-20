@@ -4,7 +4,6 @@ import {
   useBeaconStateContext,
 } from '../../contexts/beaconContext';
 
-import Oven from '../../components/Oven';
 import Button from '../../components/Button';
 import Loader from '../../components/Loader';
 import Metric from '../../components/Oven/Metric';
@@ -13,6 +12,7 @@ import styled from './Home.module.scss';
 import kolibri from '../../images/kolibri.svg';
 import Peg from '../../components/Home/Peg';
 import Oracle from '../../components/Home/Oracle/Oracle';
+import OvenList from '../../components/OvenList/OvenList';
 
 const Home = () => {
   const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
@@ -79,12 +79,10 @@ const Home = () => {
           />
         </>
       )}
-      <div className={styled.home__ovens}>
+      <div>
         {isLogin &&
           (myOvens.length > 0 ? (
-            myOvens.map((ovenData) => {
-              return <Oven key={ovenData.ovenAddress} ovenData={ovenData} />;
-            })
+            <OvenList ovens={myOvens} />
           ) : (
             <Loader text="Looking for your ovens" />
           ))}

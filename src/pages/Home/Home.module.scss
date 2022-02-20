@@ -1,4 +1,3 @@
-@import './src/styles/extends';
 @import './src/styles/variables';
 
 .home {
@@ -78,10 +77,6 @@
     padding: 5px 20px;
     background-color: $text-blue;
     font-size: 18px;
-  }
-
-  &__ovens {
-    @extend %ovens-template;
   }
 
   &__connect {

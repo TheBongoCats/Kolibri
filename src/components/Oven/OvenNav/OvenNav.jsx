@@ -1,32 +1,15 @@
-/* eslint-disable react/forbid-prop-types */
-
-import propTypes from 'prop-types';
 import Button from '../../Button';
 
 import styled from './OvenNav.module.scss';
 
-const OvenNav = ({ ovenClient }) => {
-  const handleWithdraw = (amount) => {
-    ovenClient.withdraw(amount);
-  };
-
-  const handleDeposit = (amount) => {
-    ovenClient.deposit(amount);
-  };
-
-  const handleBorrow = (amount) => {
-    ovenClient.borrow(amount);
-  };
-
-  const handleRepay = (amount) => {
-    ovenClient.repay(amount);
-  };
+const OvenNav = () => {
+  const test = () => console.log('test');
 
   const NAV_CONFIG = [
-    { text: 'Withdraw ꜩ', callback: handleWithdraw },
-    { text: 'Deposit ꜩ', callback: handleDeposit },
-    { text: 'Borrow kUSD', callback: handleBorrow },
-    { text: 'Repay kUSD', callback: handleRepay },
+    { text: 'Withdraw ꜩ', callback: test },
+    { text: 'Deposit ꜩ', callback: test },
+    { text: 'Borrow kUSD', callback: test },
+    { text: 'Repay kUSD', callback: test },
   ];
 
   return (
@@ -46,11 +29,3 @@ const OvenNav = ({ ovenClient }) => {
 };
 
 export default OvenNav;
-
-OvenNav.propTypes = {
-  ovenClient: propTypes.object,
-};
-
-OvenNav.defaultProps = {
-  ovenClient: {},
-};

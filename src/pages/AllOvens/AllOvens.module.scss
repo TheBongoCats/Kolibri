@@ -1,12 +1,6 @@
-@import './src/styles/extends';
-
 .all-ovens {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-
-  &__wrapper {
-    @extend %ovens-template;
-  }
 }
