@@ -147,7 +147,7 @@ const KolibriProvider = ({ children }) => {
 
   const getStabilityFeeYear = async () => {
     const result = await stableCoinClient.getSimpleStabilityFee();
-    setStabilityFeeYear(mutateBigNumber(result));
+    setStabilityFeeYear(mutateBigNumber(result, undefined, 1));
   };
 
   const getCollaterlRatio = async () => {
@@ -175,7 +175,6 @@ const KolibriProvider = ({ children }) => {
     getActualPrice();
 
     const intervalId = setInterval(() => {
-      console.log('tick');
       getActualPrice();
     }, 60000);
     return () => clearInterval(intervalId);
