@@ -1,11 +1,15 @@
 import Logo from '../Logo';
 import styles from './Footer.module.scss';
-import Contacts from '../Contacts';
+import Socials from '../Socials';
+import Policy from '../Policy';
 
 const Footer = () => (
   <footer className={styles.footer}>
     <Logo isSubLogo />
-    <Contacts />
+    <div className={styles.footer__contacts}>
+      <Policy />
+      <Socials />
+    </div>
   </footer>
 );
 

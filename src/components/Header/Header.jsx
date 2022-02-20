@@ -6,7 +6,6 @@ import {
   useBeaconDispatchContext,
   useBeaconStateContext,
 } from '../../contexts/beaconContext';
-import I18n from '../I18n';
 import { walletConnect, walletDisconnect } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 
@@ -30,7 +29,6 @@ const Header = () => {
           text={walletConnect[`${lang}`]}
         />
       )}
-      <I18n />
     </header>
   );
 };

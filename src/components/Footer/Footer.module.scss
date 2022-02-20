@@ -3,4 +3,11 @@
   justify-content: center;
   padding: 20px 0;
   gap: 20px;
+
+  &__contacts {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 16px;
+  }
 }

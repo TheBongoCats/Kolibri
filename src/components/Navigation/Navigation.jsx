@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from './Navigation.module.scss';
 import { homeNav, allOvensNav } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
+import I18n from '../I18n';
 
 const Navigation = () => {
   const { lang } = useI18nStateContext();
@@ -22,6 +23,9 @@ const Navigation = () => {
             </li>
           );
         })}
+        <li className={styles.navigation__item}>
+          <I18n />
+        </li>
       </ul>
     </nav>
   );

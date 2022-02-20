@@ -82,7 +82,7 @@ const AllOvens = () => {
   };
 
   return (
-    <div>
+    <div className={styles['all-ovens']}>
       <Button
         type="button"
         callback={() => setWithBalance(!withBalance)}
