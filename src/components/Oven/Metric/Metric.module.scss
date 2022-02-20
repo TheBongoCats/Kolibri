@@ -1,0 +1,53 @@
+@import '../../../styles/variables';
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &--pos {
+    &--left {
+      align-items: flex-start;
+    }
+    &--center {
+      align-items: center;
+      max-width: 200px;
+    }
+  }
+
+  &__title {
+    text-transform: uppercase;
+    &--s {
+      &--s {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      &--m {
+        font-size: 16px;
+      }
+      &--l {
+        font-size: 16px;
+      }
+    }
+  }
+
+  &__value {
+    color: $text-blue;
+    font-weight: 800;
+    max-width: 100%;
+    &--s {
+      &--s {
+        word-wrap: break-word;
+        font-size: 14px;
+      }
+      &--m {
+        font-size: 20px;
+      }
+      &--l {
+        font-size: 48px;
+        font-weight: 800;
+        color: white;
+      }
+    }
+  }
+}

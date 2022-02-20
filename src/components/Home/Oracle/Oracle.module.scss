@@ -1,0 +1,35 @@
+@import '../../../styles/variables';
+
+.oracle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  &__title {
+    font-size: 24px;
+  }
+
+  &__price {
+    color: $text-blue;
+    font-weight: 800;
+  }
+
+  &__updated {
+    text-transform: uppercase;
+  }
+
+  &__time {
+    font-weight: 600;
+
+    &--s {
+      &--error {
+        color: $red;
+      }
+
+      &--ok {
+        color: $text-blue;
+      }
+    }
+  }
+}
