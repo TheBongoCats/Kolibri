@@ -1,6 +1,30 @@
+@import "./src/styles/variables";
+
 .all-ovens {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  &__container {
+    max-width: 550px;
+    width: 100%;
+    padding: 50px 75px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 40px;
+    box-shadow: 5px 5px 30px #0f001db4,
+    inset 0px 0px 30px rgba(255, 255, 255, 0.15);
+  }
+
+  &__input {
+    border: 2px solid transparent;
+    padding: 7px 11px;
+    outline: none;
+
+    &:focus {
+      border: 2px solid $button-blue;
+    }
+  }
 }
