@@ -1,24 +1,30 @@
 import { Link } from 'react-router-dom';
 import styles from './Navigation.module.scss';
+import { homeNav, allOvensNav } from './texts.json';
+import { useI18nStateContext } from '../../contexts/i18nContext';
 
-const NAVIGATION_CONFIG = [
-  { path: '/', text: 'Home' },
-  { path: '/all-ovens', text: 'All Ovens' },
-];
+const Navigation = () => {
+  const { lang } = useI18nStateContext();
 
-const Navigation = () => (
-  <nav className={styles.navigation}>
-    <ul className={styles.navigation__list}>
-      {NAVIGATION_CONFIG.map((navItem) => {
-        const { path, text } = navItem;
-        return (
-          <li key={path} className={styles.navigation__item}>
-            <Link to={path}>{text}</Link>
-          </li>
-        );
-      })}
-    </ul>
-  </nav>
-);
+  const NAVIGATION_CONFIG = [
+    { path: '/', text: homeNav[`${lang}`] },
+    { path: '/all-ovens', text: allOvensNav[`${lang}`] },
+  ];
+
+  return (
+    <nav className={styles.navigation}>
+      <ul className={styles.navigation__list}>
+        {NAVIGATION_CONFIG.map((navItem) => {
+          const { path, text } = navItem;
+          return (
+            <li key={path} className={styles.navigation__item}>
+              <Link to={path}>{text}</Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+};
 
 export default Navigation;

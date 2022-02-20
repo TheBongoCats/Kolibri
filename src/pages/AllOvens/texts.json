@@ -1,0 +1,18 @@
+{
+  "showEmptyButton": {
+    "en": "Show empty ovens",
+    "ru": "Показать пустые печки"
+  },
+  "hideEmptyButton": {
+    "en": "Hide empty ovens",
+    "ru": "Спрятать пустые печки"
+  },
+  "outstandingTokensSort": {
+    "en": "Sort by outstanding tokens",
+    "ru": "Сортировать по выданным монетам"
+  },
+  "valueSort": {
+    "en": "Sort by value",
+    "ru": "Сортировать по стоимости"
+  }
+}
