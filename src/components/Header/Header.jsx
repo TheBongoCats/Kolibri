@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Logo from '../Logo';
 import Navigation from '../Navigation';
 import styles from './Header.module.scss';
@@ -8,16 +9,51 @@ import {
 } from '../../contexts/beaconContext';
 import { walletConnect, walletDisconnect } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
+import Aside from '../Aside';
 
 const Header = () => {
   const { connectWallet, disconnectWallet } = useBeaconDispatchContext();
   const { isLogin } = useBeaconStateContext();
   const { lang } = useI18nStateContext();
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleIsOpen = (e) => {
+    if (e.target === e.currentTarget) {
+      setIsOpen(!isOpen);
+    }
+  };
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  // for testing
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+  // for testing end
+
   return (
     <header className={styles.header}>
       <Logo />
-      <Navigation />
+      {width >= 595 ? (
+        <Navigation />
+      ) : (
+        <button
+          type="button"
+          className={
+            isOpen
+              ? `${styles.header__burger} ${styles['header__burger--clicked']}`
+              : styles.header__burger
+          }
+          onClick={handleIsOpen}
+          aria-label="Open"
+        />
+      )}
       {isLogin ? (
         <Button
           callback={disconnectWallet}
@@ -29,6 +65,7 @@ const Header = () => {
           text={walletConnect[`${lang}`]}
         />
       )}
+      {width <= 589 && <Aside isOpen={isOpen} handleIsOpen={handleIsOpen} />}
     </header>
   );
 };
