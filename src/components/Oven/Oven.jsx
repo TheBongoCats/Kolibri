@@ -2,7 +2,7 @@
 import propTypes from 'prop-types';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
-import { mutateBigNumber } from '../../utils';
+import { mutateBigNumber, getTrailColor } from '../../utils';
 
 import OvenNav from './OvenNav/OvenNav';
 import Metric from './Metric/Metric';
@@ -26,17 +26,7 @@ const Oven = ({ ovenData }) => {
     1e8,
   );
 
-  const getTrailColor = () => {
-    let color = '#307ff4';
-
-    if (collateralizationRatio >= 100) {
-      color = '#ff5050';
-    } else if (collateralizationRatio >= 80) {
-      color = '#FFCE50';
-    }
-
-    return color;
-  };
+  const pathColor = getTrailColor(collateralizationRatio);
 
   return (
     <div className={styled.oven}>
@@ -72,7 +62,7 @@ const Oven = ({ ovenData }) => {
             value={collateralizationRatio}
             text={`${collateralizationRatio}%`}
             styles={buildStyles({
-              pathColor: getTrailColor(),
+              pathColor,
             })}
           />
         </div>
