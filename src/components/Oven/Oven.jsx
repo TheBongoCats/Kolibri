@@ -1,10 +1,12 @@
 /* eslint-disable react/forbid-prop-types */
 import propTypes from 'prop-types';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import { mutateBigNumber } from '../../utils';
 
-import OvenNav from '../OvenNav';
+import OvenNav from './OvenNav/OvenNav';
+import Metric from './Metric/Metric';
+
 import styled from './Oven.module.scss';
 
 const Oven = ({ ovenData }) => {
@@ -18,96 +20,77 @@ const Oven = ({ ovenData }) => {
   const collateralizationRatio = +loan
     ? ((loan / collateralValue) * 200).toFixed(2)
     : '0.00';
+
   const liquidatablePrice = mutateBigNumber(
     tezosPrice.price * collateralizationRatio,
     1e8,
   );
 
+  const getTrailColor = () => {
+    let color = '#307ff4';
+
+    if (collateralizationRatio >= 100) {
+      color = '#ff5050';
+    } else if (collateralizationRatio >= 80) {
+      color = '#FFCE50';
+    }
+
+    return color;
+  };
+
   return (
     <div className={styled.oven}>
-      <p className={`${styled.oven__title} ${styled['oven__title--s--l']}`}>
-        {ovenData.ovenAddress}
-      </p>
+      <p className={styled.oven__title}>{ovenData.ovenAddress}</p>
       <div className={styled.oven__flexbox}>
         <div className={styled.oven__info}>
-          <div>
-            <p
-              className={`${styled.oven__title} ${styled['oven__title--s--s']}`}
-            >
-              DELEGATED BAKER:
-            </p>
-            <p
-              className={`${styled.oven__value} ${styled['oven__value--s--s']}`}
-            >
-              {ovenData.baker}
-            </p>
-          </div>
+          <Metric
+            title="Delegated baker:"
+            value={ovenData.baker}
+            position="left"
+            size="s"
+          />
+
           {ovenData.ovenClient ? (
-            <p
-              className={`${styled.oven__title} ${styled['oven__title--s--s']}`}
-            >
-              LIQUDATABLE WHEN XTZ: <span>${liquidatablePrice}</span>
-            </p>
+            <Metric
+              title="Liquidatable when xtz:"
+              value={liquidatablePrice}
+              unit="$"
+              position="left"
+              size="s"
+            />
           ) : (
-            <div>
-              <p
-                className={`${styled.oven__title} ${styled['oven__title--s--s']}`}
-              >
-                OWNER:
-              </p>
-              <p
-                className={`${styled.oven__value} ${styled['oven__value--s--s']}`}
-              >
-                {ovenData.ovenOwner}
-              </p>
-            </div>
+            <Metric
+              title="Owner:"
+              value={ovenData.ovenOwner}
+              position="left"
+              size="s"
+            />
           )}
         </div>
         <div className={styled.oven__progress}>
           <CircularProgressbar
             value={collateralizationRatio}
             text={`${collateralizationRatio}%`}
+            styles={buildStyles({
+              pathColor: getTrailColor(),
+            })}
           />
         </div>
       </div>
       <div className={styled.oven__metrics}>
-        <div className={styled.oven__metric}>
-          <p className={`${styled.oven__title} ${styled['oven__title--s--m']}`}>
-            COLLATERAL VALUE:
-          </p>
-          <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
-            {collateralValue} USD
-          </p>
-        </div>
-        <div className={styled.oven__metric}>
-          <p className={`${styled.oven__title} ${styled['oven__title--s--m']}`}>
-            BALANCE:
-          </p>
-          <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
-            {balance} ꜩ
-          </p>
-        </div>
-        <div className={styled.oven__metric}>
-          <p className={`${styled.oven__title} ${styled['oven__title--s--m']}`}>
-            LOAN:
-          </p>
-          <p className={`${styled.oven__value} ${styled['oven__value--s--l']}`}>
-            {loan} kUSD
-          </p>
-        </div>
-        <div className={styled.oven__metric}>
-          <p className={`${styled.oven__title} ${styled['oven__title--s--m']}`}>
-            STABILITY FEES:
-          </p>
-          <p
-            className={`${styled.oven__value} ${styled['oven__value--s--l']}`}
-            data-title={stabilityFeesFull}
-          >
-            {stabilityFees} kUSD
-          </p>
-        </div>
-        {ovenData.ovenClient && <OvenNav ovenClient={ovenData.ovenClient} />}
+        <Metric title="Collateral value:" value={collateralValue} unit="USD" />
+        <Metric title="Balance:" value={balance} unit=" ꜩ" />
+
+        <Metric title="Loan:" value={loan} unit=" kUSD" />
+
+        <Metric
+          title="Stability fees:"
+          value={stabilityFees}
+          unit=" kUSD"
+          dataTitle={stabilityFeesFull}
+        />
       </div>
+      {ovenData.ovenClient && <OvenNav ovenClient={ovenData.ovenClient} />}
     </div>
   );
 };

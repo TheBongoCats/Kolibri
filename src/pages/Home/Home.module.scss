@@ -1,8 +1,5 @@
 @import './src/styles/extends';
-
-$blue: #307ff4;
-$light-blue: #579bff;
-$red: #ff5050;
+@import './src/styles/variables';
 
 .home {
   color: white;
@@ -11,7 +8,7 @@ $red: #ff5050;
   align-items: center;
   gap: 50px;
 
-  &__upper {
+  &__head {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -26,20 +23,18 @@ $red: #ff5050;
     flex-direction: column;
   }
 
+  &__subtitle {
+    line-height: 1;
+    font-size: 48px;
+    letter-spacing: 0.065em;
+    margin-bottom: 20px;
+  }
+
   &__title {
     line-height: 1;
-    &--s {
-      &--s {
-        font-size: 48px;
-        letter-spacing: 0.065em;
-        margin-bottom: 20px;
-      }
-      &--l {
-        font-size: 70px;
-        font-weight: 800;
-        letter-spacing: 0.09em;
-      }
-    }
+    font-size: 70px;
+    font-weight: 800;
+    letter-spacing: 0.09em;
   }
 
   &__buttons {
@@ -47,7 +42,7 @@ $red: #ff5050;
     justify-content: space-between;
   }
 
-  &__central {
+  &__container {
     max-width: 770px;
     width: 100%;
     padding: 50px 75px;
@@ -64,22 +59,11 @@ $red: #ff5050;
     justify-content: space-between;
   }
 
-  &__peg {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  &__percents {
-    align-self: flex-end;
-  }
-
-  &__br {
+  &__line {
     position: relative;
     width: 100%;
     height: 2px;
-    background-color: $light-blue;
+    background-color: $text-blue;
   }
 
   &__more {
@@ -91,95 +75,17 @@ $red: #ff5050;
     border-radius: 20px;
     outline: none;
     color: white;
-    padding: 10px 20px;
-    background-color: $light-blue;
+    padding: 5px 20px;
+    background-color: $text-blue;
     font-size: 18px;
   }
 
   &__ovens {
     @extend %ovens-template;
   }
-}
 
-.metric {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-
-  &__title {
-    text-transform: uppercase;
-  }
-
-  &__value {
-    font-size: 48px;
+  &__connect {
+    font-size: 36px;
     font-weight: 800;
-
-    &--b {
-      color: $blue;
-    }
-  }
-}
-
-.progress-bar {
-  width: 100%;
-  height: 20px;
-  border: 1px solid $blue;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-
-  &__less {
-    width: 50%;
-    height: 100%;
-    border-right: 1px solid $blue;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  &__more {
-    width: 50%;
-    height: 100%;
-    border-left: 1px solid $blue;
-  }
-
-  &__positive {
-    background-color: $red;
-    height: 100%;
-  }
-
-  &__negative {
-    background-color: green;
-    height: 100%;
-  }
-}
-
-.oracle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-
-  &__price {
-    color: $blue;
-    font-weight: 800;
-  }
-
-  &__updated {
-    text-transform: uppercase;
-  }
-
-  &__time {
-    font-weight: 600;
-
-    &--s {
-      &--error {
-        color: $red;
-      }
-
-      &--ok {
-        color: $blue;
-      }
-    }
   }
 }

@@ -52,7 +52,7 @@ body {
   &:hover:after {
     opacity: 1;
     transition: all 0.1s ease 0.3s;
-    visibility: visible;
+    display: block;
   }
 
   &:after {
@@ -61,12 +61,13 @@ body {
     color: white;
     font-size: 12px;
     position: absolute;
-    padding: 2px 5px 5px;
+    padding: 2px 5px;
     bottom: -1.6em;
     left: 100%;
     white-space: nowrap;
     box-shadow: 1px 1px 3px #222222;
+    border-radius: 10px;
     z-index: 99999;
-    visibility: hidden;
+    display: none;
   }
 }
