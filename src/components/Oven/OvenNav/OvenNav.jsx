@@ -1,8 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 
 import propTypes from 'prop-types';
-import BigNumber from 'bignumber.js';
-import CONSTANTS from '../../../utils/constants';
 import Button from '../../Button';
 
 import styled from './OvenNav.module.scss';
@@ -24,48 +22,25 @@ const OvenNav = ({ ovenClient }) => {
     ovenClient.repay(amount);
   };
 
+  const NAV_CONFIG = [
+    { text: 'Withdraw ꜩ', callback: handleWithdraw },
+    { text: 'Deposit ꜩ', callback: handleDeposit },
+    { text: 'Borrow kUSD', callback: handleBorrow },
+    { text: 'Repay kUSD', callback: handleRepay },
+  ];
+
   return (
     <ul className={styled['oven-nav']}>
-      <li>
-        <Button
-          callback={() =>
-            handleWithdraw(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
-          }
-          text="Withdraw ꜩ"
-          isRounded
-          isTransparent
-        />
-      </li>
-      <li>
-        <Button
-          callback={() =>
-            handleDeposit(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
-          }
-          text="Deposit ꜩ"
-          isRounded
-          isTransparent
-        />
-      </li>
-      <li>
-        <Button
-          callback={() =>
-            handleBorrow(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
-          }
-          text="Borrow kUSD"
-          isRounded
-          isTransparent
-        />
-      </li>
-      <li>
-        <Button
-          callback={() =>
-            handleRepay(new BigNumber(5 * CONSTANTS.MUTEZ_IN_TEZOS))
-          }
-          text="Repay kUSD"
-          isRounded
-          isTransparent
-        />
-      </li>
+      {NAV_CONFIG.map((button) => (
+        <li key={button.text}>
+          <Button
+            callback={button.callback}
+            text={button.text}
+            isRounded
+            isTransparent
+          />
+        </li>
+      ))}
     </ul>
   );
 };
