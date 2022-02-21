@@ -1,7 +1,60 @@
+$burger-item-pos: -6px;
+
+%burger-item {
+  left: 0;
+  position: absolute;
+  content: '';
+  display: block;
+  width: 22px;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.2s;
+}
+
 .header {
   padding: 40px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+
+  @media only screen and (max-width: 589px) {
+    padding: 10px;
+  }
+
+  &__burger {
+    position: relative;
+    width: 22px;
+    height: 3px;
+    background-color: #fff;
+    display: none;
+    border: none;
+
+    @media only screen and (max-width: 589px) {
+      display: block;
+    }
+
+    &:before {
+      top: $burger-item-pos;
+      @extend %burger-item;
+    }
+
+    &:after {
+      bottom: $burger-item-pos;
+      @extend %burger-item;
+    }
+
+    &--clicked {
+      background-color: transparent;
+
+      &:before {
+        transform: rotate(-45deg) translate(-5px, 5px);
+      }
+
+      &:after {
+        transform: rotate(45deg) translate(-3px, -4px);
+      }
+    }
+  }
 }

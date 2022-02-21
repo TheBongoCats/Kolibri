@@ -1,0 +1,43 @@
+@import '/src/styles/mixins';
+
+$header-height: 59.5px;
+
+.aside {
+  position: absolute;
+  top: $header-height;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  background-color: #00000055;
+  z-index: 100;
+
+  &--opened {
+    width: 100%;
+  }
+
+  &__wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -1000px;
+    transition: left 0.5s ease-in;
+    width: 280px;
+
+    &--opened {
+      left: 0;
+      transition: left 0.5s;
+    }
+  }
+
+  &__copy {
+    padding: {
+      top: 30px;
+      left: 30px;
+    }
+  }
+
+  &__copy {
+    @include typography(300, 12px, 15px);
+    padding: 30px;
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "metricsButton": {
+    "en": "Metrics",
+    "ru": "Метрики"
+  },
+  "learnMoreButton": {
+    "en": "Learn More",
+    "ru": "Узнать больше"
+  },
+  "activeOvensCount": {
+    "en": "Active Ovens",
+    "ru": "Активные печки"
+  },
+  "stabilityFeeCount": {
+    "en": "Stability fee (Yearly)",
+    "ru": "Годовая ставка"
+  },
+  "collateralValueCount": {
+    "en": "Collateral value",
+    "ru": "Стоимость залога"
+  },
+  "moreButton": {
+    "en": "MORE",
+    "ru": "Подробнее"
+  },
+  "connectWalletParagraph": {
+    "en": "Connect Your Wallet To Manage Your Ovens",
+    "ru": "Подключите Ваш кошелек для управления печками"
+  },
+  "connectButton": {
+    "en": "Connect Wallet",
+    "ru": "Подключить кошелек"
+  },
+  "loaderText": {
+    "en": "Looking for your ovens",
+    "ru": "Ищем Ваши печки"
+  }
+}

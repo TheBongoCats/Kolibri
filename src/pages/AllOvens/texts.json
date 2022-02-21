@@ -14,5 +14,10 @@
   "valueSort": {
     "en": "Sort by value",
     "ru": "Сортировать по стоимости"
+  },
+
+  "searchPlaceholder": {
+    "en": "Any Contract or Wallet Address",
+    "ru": "Адрес Контракта или Кошелька"
   }
 }

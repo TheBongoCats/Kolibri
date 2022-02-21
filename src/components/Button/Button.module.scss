@@ -12,6 +12,14 @@
 
   @include typography(400, 16px, 19.5px);
 
+  @media only screen and (max-width: 829px) {
+    font-size: 12px;
+  }
+
+  //@media only screen and (max-width: 734px) {
+  //  font-size: 12px;
+  //}
+
   &:hover {
     transform: scale(1.1);
     transition: all 0.5s;

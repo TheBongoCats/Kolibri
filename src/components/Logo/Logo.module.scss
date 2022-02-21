@@ -8,6 +8,11 @@
     height: 85px;
 
   }
+
+  @media only screen and (max-width: 829px) {
+    width: 65px;
+    height: 35px;
+  }
 }
 
 .logo__link {

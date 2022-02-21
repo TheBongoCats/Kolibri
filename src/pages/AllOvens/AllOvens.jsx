@@ -9,6 +9,7 @@ import {
   hideEmptyButton,
   outstandingTokensSort,
   valueSort,
+  searchPlaceholder,
 } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import OvenList from '../../components/OvenList/OvenList';
@@ -83,29 +84,37 @@ const AllOvens = () => {
 
   return (
     <div className={styles['all-ovens']}>
-      <Button
-        type="button"
-        callback={() => setWithBalance(!withBalance)}
-        text={
-          withBalance ? showEmptyButton[`${lang}`] : hideEmptyButton[`${lang}`]
-        }
-      />
-      <Button
-        type="button"
-        callback={() => setIsSorted(!isSorted)}
-        text={
-          isSorted ? outstandingTokensSort[`${lang}`] : valueSort[`${lang}`]
-        }
-      />
+      <div className={styles['all-ovens__container']}>
+        <Button
+          type="button"
+          callback={() => setWithBalance(!withBalance)}
+          text={
+            withBalance
+              ? showEmptyButton[`${lang}`]
+              : hideEmptyButton[`${lang}`]
+          }
+        />
+        <Button
+          type="button"
+          callback={() => setIsSorted(!isSorted)}
+          text={
+            isSorted ? outstandingTokensSort[`${lang}`] : valueSort[`${lang}`]
+          }
+        />
 
-      <input type="text" onChange={(e) => changeHandler(e)} />
-      <div>
-        {ovensForRender && tezosPrice ? (
-          <OvenList ovens={ovensForRender.sort(compare)} />
-        ) : (
-          <Loader text="Loading..." />
-        )}
+        <input
+          id="search"
+          type="text"
+          onChange={(e) => changeHandler(e)}
+          placeholder={searchPlaceholder[`${lang}`]}
+          className={styles['all-ovens__input']}
+        />
       </div>
+      {ovensForRender && tezosPrice ? (
+        <OvenList ovens={ovensForRender.sort(compare)} />
+      ) : (
+        <Loader text="Loading..." />
+      )}
     </div>
   );
 };

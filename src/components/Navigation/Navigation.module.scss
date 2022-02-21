@@ -1,4 +1,7 @@
-@import './src/styles/mixins';
+@import "/src/styles/variables";
+@import '/src/styles/mixins';
+
+$border-radius: 20px;
 
 .navigation {
   &__list {
@@ -27,5 +30,36 @@
       box-shadow: 0 0 1px 1px #33167b;
       transition: all 0.5s;
     }
+
+    @media only screen and (max-width: 829px) {
+      font-size: 12px;
+    }
+  }
+}
+
+
+//asideNAV
+
+.aside-nav {
+  @include typography(400, 14px, 17px);
+  padding: 40px 30px;
+  color: #fff;
+  background-color: $button-blue;
+  height: 100%;
+  border: {
+    top-right-radius: $border-radius;
+    bottom-right-radius: $border-radius;
+  }
+
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 24px;
   }
 }
