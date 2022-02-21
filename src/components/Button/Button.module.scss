@@ -26,11 +26,11 @@
 
   &--transparent {
     background-color: transparent;
-    border: 1px solid $text-blue;
+    border: 1px solid $button-blue;
     transition: all 0.5s;
 
     &:hover {
-      background-color: $text-blue;
+      background-color: $button-blue;
       transition: all 0.5s;
     }
   }

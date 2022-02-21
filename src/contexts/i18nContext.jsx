@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 
 // state context
 const I18nStateContext = createContext({});
-I18nStateContext.displayName = 'Kolibri state context';
+I18nStateContext.displayName = 'i18n state context';
 
 const useI18nStateContext = () => {
   const context = useContext(I18nStateContext);
