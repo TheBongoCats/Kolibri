@@ -4,13 +4,31 @@ import {
   useOvenModalStateContext,
   useOvenModalDispatchContext,
 } from '../../../contexts/modalContext';
-import { mutateOvenData } from '../../../utils';
+import { mutateOvenData, mutateBigNumber } from '../../../utils';
 import Button from '../../Button';
 import CircularProgress from '../CircularProgress';
-import ModalBorrow from './ModalBorrow';
-import ModalRepay from './ModalRepay';
+import ModalInfo from './ModalInfo';
 
 import styled from './Modal.module.scss';
+
+const MODAL_NAV_CONFIG = {
+  borrow: {
+    section: 'Borrow kUSD',
+    unit: 'kUSD',
+  },
+  repay: {
+    section: 'Repay kUSD',
+    unit: 'kUSD',
+  },
+  withdraw: {
+    section: 'Withdraw ꜩ',
+    unit: 'ꜩ',
+  },
+  deposit: {
+    section: 'Deposit ꜩ',
+    unit: 'ꜩ',
+  },
+};
 
 const Modal = () => {
   const { modalId, ovenData } = useOvenModalStateContext();
@@ -63,40 +81,45 @@ const Modal = () => {
           ).toFixed(2),
         );
         break;
+      case 'withdraw':
+        setNewCollateralRatio(
+          (
+            (mutatedData.loan /
+              mutateBigNumber(
+                (mutatedData.balance - amount) * tezosPrice.price,
+              )) *
+            200
+          ).toFixed(2),
+        );
+        break;
+      case 'deposit':
+        setNewCollateralRatio(
+          +mutatedData.loan
+            ? (
+                (mutatedData.loan /
+                  mutateBigNumber(
+                    (+mutatedData.balance + +amount) * tezosPrice.price,
+                  )) *
+                200
+              ).toFixed(2)
+            : '0.00',
+        );
+        break;
       default:
     }
   }, [amount]);
-
-  const MODAL_CONFIG = {
-    borrow: {
-      section: 'Borrow kUSD',
-      unit: 'kUSD',
-    },
-    repay: {
-      section: 'Repay kUSD',
-      unit: 'kUSD',
-    },
-    withdraw: {
-      section: 'Withdraw ꜩ',
-      unit: 'ꜩ',
-    },
-    deposit: {
-      section: 'Deposit ꜩ',
-      unit: 'ꜩ',
-    },
-  };
 
   return (
     modalId && (
       <div className={styled.background} onClick={handleCloseModal} role="none">
         <div className={styled.modal}>
           <nav className={styled.modal__nav}>
-            {Object.keys(MODAL_CONFIG).map((id) => {
+            {Object.keys(MODAL_NAV_CONFIG).map((id) => {
               return modalId === id ? (
                 <div
                   className={`${styled.modal__section} ${styled['modal__section--active']}`}
                 >
-                  {MODAL_CONFIG[id].section}
+                  {MODAL_NAV_CONFIG[id].section}
                 </div>
               ) : (
                 <div
@@ -104,7 +127,7 @@ const Modal = () => {
                   onClick={() => handleChangeSection(id)}
                   role="none"
                 >
-                  {MODAL_CONFIG[id].section}
+                  {MODAL_NAV_CONFIG[id].section}
                 </div>
               );
             })}
@@ -118,28 +141,20 @@ const Modal = () => {
                   onChange={handleChange}
                   value={amount}
                   className={styled.modal__input}
-                  style={{ width: `${(amount.length + 1) * 13}px` }}
+                  style={{ width: `${(amount.length + 1) * 14}px` }}
                   placeholder="0"
                 />
                 <span className={styled.modal__unit}>
-                  {MODAL_CONFIG[modalId].unit}
+                  {MODAL_NAV_CONFIG[modalId].unit}
                 </span>
               </div>
-              {modalId === 'borrow' ? (
-                <ModalBorrow
-                  styled={styled}
-                  tezosPrice={tezosPrice}
-                  mutatedData={mutatedData}
-                  newCollateralRatio={newCollateralRatio}
-                />
-              ) : (
-                <ModalRepay
-                  styled={styled}
-                  tezosPrice={tezosPrice}
-                  mutatedData={mutatedData}
-                  newCollateralRatio={newCollateralRatio}
-                />
-              )}
+              <ModalInfo
+                styled={styled}
+                tezosPrice={tezosPrice}
+                mutatedData={mutatedData}
+                newCollateralRatio={newCollateralRatio}
+                modalId={modalId}
+              />
             </div>
             <div className={styled.modal__progress}>
               <CircularProgress percents={newCollateralRatio} />

@@ -48,9 +48,9 @@ const Oven = ({ ovenData }) => {
       </div>
       <div className={styled.oven__metrics}>
         <Metric
-          title="Collateral value: "
+          title="Collateral value:"
           value={mutatedData.collateralValue}
-          unit="USD"
+          unit=" USD"
         />
         <Metric title="Balance:" value={mutatedData.balance} unit=" ꜩ" />
         <Metric title="Loan:" value={mutatedData.loan} unit=" kUSD" />
