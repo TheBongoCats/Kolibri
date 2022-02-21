@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import { useMemo } from 'react';
 import CONSTANTS from './constants';
 
 export const mutateBigNumber = (
@@ -7,7 +8,7 @@ export const mutateBigNumber = (
   toFixed = 2,
 ) => (number / denominator).toFixed(toFixed);
 
-export const getTrailColor = (percentage) => {
+export const getPathColor = (percentage) => {
   let color = '#307ff4';
 
   if (percentage >= 100) {
@@ -17,4 +18,33 @@ export const getTrailColor = (percentage) => {
   }
 
   return color;
+};
+
+export const mutateOvenData = (ovenData, tezosPrice) => {
+  const balance = mutateBigNumber(ovenData.balance);
+  const collateralValue = mutateBigNumber(balance * tezosPrice.price);
+  const loan = mutateBigNumber(ovenData.outstandingTokens, 1e18);
+  const stabilityFees = mutateBigNumber(ovenData.stabilityFees, 1e18, 6);
+  const stabilityFeesFull = mutateBigNumber(ovenData.stabilityFees, 1e18, 12);
+  const collateralRatio = +loan
+    ? ((loan / collateralValue) * 200).toFixed(2)
+    : '0.00';
+  const liquidatablePrice = mutateBigNumber(
+    tezosPrice.price * collateralRatio,
+    1e8,
+  );
+
+  return useMemo(
+    () => ({
+      balance,
+      collateralValue,
+      loan,
+      stabilityFees,
+      stabilityFeesFull,
+      collateralRatio,
+      liquidatablePrice,
+      ovenClient: ovenData.ovenClient,
+    }),
+    [tezosPrice],
+  );
 };

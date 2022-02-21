@@ -7,6 +7,7 @@ import {
 import Button from '../../components/Button';
 import Loader from '../../components/Loader';
 import Metric from '../../components/Oven/Metric';
+import Modal from '../../components/Oven/Modal';
 
 import styled from './Home.module.scss';
 import kolibri from '../../images/kolibri.svg';
@@ -25,6 +26,7 @@ import Peg from '../../components/Home/Peg';
 import Oracle from '../../components/Home/Oracle/Oracle';
 import OvenList from '../../components/OvenList/OvenList';
 import { useI18nStateContext } from '../../contexts/i18nContext';
+import { useOvenModalStateContext } from '../../contexts/modalContext';
 
 const Home = () => {
   const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
@@ -32,6 +34,8 @@ const Home = () => {
   const { connectWallet } = useBeaconDispatchContext();
   const { isLogin } = useBeaconStateContext();
   const { lang } = useI18nStateContext();
+  const { modalId } = useOvenModalStateContext();
+
 
   return (
     <div className={styled.home}>
@@ -54,7 +58,6 @@ const Home = () => {
               isRounded
             />
           </div>
-        </div>
       </div>
       <div className={styled.home__container}>
         <div className={styled.home__metrics}>
@@ -104,7 +107,8 @@ const Home = () => {
             <Loader text={loaderText[`${lang}`]} />
           ))}
       </div>
-    </div>
+      {modalId && <Modal />}
+    </>
   );
 };
 

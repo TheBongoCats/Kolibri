@@ -105,7 +105,7 @@ const KolibriProvider = ({ children }) => {
 
     if (response) {
       setAllOvens(response.data.allOvenData);
-      return response.data.allOvenData;
+      return;
     }
     // backup
     const ovens = await stableCoinClient.getAllOvens();
@@ -162,7 +162,7 @@ const KolibriProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getAllMyOvens();
+    return beaconWalletData && getAllMyOvens();
   }, [beaconWalletData]);
 
   useEffect(() => {

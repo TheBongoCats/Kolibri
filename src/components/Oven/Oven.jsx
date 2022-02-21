@@ -1,32 +1,18 @@
 /* eslint-disable react/forbid-prop-types */
 import propTypes from 'prop-types';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
-import { mutateBigNumber, getTrailColor } from '../../utils';
+import { mutateOvenData } from '../../utils';
 
 import OvenNav from './OvenNav/OvenNav';
 import Metric from './Metric/Metric';
 
 import styled from './Oven.module.scss';
+import CircularProgress from './CircularProgress';
 
 const Oven = ({ ovenData }) => {
   const { tezosPrice } = useKolibriStateContext();
 
-  const balance = mutateBigNumber(ovenData.balance);
-  const collateralValue = mutateBigNumber(balance * tezosPrice.price);
-  const loan = mutateBigNumber(ovenData.outstandingTokens, 1e18);
-  const stabilityFees = mutateBigNumber(ovenData.stabilityFees, 1e18, 6);
-  const stabilityFeesFull = mutateBigNumber(ovenData.stabilityFees, 1e18, 12);
-  const collateralizationRatio = +loan
-    ? ((loan / collateralValue) * 200).toFixed(2)
-    : '0.00';
-
-  const liquidatablePrice = mutateBigNumber(
-    tezosPrice.price * collateralizationRatio,
-    1e8,
-  );
-
-  const pathColor = getTrailColor(collateralizationRatio);
+  const mutatedData = mutateOvenData(ovenData, tezosPrice);
 
   return (
     <div className={styled.oven}>
@@ -39,11 +25,10 @@ const Oven = ({ ovenData }) => {
             position="left"
             size="s"
           />
-
           {ovenData.ovenClient ? (
             <Metric
               title="Liquidatable when xtz:"
-              value={liquidatablePrice}
+              value={mutatedData.liquidatablePrice}
               unit="$"
               position="left"
               size="s"
@@ -58,29 +43,25 @@ const Oven = ({ ovenData }) => {
           )}
         </div>
         <div className={styled.oven__progress}>
-          <CircularProgressbar
-            value={collateralizationRatio}
-            text={`${collateralizationRatio}%`}
-            styles={buildStyles({
-              pathColor,
-            })}
-          />
+          <CircularProgress percents={mutatedData.collateralRatio} />
         </div>
       </div>
       <div className={styled.oven__metrics}>
-        <Metric title="Collateral value:" value={collateralValue} unit="USD" />
-        <Metric title="Balance:" value={balance} unit=" ꜩ" />
-
-        <Metric title="Loan:" value={loan} unit=" kUSD" />
-
+        <Metric
+          title="Collateral value: "
+          value={mutatedData.collateralValue}
+          unit="USD"
+        />
+        <Metric title="Balance:" value={mutatedData.balance} unit=" ꜩ" />
+        <Metric title="Loan:" value={mutatedData.loan} unit=" kUSD" />
         <Metric
           title="Stability fees:"
-          value={stabilityFees}
+          value={mutatedData.stabilityFees}
           unit=" kUSD"
-          dataTitle={stabilityFeesFull}
+          dataTitle={mutatedData.stabilityFeesFull}
         />
       </div>
-      {ovenData.ovenClient && <OvenNav ovenClient={ovenData.ovenClient} />}
+      {ovenData.ovenClient && <OvenNav ovenData={ovenData} />}
     </div>
   );
 };

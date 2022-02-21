@@ -2,6 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { I18nProvider } from './contexts/i18nContext';
 import { BeaconProvider } from './contexts/beaconContext';
 import { KolibriProvider } from './contexts/kolibriContext';
+import { OvenModalProvider } from './contexts/modalContext';
 import AppRouter from './route/AppRouter';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -12,11 +13,13 @@ const App = () => {
     <I18nProvider>
       <BeaconProvider>
         <KolibriProvider>
-          <BrowserRouter>
-            <Header />
-            <AppRouter />
-            <Footer />
-          </BrowserRouter>
+          <OvenModalProvider>
+            <BrowserRouter>
+              <Header />
+              <AppRouter />
+              <Footer />
+            </BrowserRouter>
+          </OvenModalProvider>
         </KolibriProvider>
       </BeaconProvider>
     </I18nProvider>
