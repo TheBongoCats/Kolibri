@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import { useMemo } from 'react';
 import CONSTANTS from './constants';
 
 export const mutateBigNumber = (
@@ -34,17 +33,14 @@ export const mutateOvenData = (ovenData, tezosPrice) => {
     1e8,
   );
 
-  return useMemo(
-    () => ({
-      balance,
-      collateralValue,
-      loan,
-      stabilityFees,
-      stabilityFeesFull,
-      collateralRatio,
-      liquidatablePrice,
-      ovenClient: ovenData.ovenClient,
-    }),
-    [tezosPrice],
-  );
+  return {
+    balance,
+    collateralValue,
+    loan,
+    stabilityFees,
+    stabilityFeesFull,
+    collateralRatio,
+    liquidatablePrice,
+    ovenClient: ovenData.ovenClient,
+  };
 };

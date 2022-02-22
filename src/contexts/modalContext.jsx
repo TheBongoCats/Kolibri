@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 import propTypes from 'prop-types';
+import { useKolibriDispatchContext } from './kolibriContext';
 
 // state context
 const OvenModalStateContext = createContext({});
@@ -37,14 +38,40 @@ const useOvenModalDispatchContext = () => {
 const OvenModalProvider = ({ children }) => {
   const [modalId, setModalId] = useState('');
   const [ovenData, setOvenData] = useState({});
+  const [ovenLoadingFunc, setOvenLoadingFunc] = useState();
+  const { getDataFromAddress, setMyOvens } = useKolibriDispatchContext();
 
-  const handleOpenModal = (section, data) => {
+  const handleOpenModal = (section, data, setLoading) => {
     setOvenData(data);
     setModalId(section);
+    setOvenLoadingFunc(() => setLoading);
   };
 
   const handleCloseModal = (e) => {
     return e?.target === e?.currentTarget ? setModalId('') : null;
+  };
+
+  const ovenAction = async (callback) => {
+    try {
+      ovenLoadingFunc(true);
+      await callback();
+      setModalId('');
+
+      setTimeout(async () => {
+        const newData = await getDataFromAddress(ovenData.ovenAddress);
+
+        setMyOvens((prevState) => {
+          return prevState.map((oven) => {
+            return oven.ovenAddress === newData.ovenAddress ? newData : oven;
+          });
+        });
+
+        ovenLoadingFunc(false);
+      }, 10000);
+    } catch {
+      console.log('error');
+      ovenLoadingFunc(false);
+    }
   };
 
   const stateValue = useMemo(
@@ -61,8 +88,9 @@ const OvenModalProvider = ({ children }) => {
       handleCloseModal,
       setModalId,
       setOvenData,
+      ovenAction,
     }),
-    [handleOpenModal, handleCloseModal, setModalId, setOvenData],
+    [handleOpenModal, handleCloseModal, setModalId, setOvenData, ovenAction],
   );
 
   return (
