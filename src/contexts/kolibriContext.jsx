@@ -4,6 +4,7 @@ import {
   HarbingerClient,
   OvenClient,
   CONTRACTS,
+  TokenClient,
 } from '@hover-labs/kolibri-js';
 import propTypes from 'prop-types';
 import { createContext, useContext, useMemo, useState, useEffect } from 'react';
@@ -49,6 +50,7 @@ const KolibriProvider = ({ children }) => {
   const [allOvens, setAllOvens] = useState();
   const [tezosPrice, setTezosPrice] = useState();
   const [myOvens, setMyOvens] = useState([]);
+  const [myTokens, setMyTokens] = useState();
   const [stabilityFeeYear, setStabilityFeeYear] = useState();
   const [collateralRatio, setCollaterlRatio] = useState();
 
@@ -66,6 +68,8 @@ const KolibriProvider = ({ children }) => {
     CONTRACTS.TEST.MINTER,
     CONTRACTS.TEST.OVEN_FACTORY,
   );
+
+  const tokenClient = new TokenClient(CONSTANTS.NODE_URL, CONTRACTS.TEST.TOKEN);
 
   const getDataFromAddress = async (ovenAddress) => {
     const ovenClient = new OvenClient(
@@ -99,6 +103,11 @@ const KolibriProvider = ({ children }) => {
     );
 
     setMyOvens(ovensData);
+  };
+
+  const getKUSDTokens = async () => {
+    const result = await tokenClient.getBalance(beaconAddress);
+    setMyTokens(result);
   };
 
   // eslint-disable-next-line consistent-return
@@ -162,7 +171,10 @@ const KolibriProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    return beaconWalletData && getAllMyOvens();
+    if (beaconWalletData) {
+      getAllMyOvens();
+      getKUSDTokens();
+    }
   }, [beaconWalletData]);
 
   useEffect(() => {
@@ -176,7 +188,7 @@ const KolibriProvider = ({ children }) => {
 
     const intervalId = setInterval(() => {
       getActualPrice();
-    }, 60000);
+    }, 6000);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -187,8 +199,16 @@ const KolibriProvider = ({ children }) => {
       myOvens,
       stabilityFeeYear,
       collateralRatio,
+      myTokens,
     }),
-    [allOvens, tezosPrice, myOvens, stabilityFeeYear, collateralRatio],
+    [
+      allOvens,
+      tezosPrice,
+      myOvens,
+      stabilityFeeYear,
+      collateralRatio,
+      myTokens,
+    ],
   );
 
   const dispatchValue = useMemo(

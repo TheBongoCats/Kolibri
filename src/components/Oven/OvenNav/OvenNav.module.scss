@@ -4,4 +4,10 @@
   gap: 30px;
   flex-wrap: wrap;
   align-items: center;
+
+  &__button {
+    max-width: 200px;
+    width: 100%;
+    text-align: center;
+  }
 }

@@ -16,7 +16,7 @@ const OvenNav = ({ ovenData, setLoading }) => {
   return (
     <ul className={styled['oven-nav']}>
       {NAV_CONFIG.map((button) => (
-        <li key={button.text}>
+        <li key={button.text} className={styled['oven-nav__button']}>
           <Button
             callback={() =>
               handleOpenModal(button.modalId, ovenData, setLoading)
