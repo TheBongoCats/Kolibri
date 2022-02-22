@@ -21,7 +21,7 @@ const Oven = ({ ovenData }) => {
   return (
     <div className={styled.oven}>
       {loading ? (
-        <Loader />
+        <Loader text="Transaction pending..." />
       ) : (
         <>
           <p className={styled.oven__title}>{ovenData.ovenAddress}</p>

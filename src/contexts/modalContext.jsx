@@ -54,20 +54,19 @@ const OvenModalProvider = ({ children }) => {
   const ovenAction = async (callback) => {
     try {
       ovenLoadingFunc(true);
-      await callback();
+      const transaction = await callback();
       setModalId('');
+      await transaction.confirmation();
 
-      setTimeout(async () => {
-        const newData = await getDataFromAddress(ovenData.ovenAddress);
+      const newData = await getDataFromAddress(ovenData.ovenAddress);
 
-        setMyOvens((prevState) => {
-          return prevState.map((oven) => {
-            return oven.ovenAddress === newData.ovenAddress ? newData : oven;
-          });
+      setMyOvens((prevState) => {
+        return prevState.map((oven) => {
+          return oven.ovenAddress === newData.ovenAddress ? newData : oven;
         });
+      });
 
-        ovenLoadingFunc(false);
-      }, 10000);
+      ovenLoadingFunc(false);
     } catch {
       console.log('error');
       ovenLoadingFunc(false);
