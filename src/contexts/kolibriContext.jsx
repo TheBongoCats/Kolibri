@@ -67,30 +67,34 @@ const KolibriProvider = ({ children }) => {
     CONTRACTS.TEST.OVEN_FACTORY,
   );
 
+  const getDataFromAddress = async (ovenAddress) => {
+    const ovenClient = new OvenClient(
+      CONSTANTS.NODE_URL,
+      beaconWalletData,
+      ovenAddress,
+      stableCoinClient,
+      harbingerClient,
+    );
+
+    return {
+      baker: await ovenClient.getBaker(),
+      balance: await ovenClient.getBalance(),
+      borrowedTokens: await ovenClient.getBorrowedTokens(),
+      isLiquidated: await ovenClient.isLiquidated(),
+      outstandingTokens: await ovenClient.getTotalOutstandingTokens(),
+      ovenAddress: await ovenClient.ovenAddress,
+      ovenOwner: await ovenClient.getOwner(),
+      stabilityFees: await ovenClient.getStabilityFees(),
+      ovenClient,
+    };
+  };
+
   const getAllMyOvens = async () => {
     const ovens = await stableCoinClient.ovensOwnedByAddress(beaconAddress);
 
     const ovensData = await Promise.all(
-      ovens.map(async (oven) => {
-        const ovenClient = new OvenClient(
-          CONSTANTS.NODE_URL,
-          beaconWalletData,
-          oven,
-          stableCoinClient,
-          harbingerClient,
-        );
-
-        return {
-          baker: await ovenClient.getBaker(),
-          balance: await ovenClient.getBalance(),
-          borrowedTokens: await ovenClient.getBorrowedTokens(),
-          isLiquidated: await ovenClient.isLiquidated(),
-          outstandingTokens: await ovenClient.getTotalOutstandingTokens(),
-          ovenAddress: await ovenClient.ovenAddress,
-          ovenOwner: await ovenClient.getOwner(),
-          stabilityFees: await ovenClient.getStabilityFees(),
-          ovenClient,
-        };
+      ovens.map(async (ovenAddress) => {
+        return getDataFromAddress(ovenAddress);
       }),
     );
 
@@ -110,20 +114,16 @@ const KolibriProvider = ({ children }) => {
     // backup
     const ovens = await stableCoinClient.getAllOvens();
 
-    const ovenClients = await Promise.all(
-      ovens.map(async (oven) => {
-        return new OvenClient(
+    const ovensData = await Promise.all(
+      ovens.map(async (ovenAddress) => {
+        const ovenClient = new OvenClient(
           CONSTANTS.NODE_URL,
           beaconWalletData,
-          oven.ovenAddress,
+          ovenAddress,
           stableCoinClient,
           harbingerClient,
         );
-      }),
-    );
 
-    const ovensData = await Promise.all(
-      ovenClients.map(async (ovenClient) => {
         return {
           baker: await ovenClient.getBaker(),
           balance: await ovenClient.getBalance(),
@@ -195,8 +195,10 @@ const KolibriProvider = ({ children }) => {
     () => ({
       getOvens,
       deployOven,
+      getDataFromAddress,
+      setMyOvens,
     }),
-    [getOvens, deployOven],
+    [getOvens, deployOven, getDataFromAddress, setMyOvens],
   );
 
   return (

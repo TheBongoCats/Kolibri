@@ -1,13 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useKolibriStateContext } from '../../../contexts/kolibriContext';
 import { mutateBigNumber } from '../../../utils';
 
-const ModalInfo = ({
-  mutatedData,
-  tezosPrice,
-  styled,
-  newCollateralRatio,
-  modalId,
-}) => {
+const ModalInfo = ({ mutatedData, styled, newCollateralRatio, modalId }) => {
+  const { tezosPrice } = useKolibriStateContext();
+
   // eslint-disable-next-line consistent-return
   const renderSwitch = () => {
     switch (modalId) {

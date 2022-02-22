@@ -10,39 +10,22 @@ import CircularProgress from '../CircularProgress';
 import ModalInfo from './ModalInfo';
 
 import styled from './Modal.module.scss';
-
-const MODAL_NAV_CONFIG = {
-  borrow: {
-    section: 'Borrow kUSD',
-    unit: 'kUSD',
-  },
-  repay: {
-    section: 'Repay kUSD',
-    unit: 'kUSD',
-  },
-  withdraw: {
-    section: 'Withdraw ꜩ',
-    unit: 'ꜩ',
-  },
-  deposit: {
-    section: 'Deposit ꜩ',
-    unit: 'ꜩ',
-  },
-};
+import CONSTANTS from '../../../utils/constants';
 
 const Modal = () => {
   const { modalId, ovenData } = useOvenModalStateContext();
-  const { handleCloseModal, setModalId } = useOvenModalDispatchContext();
+  const { handleCloseModal, setModalId, ovenAction } =
+    useOvenModalDispatchContext();
   const { tezosPrice } = useKolibriStateContext();
 
   const [amount, setAmount] = useState('');
   const [newCollateralRatio, setNewCollateralRatio] = useState('');
 
   const closeEscape = (e) => {
-    return e.key === 'Escape' ? handleCloseModal() : null;
+    return e.key === 'Escape' ? setModalId('') : null;
   };
   const handleChange = (e) => {
-    const re = /^[0-9\b]+$/;
+    const re = /[+-]?([0-9]*[.])?[0-9]+/;
     if (e.target.value === '' || re.test(e.target.value)) {
       setAmount(e.target.value);
     }
@@ -52,6 +35,58 @@ const Modal = () => {
     setModalId(id);
   };
 
+  const handleBorrow = () => {
+    if (newCollateralRatio < 100 || newCollateralRatio > 0) {
+      ovenAction(() => ovenData.ovenClient.borrow(amount * 1e18));
+    }
+  };
+
+  const handleRepay = () => {
+    if (newCollateralRatio < 100 || newCollateralRatio > 0) {
+      ovenAction(() => ovenData.ovenClient.repay(amount * 1e18));
+    }
+  };
+
+  const handleWithdraw = () => {
+    if (newCollateralRatio < 100 || newCollateralRatio > 0) {
+      ovenAction(() =>
+        ovenData.ovenClient.withdraw(amount * CONSTANTS.MUTEZ_IN_TEZOS),
+      );
+    }
+  };
+
+  const handleDeposit = () => {
+    if (newCollateralRatio < 100 || newCollateralRatio > 0) {
+      ovenAction(() =>
+        ovenData.ovenClient.deposit(amount * CONSTANTS.MUTEZ_IN_TEZOS),
+      );
+    }
+  };
+
+  const mutatedData = mutateOvenData(ovenData, tezosPrice);
+
+  const MODAL_CONFIG = {
+    borrow: {
+      section: 'Borrow kUSD',
+      unit: 'kUSD',
+      handleClick: handleBorrow,
+    },
+    repay: {
+      section: 'Repay kUSD',
+      unit: 'kUSD',
+      handleClick: handleRepay,
+    },
+    withdraw: {
+      section: 'Withdraw ꜩ',
+      unit: 'ꜩ',
+      handleClick: handleWithdraw,
+    },
+    deposit: {
+      section: 'Deposit ꜩ',
+      unit: 'ꜩ',
+      handleClick: handleDeposit,
+    },
+  };
   useEffect(() => {
     document.addEventListener('keydown', closeEscape);
     document.body.style.overflow = 'hidden';
@@ -60,8 +95,6 @@ const Modal = () => {
       document.body.style.overflow = 'unset';
     };
   }, []);
-
-  const mutatedData = mutateOvenData(ovenData, tezosPrice);
 
   useEffect(() => {
     switch (modalId) {
@@ -114,12 +147,12 @@ const Modal = () => {
       <div className={styled.background} onClick={handleCloseModal} role="none">
         <div className={styled.modal}>
           <nav className={styled.modal__nav}>
-            {Object.keys(MODAL_NAV_CONFIG).map((id) => {
+            {Object.keys(MODAL_CONFIG).map((id) => {
               return modalId === id ? (
                 <div
                   className={`${styled.modal__section} ${styled['modal__section--active']}`}
                 >
-                  {MODAL_NAV_CONFIG[id].section}
+                  {MODAL_CONFIG[id].section}
                 </div>
               ) : (
                 <div
@@ -127,7 +160,7 @@ const Modal = () => {
                   onClick={() => handleChangeSection(id)}
                   role="none"
                 >
-                  {MODAL_NAV_CONFIG[id].section}
+                  {MODAL_CONFIG[id].section}
                 </div>
               );
             })}
@@ -145,7 +178,7 @@ const Modal = () => {
                   placeholder="0"
                 />
                 <span className={styled.modal__unit}>
-                  {MODAL_NAV_CONFIG[modalId].unit}
+                  {MODAL_CONFIG[modalId].unit}
                 </span>
               </div>
               <ModalInfo
@@ -160,7 +193,13 @@ const Modal = () => {
               <CircularProgress percents={newCollateralRatio} />
             </div>
           </div>
-          <Button text="Withdraw" isRounded isTransparent />
+
+          <Button
+            text={MODAL_CONFIG[modalId].section}
+            isRounded
+            isTransparent
+            callback={MODAL_CONFIG[modalId].handleClick}
+          />
         </div>
       </div>
     )
