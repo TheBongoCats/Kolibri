@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useKolibriStateContext } from '../../contexts/kolibriContext';
+import {
+  useKolibriDispatchContext,
+  useKolibriStateContext,
+} from '../../contexts/kolibriContext';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import styles from './AllOvens.module.scss';
@@ -13,9 +16,13 @@ import {
 } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import OvenList from '../../components/OvenList/OvenList';
+import { useBeaconStateContext } from '../../contexts/beaconContext';
+import UserData from '../../components/UserData';
 
 const AllOvens = () => {
   const { allOvens, tezosPrice } = useKolibriStateContext();
+  const { isLogin } = useBeaconStateContext();
+  const { getKusdBalance } = useKolibriDispatchContext();
   const { lang } = useI18nStateContext();
   const [ovens, setOvens] = useState([]);
   const [withBalance, setWithBalance] = useState(true);
@@ -84,6 +91,7 @@ const AllOvens = () => {
 
   return (
     <div className={styles['all-ovens']}>
+      {isLogin && <UserData />}
       <div className={styles['all-ovens__container']}>
         <Button
           type="button"
@@ -108,6 +116,7 @@ const AllOvens = () => {
           onChange={(e) => changeHandler(e)}
           placeholder={searchPlaceholder[`${lang}`]}
           className={styles['all-ovens__input']}
+          onClick={getKusdBalance}
         />
       </div>
       {ovensForRender && tezosPrice ? (

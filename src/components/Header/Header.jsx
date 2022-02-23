@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Logo from '../Logo';
 import Navigation from '../Navigation';
 import styles from './Header.module.scss';
@@ -17,7 +18,11 @@ const Header = () => {
   const { lang } = useI18nStateContext();
 
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
   const handleIsOpen = (e) => {
     if (e.target === e.currentTarget) {
       setIsOpen(!isOpen);
