@@ -53,6 +53,7 @@ const KolibriProvider = ({ children }) => {
   const [myTokens, setMyTokens] = useState();
   const [stabilityFeeYear, setStabilityFeeYear] = useState();
   const [collateralRatio, setCollaterlRatio] = useState();
+  const [loadingOven, setLoadingOven] = useState('');
 
   const { beaconWalletData, beaconAddress } = useBeaconStateContext();
 
@@ -89,6 +90,7 @@ const KolibriProvider = ({ children }) => {
       ovenAddress: await ovenClient.ovenAddress,
       ovenOwner: await ovenClient.getOwner(),
       stabilityFees: await ovenClient.getStabilityFees(),
+      loading: false,
       ovenClient,
     };
   };
@@ -200,6 +202,7 @@ const KolibriProvider = ({ children }) => {
       stabilityFeeYear,
       collateralRatio,
       myTokens,
+      loadingOven,
     }),
     [
       allOvens,
@@ -208,6 +211,7 @@ const KolibriProvider = ({ children }) => {
       stabilityFeeYear,
       collateralRatio,
       myTokens,
+      loadingOven,
     ],
   );
 
@@ -217,8 +221,9 @@ const KolibriProvider = ({ children }) => {
       deployOven,
       getDataFromAddress,
       setMyOvens,
+      setLoadingOven,
     }),
-    [getOvens, deployOven, getDataFromAddress, setMyOvens],
+    [getOvens, deployOven, getDataFromAddress, setMyOvens, setLoadingOven],
   );
 
   return (
