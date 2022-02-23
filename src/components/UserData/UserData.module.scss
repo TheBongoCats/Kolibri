@@ -1,0 +1,76 @@
+@import "/src/styles/variables";
+@import "/src/styles/mixins";
+
+.user-data{
+  position: sticky;
+  z-index: 2;
+  top: 40px;
+  align-self: flex-end;
+  color: #fff;
+  background-color: #0f001db4;
+  padding: 20px 20px 20px 75px;
+  border-radius: 40px;
+  box-shadow: 5px 5px 30px #0f001db4,
+  inset 0 0 30px rgba(255, 255, 255, 0.15);
+
+  &__address {
+    color: $text-blue;
+
+    @include typography(800, 18px, 22px);
+    margin-bottom: 10px;
+  }
+
+  &__network-wrapper {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__network {
+    @include typography(400, 13px, 15px);
+  }
+
+  &__network-type {
+    @include typography(800, 13, 15px)
+  }
+
+  &__wrapper {
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+
+    &--shown {
+      display: flex;
+    }
+  }
+
+  &__token {
+    display: inline-block;
+    //padding: 5px 50px 5px 10px;
+
+    &:first-child {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__currency {
+    border: 1px solid #fff {
+      right: none;
+      bottom-left-radius: 10px;
+      top-left-radius: 10px;
+    };
+
+    padding: 5px 5px 5px 10px;
+  }
+
+  &__amount {
+    width: auto;
+    background-color: $button-blue;
+    display: inline-block;
+    padding: 4px 10px;
+    border: {
+      bottom-right-radius: 10px;
+      top-right-radius: 10px;
+    }
+  }
+}
