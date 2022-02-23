@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { I18nProvider } from './contexts/i18nContext';
 import { BeaconProvider } from './contexts/beaconContext';
 import { KolibriProvider } from './contexts/kolibriContext';
@@ -14,11 +14,11 @@ const App = () => {
       <BeaconProvider>
         <KolibriProvider>
           <OvenModalProvider>
-            <BrowserRouter>
+            <HashRouter>
               <Header />
               <AppRouter />
               <Footer />
-            </BrowserRouter>
+            </HashRouter>
           </OvenModalProvider>
         </KolibriProvider>
       </BeaconProvider>

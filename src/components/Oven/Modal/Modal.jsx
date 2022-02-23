@@ -11,12 +11,14 @@ import ModalInfo from './ModalInfo';
 
 import styled from './Modal.module.scss';
 import CONSTANTS from '../../../utils/constants';
+import { useBeaconStateContext } from '../../../contexts/beaconContext';
 
 const Modal = () => {
   const { modalId, ovenData } = useOvenModalStateContext();
   const { handleCloseModal, setModalId, ovenAction } =
     useOvenModalDispatchContext();
   const { tezosPrice, myTokens } = useKolibriStateContext();
+  const { beaconBalance } = useBeaconStateContext();
 
   const [amount, setAmount] = useState('');
   const [newCollateralRatio, setNewCollateralRatio] = useState('');
@@ -36,19 +38,23 @@ const Modal = () => {
   };
 
   const handleBorrow = () => {
-    if (newCollateralRatio <= 100 || newCollateralRatio >= 0) {
+    if (newCollateralRatio <= 100 && newCollateralRatio >= 0) {
       ovenAction(() => ovenData.ovenClient.borrow(amount * 1e18));
     }
   };
 
   const handleRepay = () => {
-    if (newCollateralRatio <= 100 || newCollateralRatio >= 0) {
+    if (
+      newCollateralRatio <= 100 &&
+      newCollateralRatio >= 0 &&
+      amount <= myTokens
+    ) {
       ovenAction(() => ovenData.ovenClient.repay(amount * 1e18));
     }
   };
 
   const handleWithdraw = () => {
-    if (newCollateralRatio <= 100 || newCollateralRatio >= 0) {
+    if (newCollateralRatio <= 100 && newCollateralRatio >= 0) {
       ovenAction(() =>
         ovenData.ovenClient.withdraw(amount * CONSTANTS.MUTEZ_IN_TEZOS),
       );
@@ -56,7 +62,7 @@ const Modal = () => {
   };
 
   const handleDeposit = () => {
-    if (amount <= myTokens) {
+    if (amount <= beaconBalance) {
       ovenAction(() =>
         ovenData.ovenClient.deposit(amount * CONSTANTS.MUTEZ_IN_TEZOS),
       );

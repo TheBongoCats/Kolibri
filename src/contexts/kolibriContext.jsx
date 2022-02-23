@@ -192,7 +192,7 @@ const KolibriProvider = ({ children }) => {
       getActualPrice();
     }, 6000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [tezosPrice]);
 
   const stateValue = useMemo(
     () => ({

@@ -2,6 +2,7 @@
   "name": "kolibri-js",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://thebongocats.github.io/Kolibri/",
   "dependencies": {
     "@airgap/beacon-sdk": "^2.3.9",
     "@hover-labs/kolibri-js": "^3.2.1",
@@ -14,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
     "bignumber.js": "^9.0.1",
+    "gh-pages": "^3.2.3",
     "node-sass": "^6.0.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
@@ -27,7 +29,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
