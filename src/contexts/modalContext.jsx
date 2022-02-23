@@ -38,13 +38,12 @@ const useOvenModalDispatchContext = () => {
 const OvenModalProvider = ({ children }) => {
   const [modalId, setModalId] = useState('');
   const [ovenData, setOvenData] = useState({});
-  const [ovenLoadingFunc, setOvenLoadingFunc] = useState();
-  const { getDataFromAddress, setMyOvens } = useKolibriDispatchContext();
+  const { getDataFromAddress, setMyOvens, setLoadingOven } =
+    useKolibriDispatchContext();
 
-  const handleOpenModal = (section, data, setLoading) => {
+  const handleOpenModal = (section, data) => {
     setOvenData(data);
     setModalId(section);
-    setOvenLoadingFunc(() => setLoading);
   };
 
   const handleCloseModal = (e) => {
@@ -53,7 +52,7 @@ const OvenModalProvider = ({ children }) => {
 
   const ovenAction = async (callback) => {
     try {
-      ovenLoadingFunc(true);
+      setLoadingOven(ovenData.ovenAddress);
       const transaction = await callback();
       setModalId('');
       await transaction.confirmation();
@@ -66,10 +65,10 @@ const OvenModalProvider = ({ children }) => {
         });
       });
 
-      ovenLoadingFunc(false);
+      setLoadingOven('');
     } catch {
       console.log('error');
-      ovenLoadingFunc(false);
+      setLoadingOven('');
     }
   };
 

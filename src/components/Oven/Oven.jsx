@@ -1,5 +1,4 @@
 /* eslint-disable react/forbid-prop-types */
-import { useState } from 'react';
 import propTypes from 'prop-types';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import { mutateOvenData } from '../../utils';
@@ -12,20 +11,17 @@ import CircularProgress from './CircularProgress';
 import Loader from '../Loader';
 
 const Oven = ({ ovenData }) => {
-  const { tezosPrice } = useKolibriStateContext();
-
-  const [loading, setLoading] = useState(false);
+  const { tezosPrice, loadingOven } = useKolibriStateContext();
 
   const mutatedData = mutateOvenData(ovenData, tezosPrice);
 
   return (
     <div className={styled.oven}>
-      {loading ? (
+      {loadingOven === ovenData.ovenAddress ? (
         <Loader text="Transaction pending..." />
       ) : (
         <>
           <p className={styled.oven__title}>{ovenData.ovenAddress}</p>
-
           <div className={styled.oven__flexbox}>
             <div className={styled.oven__info}>
               <Metric
@@ -70,9 +66,7 @@ const Oven = ({ ovenData }) => {
               dataTitle={mutatedData.stabilityFeesFull}
             />
           </div>
-          {ovenData.ovenClient && (
-            <OvenNav ovenData={ovenData} setLoading={setLoading} />
-          )}
+          {ovenData.ovenClient && <OvenNav ovenData={ovenData} />}
         </>
       )}
     </div>

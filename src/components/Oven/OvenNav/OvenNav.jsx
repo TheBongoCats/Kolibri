@@ -10,7 +10,7 @@ const NAV_CONFIG = [
   { text: 'Repay kUSD', modalId: 'repay' },
 ];
 
-const OvenNav = ({ ovenData, setLoading }) => {
+const OvenNav = ({ ovenData }) => {
   const { handleOpenModal } = useOvenModalDispatchContext();
 
   return (
@@ -18,9 +18,7 @@ const OvenNav = ({ ovenData, setLoading }) => {
       {NAV_CONFIG.map((button) => (
         <li key={button.text} className={styled['oven-nav__button']}>
           <Button
-            callback={() =>
-              handleOpenModal(button.modalId, ovenData, setLoading)
-            }
+            callback={() => handleOpenModal(button.modalId, ovenData)}
             text={button.text}
             isRounded
             isTransparent
@@ -48,5 +46,4 @@ OvenNav.propTypes = {
     stabilityFees: propTypes.oneOfType([propTypes.object, propTypes.string]),
     ovenClient: () => null,
   }).isRequired,
-  setLoading: propTypes.func.isRequired,
 };
