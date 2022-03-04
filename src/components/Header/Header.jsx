@@ -12,32 +12,35 @@ import { walletConnect, walletDisconnect } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import Aside from '../Aside';
 
-const notifyMe = () => {
-  // eslint-disable-next-line no-unused-vars
-  const notification = new Notification('Notification', {
-    tag: 'ache-mail',
-    body: 'Body of notification',
-    icon: Logo,
-  });
-};
-
-const notifSet = () => {
-  console.log('notif');
-  if (!('Notification' in window)) {
-    alert('asd');
-  } else if (Notification.permission === 'granted') {
-    setTimeout(notifyMe, 2000);
-  } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission((permission) => {
-      if (!('permission' in Notification)) {
-        Notification.permission = permission;
-      }
-      if (permission === 'granted') {
-        setTimeout(notifyMe, 2000);
-      }
-    });
-  }
-};
+// const notifyMe = () => {
+//   // eslint-disable-next-line no-unused-vars
+//   const notification = new Notification('Notification', {
+//     tag: 'ache-mail',
+//     body: 'Body of notification',
+//     icon: Logo,
+//   });
+//
+//   if (notification) {
+//     console.log(123);
+//   }
+// };
+//
+// const notifSet = () => {
+//   if (!('Notification' in window)) {
+//     alert('asd');
+//   } else if (Notification.permission === 'granted') {
+//     setTimeout(notifyMe, 10000);
+//   } else if (Notification.permission !== 'denied') {
+//     Notification.requestPermission((permission) => {
+//       if (!('permission' in Notification)) {
+//         Notification.permission = permission;
+//       }
+//       if (permission === 'granted') {
+//         setTimeout(notifyMe, 10000);
+//       }
+//     });
+//   }
+// };
 
 const Header = () => {
   const { connectWallet, disconnectWallet } = useBeaconDispatchContext();
@@ -71,7 +74,7 @@ const Header = () => {
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-    <header className={styles.header} onClick={notifSet}>
+    <header className={styles.header}>
       <Logo />
       {width >= 595 ? (
         <Navigation />

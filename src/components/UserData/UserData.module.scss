@@ -1,7 +1,14 @@
 @import "/src/styles/variables";
 @import "/src/styles/mixins";
 
+$currency-radius: 10px;
+$bottom-margin: 10px;
+
+
 .user-data{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   position: sticky;
   z-index: 2;
   top: 40px;
@@ -13,17 +20,42 @@
   box-shadow: 5px 5px 30px #0f001db4,
   inset 0 0 30px rgba(255, 255, 255, 0.15);
 
+  &__button {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    margin-bottom: $bottom-margin;
+    cursor: pointer;
+
+    &:before {
+      position: absolute;
+      content: '';
+      top: calc(50% - 1.5px);
+      left: calc(50% - 10px);
+      width: 20px;
+      height: 3px;
+      background-color: #fff;
+    }
+
+    &--closed {
+      margin-bottom: 0;
+    }
+  }
+
   &__address {
     color: $text-blue;
 
     @include typography(800, 18px, 22px);
-    margin-bottom: 10px;
+    margin-bottom: $bottom-margin;
+
+    @media only screen and (max-width: 589px) {
+      font-size: 15px;
+    }
   }
 
   &__network-wrapper {
     margin-bottom: 20px;
     display: flex;
-    justify-content: flex-end;
   }
 
   &__network {
@@ -31,7 +63,7 @@
   }
 
   &__network-type {
-    @include typography(800, 13, 15px)
+    @include typography(800, 13px, 15px);
   }
 
   &__wrapper {
@@ -46,31 +78,37 @@
 
   &__token {
     display: inline-block;
-    //padding: 5px 50px 5px 10px;
 
     &:first-child {
-      margin-bottom: 10px;
+      margin-bottom: $bottom-margin;
     }
   }
 
   &__currency {
     border: 1px solid #fff {
       right: none;
-      bottom-left-radius: 10px;
-      top-left-radius: 10px;
+      bottom-left-radius: $currency-radius;
+      top-left-radius: $currency-radius;
     };
 
     padding: 5px 5px 5px 10px;
+
+    @media only screen and (max-width: 589px) {
+      font-size: 12px;
+    }
   }
 
   &__amount {
-    width: auto;
     background-color: $button-blue;
     display: inline-block;
     padding: 4px 10px;
     border: {
-      bottom-right-radius: 10px;
-      top-right-radius: 10px;
+      bottom-right-radius: $currency-radius;
+      top-right-radius: $currency-radius;
+    }
+
+    @media only screen and (max-width: 589px) {
+      font-size: 12px;
     }
   }
 }

@@ -4,10 +4,15 @@
   padding: 20px 0;
   gap: 20px;
 
-  &__contacts {
-    display: flex;
+  @media only screen and (max-width: 589px) {
     flex-direction: column;
-    justify-content: flex-end;
-    gap: 16px;
+    align-items: center;
   }
+
+    &__contacts {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 16px;
+    }
 }

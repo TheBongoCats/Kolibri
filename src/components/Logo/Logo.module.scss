@@ -1,12 +1,15 @@
-.logo {
+%logo-basic {
   display: inline-block;
   width: 115px;
+}
+
+.logo {
+  @extend %logo-basic;
   height: 55px;
 
   &--sub-logo {
-    width: 126px;
-    height: 85px;
-
+    @extend %logo-basic;
+    height: 80px;
   }
 
   @media only screen and (max-width: 829px) {

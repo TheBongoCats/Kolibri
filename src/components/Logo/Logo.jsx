@@ -7,9 +7,7 @@ import styles from './Logo.module.scss';
 const Logo = ({ isSubLogo }) => (
   <Link to="/" className={styles.logo__link}>
     <img
-      className={`${styles.logo} ${
-        isSubLogo ? `${styles['logo--sub-logo']}` : ''
-      }`}
+      className={`${isSubLogo ? `${styles['logo--sub-logo']}` : styles.logo}`}
       src={isSubLogo ? subLogo : logo}
       alt="Kolibri main page"
     />
