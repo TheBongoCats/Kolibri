@@ -13,10 +13,16 @@ const UserData = () => {
   }
   return (
     <div className={styles['user-data']}>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */}
-      <div role="button" onClick={() => setIsShown(!isShown)}>
-        {isShown ? 'Hide' : 'Show'}
-      </div>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus,jsx-a11y/control-has-associated-label */}
+      <div
+        role="button"
+        onClick={() => setIsShown(!isShown)}
+        className={
+          isShown
+            ? styles['user-data__button']
+            : `${styles['user-data__button']} ${styles['user-data__button--closed']}`
+        }
+      />
       <div
         className={
           isShown

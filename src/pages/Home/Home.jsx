@@ -27,6 +27,7 @@ import Oracle from '../../components/Home/Oracle/Oracle';
 import OvenList from '../../components/OvenList/OvenList';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import { useOvenModalStateContext } from '../../contexts/modalContext';
+import UserData from '../../components/UserData';
 
 const Home = () => {
   const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
@@ -39,6 +40,7 @@ const Home = () => {
   return (
     <>
       <div className={styled.home}>
+        {isLogin && <UserData />}
         <div className={styled.home__head}>
           <img src={kolibri} alt={kolibri} className={styled.home__kolibri} />
           <div className={styled.home__info}>

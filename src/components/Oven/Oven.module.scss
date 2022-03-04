@@ -1,3 +1,5 @@
+@import "/src/styles/mixins";
+
 $blue: #307ff4;
 
 .oven {
@@ -10,7 +12,7 @@ $blue: #307ff4;
   gap: 20px;
   color: white;
   box-shadow: 5px 5px 30px #0f001db4,
-    inset 0px 0px 30px rgba(255, 255, 255, 0.15);
+    inset 0 0 30px rgba(255, 255, 255, 0.15);
   background: linear-gradient(135deg, #974af9, #14104b);
   border-radius: 40px;
 
@@ -30,6 +32,13 @@ $blue: #307ff4;
   &__title {
     font-size: 18px;
     font-weight: 800;
+    word-wrap: break-word;
+
+
+    @media only screen and (max-width: 589px) {
+      max-width: 130px;
+      @include typography(800, 10px);
+    }
   }
 
   &__metrics {
@@ -38,10 +47,18 @@ $blue: #307ff4;
     gap: 30px;
     flex-wrap: wrap;
     align-items: center;
+
+    @media only screen and (max-width: 589px) {
+      justify-content: center;
+    }
   }
 
   &__progress {
     width: 160px;
     padding: 20px;
+
+    @media only screen and (max-width: 589px) {
+      width: 120px;
+    }
   }
 }
