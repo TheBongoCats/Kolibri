@@ -26,8 +26,7 @@
   }
 
   &--big {
-    width: 265px;
-    height: 80px;
+    padding: 20px 50px;
 
     @include typography(400, 24px, 29px);
   }

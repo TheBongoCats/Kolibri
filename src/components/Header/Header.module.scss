@@ -12,12 +12,11 @@ $burger-item-pos: -6px;
 }
 
 .header {
-  padding: 40px;
+  padding: 40px 0;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 
   @media only screen and (max-width: 589px) {
     padding: 10px;
