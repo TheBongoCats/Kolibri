@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './Navigation.module.scss';
-import { homeNav, allOvensNav } from './texts.json';
+import { homeNav, allOvensNav, docsNav } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import I18n from '../I18n';
 import { useThemeState } from '../../contexts/themeContext';
@@ -17,6 +17,7 @@ const Navigation = ({ isAside }) => {
   const NAVIGATION_CONFIG = [
     { path: '/', text: homeNav[`${lang}`] },
     { path: '/all-ovens', text: allOvensNav[`${lang}`] },
+    { path: '/docs', text: docsNav[`${lang}`] },
   ];
 
   if (isAside) {

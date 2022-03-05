@@ -2,10 +2,12 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import AllOvens from '../pages/AllOvens';
 import Error404 from '../pages/Error404/Error404';
 import Home from '../pages/Home';
+import Docs from '../pages/Docs';
 
 const ROUTE_CONFIG = [
   { path: '/', component: <Home /> },
   { path: '/all-ovens', component: <AllOvens /> },
+  { path: '/docs', component: <Docs /> },
   { path: '/404', component: <Error404 /> },
   { path: '*', component: <Navigate to="/404" /> },
 ];

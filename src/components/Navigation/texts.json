@@ -6,5 +6,10 @@
   "allOvensNav": {
     "en": "All Ovens",
     "ru": "Все печки"
+  },
+
+  "docsNav": {
+    "en": "Docs",
+    "ru": "Документация"
   }
 }
