@@ -1,32 +1,30 @@
-@import "/src/styles/variables";
+@import '/src/styles/variables';
 @import '/src/styles/mixins';
 
 $border-radius: 20px;
 
 .navigation {
+  @include useTheme('color', 'nav-color');
+
   &__list {
-    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 5px;
   }
 
   &__item {
     @include typography(400, 24px, 29px);
 
     display: flex;
-    align-items: center;
     border: 1px solid transparent;
     transition: all 0.5s;
     border-radius: 10px;
+    cursor: pointer;
 
-    padding: {
-      left: 12px;
-      right: 12px;
-    }
+    padding: 0 5px;
 
     &:hover {
-      border: 1px solid #382267;
       box-shadow: 0 0 1px 1px #33167b;
       transition: all 0.5s;
     }
@@ -37,20 +35,17 @@ $border-radius: 20px;
   }
 }
 
-
 //asideNAV
 
 .aside-nav {
   @include typography(400, 14px, 17px);
   padding: 40px 30px;
-  color: #fff;
-  background-color: $button-blue;
+  background-color: $blue;
   height: 100%;
   border: {
     top-right-radius: $border-radius;
     bottom-right-radius: $border-radius;
   }
-
 
   &__list {
     display: flex;

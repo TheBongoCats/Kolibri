@@ -38,6 +38,8 @@ const useOvenModalDispatchContext = () => {
 const OvenModalProvider = ({ children }) => {
   const [modalId, setModalId] = useState('');
   const [ovenData, setOvenData] = useState({});
+  const [amount, setAmount] = useState('');
+  const [disabled, setDisabled] = useState(false);
   const { getDataFromAddress, setMyOvens, setLoadingOven } =
     useKolibriDispatchContext();
 
@@ -47,11 +49,28 @@ const OvenModalProvider = ({ children }) => {
   };
 
   const handleCloseModal = (e) => {
-    return e?.target === e?.currentTarget ? setModalId('') : null;
+    return e.target === e.currentTarget ? setModalId('') : null;
+  };
+
+  const handleChangeAmount = (e) => {
+    const re = /[+-]?([0-9]*[.])?[0-9]+/;
+    if (e.target.value === '' || re.test(e.target.value)) {
+      setAmount(e.target.value);
+    }
+  };
+
+  const handleChangeSection = (id) => {
+    setAmount('');
+    setModalId(id);
+  };
+
+  const closeEscape = (e) => {
+    return e.key === 'Escape' ? setModalId('') : null;
   };
 
   const ovenAction = async (callback) => {
     try {
+      setDisabled(true);
       setLoadingOven(ovenData.ovenAddress);
       const transaction = await callback();
       setModalId('');
@@ -68,6 +87,7 @@ const OvenModalProvider = ({ children }) => {
       setLoadingOven('');
     } catch {
       console.log('error');
+      setDisabled(false);
       setLoadingOven('');
     }
   };
@@ -76,19 +96,29 @@ const OvenModalProvider = ({ children }) => {
     () => ({
       modalId,
       ovenData,
+      disabled,
+      amount,
     }),
-    [modalId, ovenData],
+    [modalId, ovenData, disabled, amount],
   );
 
   const dispatchValue = useMemo(
     () => ({
       handleOpenModal,
       handleCloseModal,
-      setModalId,
-      setOvenData,
       ovenAction,
+      handleChangeAmount,
+      handleChangeSection,
+      closeEscape,
     }),
-    [handleOpenModal, handleCloseModal, setModalId, setOvenData, ovenAction],
+    [
+      handleOpenModal,
+      handleCloseModal,
+      ovenAction,
+      handleChangeAmount,
+      handleChangeSection,
+      closeEscape,
+    ],
   );
 
   return (

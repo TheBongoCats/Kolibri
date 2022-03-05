@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 $burger-item-pos: -6px;
 
 %burger-item {
@@ -7,7 +9,7 @@ $burger-item-pos: -6px;
   display: block;
   width: 22px;
   height: 3px;
-  background-color: #fff;
+  background-color: $white;
   transition: all 0.2s;
 }
 
@@ -26,7 +28,7 @@ $burger-item-pos: -6px;
     position: relative;
     width: 22px;
     height: 3px;
-    background-color: #fff;
+    background-color: $white;
     display: none;
     border: none;
 

@@ -1,7 +1,10 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
 .i18n {
   background-color: transparent;
-  color: white;
   border: none;
   outline: none;
   cursor: pointer;
+  @include useTheme('color', 'i18n-color');
 }

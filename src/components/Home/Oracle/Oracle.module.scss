@@ -1,4 +1,5 @@
 @import '../../../styles/variables';
+@import '../../../styles/mixins';
 
 .oracle {
   display: flex;
@@ -11,7 +12,7 @@
   }
 
   &__price {
-    color: $text-blue;
+    @include useTheme('color', 'metric-color');
     font-weight: 800;
   }
 
@@ -28,7 +29,7 @@
       }
 
       &--ok {
-        color: $text-blue;
+        @include useTheme('color', 'metric-color');
       }
     }
   }

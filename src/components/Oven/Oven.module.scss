@@ -1,6 +1,5 @@
-@import "/src/styles/mixins";
-
-$blue: #307ff4;
+@import '/src/styles/mixins';
+@import '/src/styles/variables';
 
 .oven {
   max-width: 530px;
@@ -10,10 +9,9 @@ $blue: #307ff4;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  color: white;
-  box-shadow: 5px 5px 30px #0f001db4,
-    inset 0 0 30px rgba(255, 255, 255, 0.15);
-  background: linear-gradient(135deg, #974af9, #14104b);
+  box-shadow: 5px 5px 30px #0f001d74,
+    inset 0px 0px 30px rgba(255, 255, 255, 0.15);
+  @include useTheme('background', 'oven-background');
   border-radius: 40px;
 
   &__flexbox {
@@ -33,7 +31,6 @@ $blue: #307ff4;
     font-size: 18px;
     font-weight: 800;
     word-wrap: break-word;
-
 
     @media only screen and (max-width: 589px) {
       max-width: 130px;

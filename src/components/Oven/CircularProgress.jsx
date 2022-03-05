@@ -1,9 +1,11 @@
 import propTypes from 'prop-types';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { useThemeState } from '../../contexts/themeContext';
 import { getPathColor } from '../../utils';
 
 const CircularProgress = ({ percents }) => {
-  const pathColor = getPathColor(percents);
+  const { theme } = useThemeState();
+  const pathColor = getPathColor(percents, theme);
 
   return (
     <CircularProgressbar
@@ -11,6 +13,7 @@ const CircularProgress = ({ percents }) => {
       text={`${percents}%`}
       styles={buildStyles({
         pathColor,
+        textColor: theme === 'light' ? '#313131' : '#fff',
       })}
     />
   );

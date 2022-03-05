@@ -46,12 +46,10 @@ const I18nProvider = ({ children }) => {
     useEffect(() => {
       const storageLang = storage.getItem('lang');
 
-      return storageLang
-        ? setLang(storageLang)
-        : storage.setItem('theme', 'en');
+      return storageLang ? setLang(storageLang) : storage.setItem('lang', 'en');
     }, []);
   } catch {
-    handleSetLang = (newTheme) => setLang(newTheme);
+    handleSetLang = (newLang) => setLang(newLang);
   }
 
   const stateValue = useMemo(

@@ -1,11 +1,10 @@
-@import "/src/styles/variables";
-@import "/src/styles/mixins";
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
 
 $currency-radius: 10px;
 $bottom-margin: 10px;
 
-
-.user-data{
+.user-data {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -13,12 +12,11 @@ $bottom-margin: 10px;
   z-index: 2;
   top: 40px;
   align-self: flex-end;
-  color: #fff;
-  background-color: #0f001db4;
-  padding: 20px 20px 20px 75px;
+  @include useTheme('background-color', 'wallet');
+  padding: 20px;
   border-radius: 40px;
-  box-shadow: 5px 5px 30px #0f001db4,
-  inset 0 0 30px rgba(255, 255, 255, 0.15);
+  box-shadow: 5px 5px 30px #0f001d74,
+    inset 0px 0px 30px rgba(255, 255, 255, 0.15);
 
   &__button {
     position: relative;
@@ -34,7 +32,7 @@ $bottom-margin: 10px;
       left: calc(50% - 10px);
       width: 20px;
       height: 3px;
-      background-color: #fff;
+      background-color: $white;
     }
 
     &--closed {
@@ -43,8 +41,7 @@ $bottom-margin: 10px;
   }
 
   &__address {
-    color: $text-blue;
-
+    @include useTheme('color', 'metric-color');
     @include typography(800, 18px, 22px);
     margin-bottom: $bottom-margin;
 
@@ -85,11 +82,13 @@ $bottom-margin: 10px;
   }
 
   &__currency {
-    border: 1px solid #fff {
+    border: 1px solid {
       right: none;
       bottom-left-radius: $currency-radius;
       top-left-radius: $currency-radius;
-    };
+    }
+
+    @include useTheme('border-color', 'wallet-border');
 
     padding: 5px 5px 5px 10px;
 
@@ -99,7 +98,8 @@ $bottom-margin: 10px;
   }
 
   &__amount {
-    background-color: $button-blue;
+    @include useTheme('background-color', 'wallet-border');
+    color: $white;
     display: inline-block;
     padding: 4px 10px;
     border: {

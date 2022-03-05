@@ -1,5 +1,45 @@
-$button-blue: #307ff4;
-$text-blue: #579bff;
+$blue: #307ff4;
+$alt-blue: #579bff;
+$text-dark: #313131;
 $border-hover: #382267;
 $border-shadow: #33167b;
 $red: #ff5050;
+$purple: #8c82f2;
+$white: #fff;
+
+$themes: (
+  light: (
+    button-transparent: transparent,
+    button-background: $purple,
+    button-color: $purple,
+    nav-color: $purple,
+    i18n-color: $purple,
+    metric-color: $purple,
+    oven-background: linear-gradient(135deg, $white, #8c82f25d),
+    modal-background: linear-gradient(135deg, $white, #d9d5ff),
+    modal-nav: $purple,
+    modal-nav-active: $white,
+    modal-input: $text-dark,
+    logo: $text-dark,
+    wallet: #ffffffe3,
+    wallet-border: $purple,
+    input-border: $purple,
+  ),
+  dark: (
+    button-transparent: transparent,
+    button-background: $blue,
+    button-color: $white,
+    nav-color: $white,
+    i18n-color: $white,
+    metric-color: $blue,
+    oven-background: linear-gradient(135deg, #974af9, #14104b),
+    modal-background: linear-gradient(135deg, #974af9, #14104b),
+    modal-nav: $white,
+    modal-nav-active: $blue,
+    modal-input: $white,
+    logo: $white,
+    wallet: #0f001db4,
+    wallet-border: $blue,
+    input-border: $blue,
+  ),
+);
