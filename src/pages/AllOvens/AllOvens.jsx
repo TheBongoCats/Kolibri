@@ -113,7 +113,7 @@ const AllOvens = () => {
         <input
           id="search"
           type="text"
-          onChange={(e) => changeHandler(e)}
+          onChange={changeHandler}
           placeholder={searchPlaceholder[`${lang}`]}
           className={styles['all-ovens__input']}
           onClick={getKusdBalance}

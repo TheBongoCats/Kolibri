@@ -21,7 +21,6 @@ const Peg = ({ percents }) => {
               }
         }
       >
-        <div className={styled.peg__sep} />
         <div className={styled.peg__separator} />
         <div className={styled.peg__separator} />
         <div className={styled.peg__separator} />
@@ -31,7 +30,7 @@ const Peg = ({ percents }) => {
         <div className={styled.peg__separator} />
         <div className={styled.peg__separator} />
         <div className={styled.peg__separator} />
-        <div className={styled.peg__sep} />
+        <div className={styled.peg__separator} />
       </div>
       <span className={styled.peg__percents}>{percents}%</span>
     </div>

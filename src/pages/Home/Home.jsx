@@ -10,7 +10,7 @@ import Metric from '../../components/Oven/Metric';
 import Modal from '../../components/Oven/Modal';
 
 import styled from './Home.module.scss';
-import kolibri from '../../images/kolibri.svg';
+import { ReactComponent as Kolibri } from '../../images/kolibri.svg';
 import {
   metricsButton,
   learnMoreButton,
@@ -42,7 +42,7 @@ const Home = () => {
       <div className={styled.home}>
         {isLogin && <UserData />}
         <div className={styled.home__head}>
-          <img src={kolibri} alt={kolibri} className={styled.home__kolibri} />
+          <Kolibri className={styled.home__kolibri} title="Kolibri" />
           <div className={styled.home__info}>
             <span className={styled.home__title}>Kolibri</span>
             <span className={styled.home__subtitle}>Stablecoin</span>

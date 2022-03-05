@@ -1,6 +1,9 @@
 #root {
   font-family: Montserrat, sans-serif;
-  max-width: 1440px;
+}
+
+.wrapper {
+  max-width: 1240px;
   width: 100%;
   margin: 0 auto;
 }
@@ -11,6 +14,29 @@
   flex-direction: column;
 }
 
+.theme {
+  background-position: top left, bottom right;
+  background-repeat: no-repeat;
+
+  &-light {
+    background-color: $white;
+    color: $text-dark;
+    background-image: url('../images/lines-left.svg'),
+      url('../images/lines-right.svg'),
+      radial-gradient(circle at 10% 10%, #8c82f25d 0%, #ffffff2e 20%),
+      radial-gradient(circle at 90% 90%, #8c82f25d 0%, #ffffff2e 20%);
+  }
+
+  &-dark {
+    background-color: #0f001d;
+    color: $white;
+    background-image: url('../images/lines-left.svg'),
+      url('../images/lines-right.svg'),
+      radial-gradient(circle at 15% 15%, #4518c6 0%, rgba(0, 0, 0, 0.2) 30%),
+      radial-gradient(circle at 85% 85%, #974af9 0%, rgba(0, 0, 0, 0.2) 30%);
+  }
+}
+
 main {
   flex-grow: 1;
 }
@@ -19,27 +45,6 @@ footer {
   flex-shrink: 0;
 }
 
-body {
-  background-color: #0f001d;
-  background-image: url('../images/lines-left.svg'),
-    url('../images/lines-right.svg'),
-    radial-gradient(
-      circle at 15% 15%,
-      rgba(69, 24, 198, 1) 0%,
-      rgba(0, 0, 0, 0.2) 30%
-    ),
-    radial-gradient(
-      circle at 85% 85%,
-      rgba(151, 74, 249, 1) 0%,
-      rgba(0, 0, 0, 0.2) 30%
-    );
-  background-position: top left, bottom right;
-  background-repeat: no-repeat;
-}
-
-.CircularProgressbar-path {
-  stroke: $button-blue;
-}
 .CircularProgressbar-trail {
   stroke: white;
 }
@@ -60,7 +65,7 @@ body {
 
   &:after {
     content: attr(data-title);
-    background-color: $button-blue;
+    background-color: $blue;
     color: white;
     font-size: 12px;
     position: absolute;

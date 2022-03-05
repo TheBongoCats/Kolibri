@@ -14,31 +14,21 @@ import CONSTANTS from '../../../utils/constants';
 import { useBeaconStateContext } from '../../../contexts/beaconContext';
 
 const Modal = () => {
-  const { modalId, ovenData } = useOvenModalStateContext();
-  const { handleCloseModal, setModalId, ovenAction } =
-    useOvenModalDispatchContext();
+  const {
+    handleCloseModal,
+    closeEscape,
+    ovenAction,
+    handleChangeAmount,
+    handleChangeSection,
+  } = useOvenModalDispatchContext();
+  const { modalId, ovenData, disabled, amount } = useOvenModalStateContext();
   const { tezosPrice, myTokens } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
-
-  const [amount, setAmount] = useState('');
   const [newCollateralRatio, setNewCollateralRatio] = useState('');
-
-  const closeEscape = (e) => {
-    return e.key === 'Escape' ? setModalId('') : null;
-  };
-  const handleChange = (e) => {
-    const re = /[+-]?([0-9]*[.])?[0-9]+/;
-    if (e.target.value === '' || re.test(e.target.value)) {
-      setAmount(e.target.value);
-    }
-  };
-  const handleChangeSection = (id) => {
-    setAmount('');
-    setModalId(id);
-  };
+  const mutatedData = mutateOvenData(ovenData, tezosPrice);
 
   const handleBorrow = () => {
-    if (newCollateralRatio <= 100 && newCollateralRatio >= 0) {
+    if (newCollateralRatio <= 100 && newCollateralRatio > 0) {
       ovenAction(() => ovenData.ovenClient.borrow(amount * 1e18));
     }
   };
@@ -46,7 +36,7 @@ const Modal = () => {
   const handleRepay = () => {
     if (
       newCollateralRatio <= 100 &&
-      newCollateralRatio >= 0 &&
+      newCollateralRatio > 0 &&
       amount <= myTokens
     ) {
       ovenAction(() => ovenData.ovenClient.repay(amount * 1e18));
@@ -54,7 +44,7 @@ const Modal = () => {
   };
 
   const handleWithdraw = () => {
-    if (newCollateralRatio <= 100 && newCollateralRatio >= 0) {
+    if (newCollateralRatio <= 100 && newCollateralRatio > 0) {
       ovenAction(() =>
         ovenData.ovenClient.withdraw(amount * CONSTANTS.MUTEZ_IN_TEZOS),
       );
@@ -68,8 +58,6 @@ const Modal = () => {
       );
     }
   };
-
-  const mutatedData = mutateOvenData(ovenData, tezosPrice);
 
   const MODAL_CONFIG = {
     borrow: {
@@ -93,6 +81,7 @@ const Modal = () => {
       handleClick: handleDeposit,
     },
   };
+
   useEffect(() => {
     document.addEventListener('keydown', closeEscape);
     document.body.style.overflow = 'hidden';
@@ -177,7 +166,7 @@ const Modal = () => {
                 <span>Amount:</span>
                 <input
                   type="text"
-                  onChange={handleChange}
+                  onChange={(e) => handleChangeAmount(e)}
                   value={amount}
                   className={styled.modal__input}
                   style={{ width: `${(amount.length + 1) * 14}px` }}
@@ -205,6 +194,7 @@ const Modal = () => {
             isRounded
             isTransparent
             callback={MODAL_CONFIG[modalId].handleClick}
+            isDisabled={disabled || amount <= 0}
           />
         </div>
       </div>

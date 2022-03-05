@@ -4,12 +4,10 @@
 .button {
   padding: 10px 20px;
   border: none;
-
-  background-color: $button-blue;
-  color: #fff;
   transition: all 0.5s;
   cursor: pointer;
-
+  color: $white;
+  @include useTheme('background-color', 'button-background');
   @include typography(400, 16px, 19.5px);
 
   @media only screen and (max-width: 829px) {
@@ -22,7 +20,12 @@
 
   &:hover {
     transform: scale(1.1);
-    transition: all 0.5s;
+  }
+
+  &:disabled {
+    transform: none;
+    transition: none;
+    cursor: initial;
   }
 
   &--big {
@@ -32,13 +35,20 @@
   }
 
   &--transparent {
-    background-color: transparent;
-    border: 1px solid $button-blue;
+    @include useTheme('background-color', 'button-transparent');
+    @include useTheme('border-color', 'button-background');
+    @include useTheme('color', 'button-color');
+    border: 1px solid;
     transition: all 0.5s;
 
     &:hover {
-      background-color: $button-blue;
-      transition: all 0.5s;
+      @include useTheme('background-color', 'button-background');
+      color: $white;
+    }
+
+    &:disabled {
+      @include useTheme('background-color', 'button-transparent');
+      @include useTheme('color', 'button-color');
     }
   }
 

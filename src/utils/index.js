@@ -7,8 +7,8 @@ export const mutateBigNumber = (
   toFixed = 2,
 ) => (number / denominator).toFixed(toFixed);
 
-export const getPathColor = (percentage) => {
-  let color = '#307ff4';
+export const getPathColor = (percentage, theme) => {
+  let color = theme === 'light' ? '#8c82f2' : '#307ff4';
 
   if (percentage >= 100) {
     color = '#ff5050';

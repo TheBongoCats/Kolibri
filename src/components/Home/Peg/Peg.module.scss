@@ -1,4 +1,5 @@
 @import '../../../styles/variables';
+@import '../../../styles/mixins';
 
 .peg {
   display: flex;
@@ -9,21 +10,15 @@
   &__progress {
     width: 100%;
     height: 20px;
-    border: 1px solid $text-blue;
     border-radius: 10px;
     display: flex;
   }
 
   &__separator {
-    height: 100%;
     width: 10%;
-    border: 1px solid $text-blue;
-  }
-
-  &__sep {
-    width: 5%;
     height: 100%;
-    border: 1px solid $text-blue;
+    border: 1px solid;
+    @include useTheme('border-color', 'button-background');
     &:first-of-type {
       border-radius: 10px 0 0 10px;
     }
