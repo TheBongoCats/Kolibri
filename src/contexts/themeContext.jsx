@@ -50,8 +50,8 @@ const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeStateContext.Provider value={stateValue}>
-      <div className={`sticky-footer theme theme-${theme}`}>
-        <div className="wrapper">{children}</div>
+      <div className={`theme theme-${theme}`}>
+        <div className="wrapper sticky-footer">{children}</div>
       </div>
     </ThemeStateContext.Provider>
   );
