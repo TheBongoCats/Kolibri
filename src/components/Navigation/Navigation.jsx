@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './Navigation.module.scss';
@@ -35,12 +37,8 @@ const Navigation = ({ isAside }) => {
           <li className={styles.navigation__item}>
             <I18n />
           </li>
-          <li className={styles.navigation__item}>
-            {theme === 'light' ? (
-              <Sun onClick={toggleTheme} />
-            ) : (
-              <Moon onClick={toggleTheme} />
-            )}
+          <li className={styles.navigation__item} onClick={toggleTheme}>
+            {theme === 'light' ? <Sun /> : <Moon />}
           </li>
         </ul>
       </nav>

@@ -2,83 +2,69 @@
 @import '/src/styles/mixins';
 
 $currency-radius: 10px;
-$bottom-margin: 10px;
 
 .user-data {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  position: fixed;
-  z-index: 2;
-  top: 135px;
-  align-self: flex-end;
+  align-items: center;
+  align-self: center;
+  position: sticky;
+  z-index: 10;
+  top: 20px;
   @include useTheme('background-color', 'wallet');
   padding: 20px;
   border-radius: 40px;
   box-shadow: 5px 5px 30px #0f001d74,
     inset 0px 0px 30px rgba(255, 255, 255, 0.15);
 
-  &__button {
-    position: relative;
-    width: 40px;
-    height: 20px;
-    margin-bottom: $bottom-margin;
+  &__show {
+    height: 30px;
     cursor: pointer;
+    @include useTheme('fill', 'logo');
+  }
+
+  &__button {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 40px;
+    cursor: pointer;
+    @include useTheme('background-color', 'wallet');
 
     &:before {
-      position: absolute;
-      content: '';
-      top: calc(50% - 1.5px);
-      left: calc(50% - 10px);
-      width: 20px;
-      height: 3px;
-      background-color: $white;
-    }
-
-    &--closed {
-      margin-bottom: 0;
+      content: '\d7';
+      @include useTheme('color', 'logo');
+      font-size: 30px;
     }
   }
 
   &__address {
     @include useTheme('color', 'metric-color');
     @include typography(800, 18px, 22px);
-    margin-bottom: $bottom-margin;
 
     @media only screen and (max-width: 589px) {
       font-size: 15px;
     }
   }
 
-  &__network-wrapper {
-    margin-bottom: 20px;
-    display: flex;
-  }
-
   &__network {
-    @include typography(400, 13px, 15px);
-  }
+    display: flex;
+    gap: 2px;
+    @include typography(400, 15px, 15px);
 
-  &__network-type {
-    @include typography(800, 13px, 15px);
+    :last-child {
+      @include typography(800, 15px, 15px);
+    }
   }
 
   &__wrapper {
-    display: none;
-    flex-direction: column;
-    align-items: flex-end;
-
-    &--shown {
-      display: flex;
-    }
-  }
-
-  &__token {
-    display: inline-block;
-
-    &:first-child {
-      margin-bottom: $bottom-margin;
-    }
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   &__currency {

@@ -1,4 +1,6 @@
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
+import { useI18nStateContext } from '../../contexts/i18nContext';
+import { useOvenModalStateContext } from '../../contexts/modalContext';
 import {
   useBeaconDispatchContext,
   useBeaconStateContext,
@@ -8,9 +10,13 @@ import Button from '../../components/Button';
 import Loader from '../../components/Loader';
 import Metric from '../../components/Oven/Metric';
 import Modal from '../../components/Oven/Modal';
+import Peg from '../../components/Home/Peg';
+import Oracle from '../../components/Home/Oracle/Oracle';
+import OvenList from '../../components/OvenList/OvenList';
+import UserData from '../../components/UserData';
+import { ReactComponent as Kolibri } from '../../images/kolibri.svg';
 
 import styled from './Home.module.scss';
-import { ReactComponent as Kolibri } from '../../images/kolibri.svg';
 import {
   metricsButton,
   learnMoreButton,
@@ -22,12 +28,6 @@ import {
   connectButton,
   loaderText,
 } from './texts.json';
-import Peg from '../../components/Home/Peg';
-import Oracle from '../../components/Home/Oracle/Oracle';
-import OvenList from '../../components/OvenList/OvenList';
-import { useI18nStateContext } from '../../contexts/i18nContext';
-import { useOvenModalStateContext } from '../../contexts/modalContext';
-import UserData from '../../components/UserData';
 
 const Home = () => {
   const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
@@ -62,7 +62,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-
         <div className={styled.home__container}>
           <div className={styled.home__metrics}>
             <Metric
@@ -83,7 +82,7 @@ const Home = () => {
               size="l"
             />
           </div>
-          <Peg percents="-95" />
+          <Peg percents="35" />
           <div className={styled.home__line}>
             <button type="button" className={styled.home__more}>
               {moreButton[`${lang}`]}

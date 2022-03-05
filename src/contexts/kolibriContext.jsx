@@ -181,16 +181,15 @@ const KolibriProvider = ({ children }) => {
 
   useEffect(() => {
     getOvens();
+    getActualPrice();
     getStabilityFeeYear();
     getCollaterlRatio();
   }, []);
 
   useEffect(() => {
-    getActualPrice();
-
     const intervalId = setInterval(() => {
       getActualPrice();
-    }, 6000);
+    }, 60000);
     return () => clearInterval(intervalId);
   }, [tezosPrice]);
 

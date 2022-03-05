@@ -17,12 +17,22 @@ const OvenNav = ({ ovenData }) => {
     <ul className={styled['oven-nav']}>
       {NAV_CONFIG.map((button) => (
         <li key={button.text} className={styled['oven-nav__button']}>
-          <Button
-            callback={() => handleOpenModal(button.modalId, ovenData)}
-            text={button.text}
-            isRounded
-            isTransparent
-          />
+          {+ovenData.balance === 0 && button.modalId !== 'deposit' ? (
+            <Button
+              callback={() => handleOpenModal(button.modalId, ovenData)}
+              text={button.text}
+              isRounded
+              isTransparent
+              isDisabled
+            />
+          ) : (
+            <Button
+              callback={() => handleOpenModal(button.modalId, ovenData)}
+              text={button.text}
+              isRounded
+              isTransparent
+            />
+          )}
         </li>
       ))}
     </ul>

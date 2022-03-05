@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { useEffect, useState } from 'react';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
 import {
@@ -147,6 +148,10 @@ const Modal = () => {
                 <div
                   className={`${styled.modal__section} ${styled['modal__section--active']}`}
                 >
+                  {MODAL_CONFIG[id].section}
+                </div>
+              ) : +ovenData.balance === 0 ? (
+                <div className={styled.modal__section} role="none">
                   {MODAL_CONFIG[id].section}
                 </div>
               ) : (
