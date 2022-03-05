@@ -14,10 +14,10 @@ const Peg = ({ percents }) => {
         style={
           percents > 0
             ? {
-                backgroundImage: `linear-gradient(to right, transparent 50%, red 50% ${remainder}%, transparent ${remainder}% )`,
+                backgroundImage: `linear-gradient(to right, transparent 50%, #ff5050 50% ${remainder}%, transparent ${remainder}% )`,
               }
             : {
-                backgroundImage: `linear-gradient(to right, transparent ${remainder}%, green ${remainder}% 50%, transparent 50% )`,
+                backgroundImage: `linear-gradient(to right, transparent ${remainder}%, #ff5050 ${remainder}% 50%, transparent 50% )`,
               }
         }
       >

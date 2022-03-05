@@ -27,20 +27,20 @@ const Oracle = () => {
     );
 
     switch (true) {
-      case minutes >= 30:
-        return (
-          <span
-            className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
-          >
-            {minutes} {minutesUpdate[`${lang}`]}
-          </span>
-        );
       case minutes > 60:
         return (
           <span
             className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
           >
             {hoursUpdate[`${lang}`]}
+          </span>
+        );
+      case minutes >= 30:
+        return (
+          <span
+            className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
+          >
+            {minutes} {minutesUpdate[`${lang}`]}
           </span>
         );
       default:
