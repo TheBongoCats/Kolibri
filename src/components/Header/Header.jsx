@@ -11,6 +11,7 @@ import {
 import { walletConnect, walletDisconnect } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import Aside from '../Aside';
+import Burger from '../Burger';
 
 // const notifyMe = () => {
 //   // eslint-disable-next-line no-unused-vars
@@ -53,6 +54,7 @@ const Header = () => {
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
+
   const handleIsOpen = (e) => {
     if (e.target === e.currentTarget) {
       setIsOpen(!isOpen);
@@ -79,16 +81,7 @@ const Header = () => {
       {width >= 595 ? (
         <Navigation />
       ) : (
-        <button
-          type="button"
-          className={
-            isOpen
-              ? `${styles.header__burger} ${styles['header__burger--clicked']}`
-              : styles.header__burger
-          }
-          onClick={handleIsOpen}
-          aria-label="Open"
-        />
+        <Burger isOpen={isOpen} callback={handleIsOpen} />
       )}
       {isLogin ? (
         <Button

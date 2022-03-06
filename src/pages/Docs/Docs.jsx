@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import styles from './Docs.module.scss';
+import Burger from '../../components/Burger';
 
 const titleConfig = [
   {
@@ -20,12 +22,35 @@ const titleConfig = [
 ];
 
 const Docs = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
   return (
     <div className={styles.docs}>
+      {isOpen && (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+        <div
+          className={styles.docs__background}
+          onClick={() => setIsOpen(!isOpen)}
+        />
+      )}
       <div className={styles.docs__wrapper}>
-        <h1 className={styles.docs__heading}>Documentation</h1>
+        <div className={styles.docs__header}>
+          <h1 className={styles.docs__heading}>Documentation</h1>
+          <Burger callback={() => setIsOpen(!isOpen)} isOpen={isOpen} />
+        </div>
         <div className={styles.docs__data}>
-          <ul className={styles.docs__list}>
+          <ul
+            className={
+              isOpen
+                ? `${styles.docs__list} ${styles['docs__list--is-open']}`
+                : styles.docs__list
+            }
+          >
             {titleConfig.map((titleItem) => {
               const { title, subTitle } = titleItem;
 
