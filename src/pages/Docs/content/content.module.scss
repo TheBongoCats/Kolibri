@@ -9,6 +9,12 @@ $default-margin: 16px;
 .wrapper {
   padding: 16px;
   @include typography(400, 16px, 24px);
+
+  @include typography(400, 16px, 24px);
+
+  @media only screen and (max-width: 594px) {
+   padding: 0;
+  }
 }
 
 .heading {
