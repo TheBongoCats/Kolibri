@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 import propTypes from 'prop-types';
-import { useKolibriDispatchContext } from './kolibriContext';
+// import { useKolibriDispatchContext } from './kolibriContext';
 
 // state context
 const OvenModalStateContext = createContext({});
@@ -36,89 +36,37 @@ const useOvenModalDispatchContext = () => {
 
 // Provider
 const OvenModalProvider = ({ children }) => {
-  const [modalId, setModalId] = useState('');
-  const [ovenData, setOvenData] = useState({});
-  const [amount, setAmount] = useState('');
-  const [disabled, setDisabled] = useState(false);
-  const { getDataFromAddress, setMyOvens, setLoadingOven } =
-    useKolibriDispatchContext();
+  const [isOpen, setIsOpen] = useState(false);
+  const [component, setComponent] = useState();
 
-  const handleOpenModal = (section, data) => {
-    setOvenData(data);
-    setModalId(section);
+  const handleOpenModal = (modalComponent) => {
+    setComponent(modalComponent);
+    setIsOpen(true);
   };
 
   const handleCloseModal = (e) => {
-    return e.target === e.currentTarget ? setModalId('') : null;
-  };
-
-  const handleChangeAmount = (e) => {
-    const re = /[+-]?([0-9]*[.])?[0-9]+/;
-    if (e.target.value === '' || re.test(e.target.value)) {
-      setAmount(e.target.value);
-    }
-  };
-
-  const handleChangeSection = (id) => {
-    setAmount('');
-    setModalId(id);
+    return e.target === e.currentTarget ? setIsOpen(false) : null;
   };
 
   const closeEscape = (e) => {
-    return e.key === 'Escape' ? setModalId('') : null;
-  };
-
-  const ovenAction = async (callback) => {
-    try {
-      setDisabled(true);
-      setLoadingOven(ovenData.ovenAddress);
-      const transaction = await callback();
-      setModalId('');
-      await transaction.confirmation();
-
-      const newData = await getDataFromAddress(ovenData.ovenAddress);
-
-      setMyOvens((prevState) => {
-        return prevState.map((oven) => {
-          return oven.ovenAddress === newData.ovenAddress ? newData : oven;
-        });
-      });
-
-      setLoadingOven('');
-    } catch {
-      console.log('error');
-      setDisabled(false);
-      setLoadingOven('');
-    }
+    return e.key === 'Escape' ? setIsOpen(false) : null;
   };
 
   const stateValue = useMemo(
     () => ({
-      modalId,
-      ovenData,
-      disabled,
-      amount,
+      isOpen,
+      component,
     }),
-    [modalId, ovenData, disabled, amount],
+    [isOpen, component],
   );
 
   const dispatchValue = useMemo(
     () => ({
       handleOpenModal,
       handleCloseModal,
-      ovenAction,
-      handleChangeAmount,
-      handleChangeSection,
       closeEscape,
     }),
-    [
-      handleOpenModal,
-      handleCloseModal,
-      ovenAction,
-      handleChangeAmount,
-      handleChangeSection,
-      closeEscape,
-    ],
+    [handleOpenModal, handleCloseModal, closeEscape],
   );
 
   return (

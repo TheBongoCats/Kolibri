@@ -8,6 +8,7 @@ import AppRouter from './route/AppRouter';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './styles/index.scss';
+import Modal from './components/Modal';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
                 <Header />
                 <AppRouter />
                 <Footer />
+                <Modal />
               </HashRouter>
             </OvenModalProvider>
           </KolibriProvider>

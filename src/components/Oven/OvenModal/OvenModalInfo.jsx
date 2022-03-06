@@ -3,7 +3,12 @@ import { useBeaconStateContext } from '../../../contexts/beaconContext';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
 import { mutateBigNumber } from '../../../utils';
 
-const ModalInfo = ({ mutatedData, styled, newCollateralRatio, modalId }) => {
+const OvenModalInfo = ({
+  mutatedData,
+  styled,
+  newCollateralRatio,
+  modalId,
+}) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
 
@@ -79,4 +84,4 @@ const ModalInfo = ({ mutatedData, styled, newCollateralRatio, modalId }) => {
   return <div className={styled.modal__info}>{renderSwitch()}</div>;
 };
 
-export default ModalInfo;
+export default OvenModalInfo;
