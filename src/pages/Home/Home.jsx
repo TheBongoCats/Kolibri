@@ -35,42 +35,19 @@ const Home = () => {
   const { lang } = useI18nStateContext();
 
   return (
-    <>
-      <div className={styled.home}>
-        {isLogin && <UserData />}
-        <div className={styled.home__head}>
-          <Logo isBig />
-          <div className={styled.home__info}>
-            <span className={styled.home__title}>Kolibri</span>
-            <span className={styled.home__subtitle}>Stablecoin</span>
-            <div className={styled.home__buttons}>
-              <Button
-                callback={() => null}
-                text={learnMoreButton[`${lang}`]}
-                isTransparent
-                isRounded
-              />
-              <Button
-                callback={() => null}
-                text={metricsButton[`${lang}`]}
-                isTransparent
-                isRounded
-              />
-            </div>
-          </div>
-        </div>
-        <div className={styled.home__container}>
-          <div className={styled.home__metrics}>
-            <Metric
-              title={activeOvensCount[`${lang}`]}
-              value={allOvens?.length}
-              size="l"
-            />
-            <Metric
-              title={stabilityFeeCount[`${lang}`]}
-              value={stabilityFeeYear}
-              unit="%"
-              size="l"
+    <div className={styled.home}>
+      {isLogin && <UserData />}
+      <div className={styled.home__head}>
+        <Logo isBig />
+        <div className={styled.home__info}>
+          <span className={styled.home__title}>Kolibri</span>
+          <span className={styled.home__subtitle}>Stablecoin</span>
+          <div className={styled.home__buttons}>
+            <Button
+              callback={() => null}
+              text={learnMoreButton[`${lang}`]}
+              isTransparent
+              isRounded
             />
             <Button
               callback={() => null}
