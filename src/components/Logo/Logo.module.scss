@@ -1,6 +1,8 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
 %logo-basic {
-  display: inline-block;
-  width: 115px;
+  width: 55px;
 }
 
 .logo {
@@ -16,9 +18,27 @@
     width: 65px;
     height: 35px;
   }
+
+  & g {
+    @include useTheme('fill', 'logo-small');
+  }
 }
+
+.logo-big {
+  height: 232px;
+  width: auto;
+
+  & g {
+    @include useTheme('fill', 'logo');
+  }
+}
+
+
 
 .logo__link {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
+
+  @include useTheme('color', 'logo-small');
 }

@@ -74,7 +74,9 @@ const Docs = ({ children }) => {
                           key={text}
                           className={`${styles['docs__sub-item']}`}
                         >
-                          <Link to={path}>{text}</Link>
+                          <Link to={path} className={styles.docs__link}>
+                            {text}
+                          </Link>
                         </li>
                       );
                     })}

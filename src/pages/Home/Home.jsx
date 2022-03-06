@@ -14,7 +14,6 @@ import Peg from '../../components/Home/Peg';
 import Oracle from '../../components/Home/Oracle/Oracle';
 import OvenList from '../../components/OvenList/OvenList';
 import UserData from '../../components/UserData';
-import { ReactComponent as Kolibri } from '../../images/kolibri.svg';
 
 import styled from './Home.module.scss';
 import {
@@ -28,6 +27,7 @@ import {
   connectButton,
   loaderText,
 } from './texts.json';
+import Logo from '../../components/Logo';
 
 const Home = () => {
   const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
@@ -42,7 +42,7 @@ const Home = () => {
       <div className={styled.home}>
         {isLogin && <UserData />}
         <div className={styled.home__head}>
-          <Kolibri className={styled.home__kolibri} title="Kolibri" />
+          <Logo isBig />
           <div className={styled.home__info}>
             <span className={styled.home__title}>Kolibri</span>
             <span className={styled.home__subtitle}>Stablecoin</span>
