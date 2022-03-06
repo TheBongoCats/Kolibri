@@ -6,6 +6,7 @@ import {
   useKolibriDispatchContext,
 } from '../../../contexts/kolibriContext';
 import { useBeaconStateContext } from '../../../contexts/beaconContext';
+import { useModalDispatchContext } from '../../../contexts/modalContext';
 
 import Button from '../../Button';
 import CircularProgress from '../CircularProgress';
@@ -20,6 +21,7 @@ const OvenModal = ({ ovenData, section }) => {
   const { beaconBalance } = useBeaconStateContext();
   const { getDataFromAddress, setMyOvens, setLoadingOven } =
     useKolibriDispatchContext();
+  const { setIsOpen } = useModalDispatchContext();
 
   const [newCollateralRatio, setNewCollateralRatio] = useState('');
   const [modalId, setModalId] = useState(section);
@@ -33,7 +35,7 @@ const OvenModal = ({ ovenData, section }) => {
       setDisabled(true);
       setLoadingOven(ovenData.ovenAddress);
       const transaction = await callback();
-      setModalId('');
+      setIsOpen(false);
       await transaction.confirmation();
 
       const newData = await getDataFromAddress(ovenData.ovenAddress);
@@ -46,9 +48,9 @@ const OvenModal = ({ ovenData, section }) => {
 
       setLoadingOven('');
     } catch {
-      console.log('error');
-      setDisabled(false);
       setLoadingOven('');
+      setIsOpen(false);
+      console.log('error');
     }
   };
 

@@ -1,15 +1,15 @@
 /* eslint-disable no-nested-ternary */
 import { useEffect } from 'react';
 import {
-  useOvenModalDispatchContext,
-  useOvenModalStateContext,
+  useModalDispatchContext,
+  useModalStateContext,
 } from '../../contexts/modalContext';
 
 import styled from './Modal.module.scss';
 
 const Modal = () => {
-  const { handleCloseModal, closeEscape } = useOvenModalDispatchContext();
-  const { isOpen, component } = useOvenModalStateContext();
+  const { handleCloseModal, closeEscape } = useModalDispatchContext();
+  const { isOpen, component } = useModalStateContext();
 
   useEffect(() => {
     if (isOpen) {

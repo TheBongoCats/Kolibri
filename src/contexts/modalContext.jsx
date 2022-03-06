@@ -6,7 +6,7 @@ import propTypes from 'prop-types';
 const OvenModalStateContext = createContext({});
 OvenModalStateContext.displayName = 'OvenModalStateContext';
 
-const useOvenModalStateContext = () => {
+const useModalStateContext = () => {
   const context = useContext(OvenModalStateContext);
 
   if (!context) {
@@ -22,7 +22,7 @@ const useOvenModalStateContext = () => {
 const OvenModalDispatchContext = createContext({});
 OvenModalDispatchContext.displayName = 'OvenModalDispatchContext';
 
-const useOvenModalDispatchContext = () => {
+const useModalDispatchContext = () => {
   const context = useContext(OvenModalDispatchContext);
 
   if (!context) {
@@ -65,8 +65,9 @@ const OvenModalProvider = ({ children }) => {
       handleOpenModal,
       handleCloseModal,
       closeEscape,
+      setIsOpen,
     }),
-    [handleOpenModal, handleCloseModal, closeEscape],
+    [handleOpenModal, handleCloseModal, closeEscape, setIsOpen],
   );
 
   return (
@@ -78,11 +79,7 @@ const OvenModalProvider = ({ children }) => {
   );
 };
 
-export {
-  useOvenModalStateContext,
-  useOvenModalDispatchContext,
-  OvenModalProvider,
-};
+export { useModalStateContext, useModalDispatchContext, OvenModalProvider };
 
 OvenModalProvider.propTypes = {
   children: propTypes.node.isRequired,
