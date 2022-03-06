@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
-import styles from '../Header/Header.module.scss';
+import styles from './Burger.module.scss';
 
 const Burger = ({ isOpen, callback }) => {
   return (
     <button
       type="button"
       className={
-        isOpen
-          ? `${styles.header__burger} ${styles['header__burger--clicked']}`
-          : styles.header__burger
+        isOpen ? `${styles.burger} ${styles['burger--clicked']}` : styles.burger
       }
       onClick={callback}
       aria-label="Open"

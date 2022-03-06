@@ -1,9 +1,9 @@
+@import "/src/styles/variables";
 @import '/src/styles/mixins';
 
 .docs {
   position: relative;
   padding: 48px 0;
-  color: #fff;
 
   &__wrapper {
     max-width: 95%;
@@ -65,12 +65,20 @@
 
   &__sub-item {
     @include typography(400, 16px, 20px);
-    padding: 8px 12px;
-    cursor: pointer;
+  }
 
-    &--is-focus {
-      background-color: #307ff4;
+  &__link {
+    display: block;
+
+    padding: 8px 12px;
+    transition: all .5s;
+
+    &:hover {
+      @include useTheme('background-color', 'docs-links');
+      color: $white;
+      transition: all .5s;
     }
+
   }
 
   &__content {

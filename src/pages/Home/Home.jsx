@@ -12,7 +12,6 @@ import Peg from '../../components/Home/Peg';
 import Oracle from '../../components/Home/Oracle/Oracle';
 import OvenList from '../../components/OvenList/OvenList';
 import UserData from '../../components/UserData';
-import { ReactComponent as Kolibri } from '../../images/kolibri.svg';
 
 import styled from './Home.module.scss';
 import {
@@ -26,6 +25,7 @@ import {
   connectButton,
   loaderText,
 } from './texts.json';
+import Logo from '../../components/Logo';
 
 const Home = () => {
   const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
@@ -35,19 +35,42 @@ const Home = () => {
   const { lang } = useI18nStateContext();
 
   return (
-    <div className={styled.home}>
-      {isLogin && <UserData />}
-      <div className={styled.home__head}>
-        <Kolibri className={styled.home__kolibri} title="Kolibri" />
-        <div className={styled.home__info}>
-          <span className={styled.home__title}>Kolibri</span>
-          <span className={styled.home__subtitle}>Stablecoin</span>
-          <div className={styled.home__buttons}>
-            <Button
-              callback={() => null}
-              text={learnMoreButton[`${lang}`]}
-              isTransparent
-              isRounded
+    <>
+      <div className={styled.home}>
+        {isLogin && <UserData />}
+        <div className={styled.home__head}>
+          <Logo isBig />
+          <div className={styled.home__info}>
+            <span className={styled.home__title}>Kolibri</span>
+            <span className={styled.home__subtitle}>Stablecoin</span>
+            <div className={styled.home__buttons}>
+              <Button
+                callback={() => null}
+                text={learnMoreButton[`${lang}`]}
+                isTransparent
+                isRounded
+              />
+              <Button
+                callback={() => null}
+                text={metricsButton[`${lang}`]}
+                isTransparent
+                isRounded
+              />
+            </div>
+          </div>
+        </div>
+        <div className={styled.home__container}>
+          <div className={styled.home__metrics}>
+            <Metric
+              title={activeOvensCount[`${lang}`]}
+              value={allOvens?.length}
+              size="l"
+            />
+            <Metric
+              title={stabilityFeeCount[`${lang}`]}
+              value={stabilityFeeYear}
+              unit="%"
+              size="l"
             />
             <Button
               callback={() => null}
