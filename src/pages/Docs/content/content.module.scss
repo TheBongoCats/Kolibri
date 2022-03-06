@@ -1,0 +1,67 @@
+@import '/src/styles/mixins';
+
+$default-margin: 16px;
+
+%margin-bottom {
+  margin-bottom: $default-margin;
+}
+
+.wrapper {
+  padding: 16px;
+  @include typography(400, 16px, 24px);
+}
+
+.heading {
+  @include typography(600, 32px, 36px);
+  @extend %margin-bottom;
+}
+
+.sub-heading {
+  margin: 30px 0 15px 0;
+
+  @include typography(600, 24px, 27px);
+}
+
+.paragraph {
+  @extend %margin-bottom;
+}
+
+.list {
+  margin: $default-margin 0 $default-margin 32px;
+
+  list-style: disc;
+
+  &__item {
+    &:not(:first-child) {
+      margin-top: 4px;
+    }
+  }
+}
+
+.code {
+  @include typography(400, 14px, 21px);
+
+  padding: 3.5px 7px;
+  background-color: #33167b;
+}
+
+.link {
+  color: #4518c6;
+
+  &:hover {
+    color: #33167b;
+  }
+}
+
+.button {
+  display: inline-block;
+  @extend %margin-bottom;
+
+  border-radius: 4px;
+  padding: 7px 16px;
+  background-color: #33167b;
+
+  &:hover {
+    background-color: #4518c6;
+  }
+}

@@ -1,7 +1,52 @@
-.docs {
-  max-width: 80%;
-  margin: 0 auto;
+@import '/src/styles/mixins';
 
+.docs {
   padding: 48px 0;
   color: #fff;
+
+  &__wrapper {
+    max-width: 95%;
+    margin: 0 auto;
+
+    box-shadow: 5px 5px 30px #0f001d74,
+    inset 0 0 30px rgba(255, 255, 255, 0.15);
+  }
+
+  &__heading {
+    @include typography(600, 24px, 27px);
+    padding: 16px 32px;
+  }
+
+  &__data {
+    display: flex;
+  }
+
+  &__list {
+    padding: 16px;
+    min-width: 11%;
+  }
+
+  &__item {
+    @include typography(400, 12px, 18px);
+    margin: 12px 0;
+    text-transform: uppercase;
+
+    &--first {
+      margin-top: 0;
+    }
+  }
+
+  &__sub-item {
+    @include typography(400, 16px, 20px);
+    padding: 8px 12px;
+    cursor: pointer;
+
+    &--is-focus {
+      background-color: #307ff4;
+    }
+  }
+
+  &__content {
+    padding: 12px;
+  }
 }

@@ -19,7 +19,7 @@ const Navigation = ({ isAside }) => {
   const NAVIGATION_CONFIG = [
     { path: '/', text: homeNav[`${lang}`] },
     { path: '/all-ovens', text: allOvensNav[`${lang}`] },
-    { path: '/docs', text: docsNav[`${lang}`] },
+    { path: '/docs/intro', text: docsNav[`${lang}`] },
   ];
 
   if (isAside) {
