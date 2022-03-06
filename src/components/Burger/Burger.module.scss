@@ -14,11 +14,11 @@ $burger-item-pos: -6px;
 }
 
 .burger {
+  display: none;
   position: relative;
   width: 22px;
   height: 3px;
   background-color: $white;
-  display: none;
   border: none;
 
   @media only screen and (max-width: 594px) {
@@ -36,6 +36,7 @@ $burger-item-pos: -6px;
   }
 
   &--clicked {
+    display: inline-block;
     background-color: transparent;
 
     &:before {
