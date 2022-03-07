@@ -17,7 +17,6 @@ $border-radius: 20px;
     @include typography(400, 24px, 29px);
 
     display: flex;
-    border: 1px solid transparent;
     transition: all 0.5s;
     border-radius: 10px;
     cursor: pointer;
@@ -32,6 +31,20 @@ $border-radius: 20px;
     @media only screen and (max-width: 829px) {
       font-size: 12px;
     }
+    @media only screen and (max-width: 594px) {
+      font-size: 12px;
+    }
+  }
+
+  &__sub-item {
+    color: $white;
+
+    & path {
+      fill: $white;
+    }
+    & circle {
+      stroke: $white;
+    }
   }
 }
 
@@ -40,7 +53,8 @@ $border-radius: 20px;
 .aside-nav {
   @include typography(400, 14px, 17px);
   padding: 40px 30px;
-  background-color: $blue;
+  @include useTheme('background-color', 'docs-aside');
+  color: $white;
   height: 100%;
   border: {
     top-right-radius: $border-radius;

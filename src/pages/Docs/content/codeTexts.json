@@ -1,0 +1,30 @@
+{
+  "oven": {
+    "en": "Oven",
+    "ru": "Печка"
+  },
+  "deposit": {
+    "en": "Deposit",
+    "ru": "Депозит"
+  },
+
+  "borrow": {
+    "en": "Borrow",
+    "ru": "Займ"
+  },
+
+  "place": {
+    "en": "Place",
+    "ru": "Размещение"
+  },
+
+  "remove": {
+    "en": "Remove",
+    "ru": "Снятие"
+  },
+
+  "repay": {
+    "en": "Repay",
+    "ru": "Возврат"
+  }
+}

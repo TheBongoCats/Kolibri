@@ -1,33 +1,39 @@
 import styles from '../../content.module.scss';
+import texts from './texts.json';
+import { useI18nStateContext } from '../../../../../contexts/i18nContext';
 
 const Funds = () => {
+  const { lang } = useI18nStateContext();
+
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.heading}>Developer and Stability Funds</h2>
+      <h2 className={styles.heading}>{texts.title[`${lang}`]}</h2>
       <p className={styles.paragraph}>
-        Accrued stability and liquidation fees are deposited in two funds. The
-        split is determined by the <strong>developer fund split</strong>.
+        {texts.subTitle[`${lang}`]}{' '}
+        <strong>{texts.developerSplit[`${lang}`]}</strong>.
       </p>
       <p className={styles.paragraph}>
-        The role of the <strong>stability fund</strong> is to be a liquidator of
-        last resort. If the price of the outstanding{' '}
-        <code className={styles.code}>kUSD</code> is greater than the{' '}
-        <code className={styles.code}>XTZ</code> value locked in the Ovens then
-        a rational economic actor would not liquidate, and the{' '}
-        <code className={styles.code}>Oven</code> is then considered underwater.
-        This event should not occur since it is unlikely that{' '}
-        <code className={styles.code}>Oven</code> values would go from
-        undercollateralized to <strong>underwater</strong> fast enough that
-        rational actors would not liquidate. However, in some sort of systemic
-        black swan event, the stability fund acts as a powerful counter-balance
-        and can liquidate <strong>underwater</strong>{' '}
-        <code className={styles.code}>Oven</code>s to restore collateralization
-        (and thus stability) to the system.
+        {texts.paragraphBefore[`${lang}`]}{' '}
+        <strong>{texts.paragraphStrong[`${lang}`]}</strong>{' '}
+        {texts.paragraphAfter[`${lang}`]}{' '}
+        <code className={styles.code}>kUSD</code>
+        {texts.paragraphGreater[`${lang}`]}{' '}
+        <code className={styles.code}>XTZ</code>{' '}
+        {texts.paragraphValue[`${lang}`]}{' '}
+        <code className={styles.code}>Oven</code>{' '}
+        {texts.paragraphConsiderate[`${lang}`]}{' '}
+        <code className={styles.code}>Oven</code>{' '}
+        {texts.paragraphAfterUnder[`${lang}`]}{' '}
+        <strong>{texts.underwaterFirst[`${lang}`]}</strong>{' '}
+        {texts.paragraphAfterAbove[`${lang}`]}
+        <strong>{texts.underwaterSecond[`${lang}`]}</strong>{' '}
+        <code className={styles.code}>Oven</code>
+        {texts.paragraphLast[`${lang}`]}
       </p>
       <p className={styles.paragraph}>
-        The <strong>developer fund</strong> is a discretionary fund used to fund
-        future developments to Kolibri. Distributions are determined via a
-        planned governance mechanism.
+        {lang === 'en' ? 'The' : ''}{' '}
+        <strong>{texts.developerFund[`${lang}`]}</strong>{' '}
+        {texts.secondParagraph[`${lang}`]}
       </p>
     </div>
   );

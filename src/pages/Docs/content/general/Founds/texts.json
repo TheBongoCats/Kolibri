@@ -1,0 +1,90 @@
+{
+  "title": {
+    "en": "Developer and Stability Funds",
+    "ru": "Фонды стабилизации и развития"
+  },
+
+  "subTitle": {
+    "en": "Accrued stability and liquidation fees are deposited in two funds. The split is determined by the",
+    "ru": "Начисленные комиссионные за стабильность и ликвидацию депонируются в два фонда. Разделение определяется"
+  },
+
+  "subTitleStrong": {
+    "en": "developer fund split.",
+    "ru": "разделением фонда развития."
+  },
+
+  "paragraphBefore": {
+    "en": "The role of the",
+    "ru": "Роль"
+  },
+
+  "paragraphStrong": {
+    "en": "stability fund",
+    "ru": "стабилизационного фонда"
+  },
+
+  "paragraphAfter": {
+    "en": "is to be a liquidator of last resort. If the price of the outstanding",
+    "ru": "это ликвидатор последней инстанции. Если цена непогашенного"
+  },
+
+  "paragraphGreater": {
+    "en": "is greater than the",
+    "ru": "больше чем"
+  },
+
+  "paragraphValue": {
+    "en": "value locked in the Ovens then a rational economic actor would not liquidate, and the",
+    "ru": "стоимость, находящаяся в печках, чем рационально для ликвидации, и"
+  },
+
+  "paragraphConsiderate": {
+    "en": "is then considered underwater. This event should not occur since it is unlikely that",
+    "ru": "тогда считается утонувшей. Это событие не должно произойти, так как маловероятно, что"
+  },
+
+  "paragraphAfterUnder": {
+    "en": "values would go from undercollateralized to",
+    "ru": "стоимости перейдут от недостаточно обеспеченных к"
+  },
+
+  "paragraphAfterAbove": {
+    "en": "fast enough that rational actors would not liquidate. However, in some sort of systemic black swan event, the stability fund acts as a powerful counter-balance and can liquidate",
+    "ru": "достаточно быстро, чтобы рациональные участники не ликвидировались. Однако в случае «черного лебедя» фонд стабильности действует как мощный противовес и может ликвидировать"
+  },
+
+  "paragraphLast": {
+    "en": "to restore collateralization (and thus stability) to the system.",
+    "ru": "чтобы восстановить обеспечение (и, следовательно, стабильность) системы."
+  },
+
+  "secondParagraph": {
+    "en": "is a discretionary fund used to fund future developments to Kolibri. Distributions are determined via a planned governance mechanism.",
+    "ru": "это дискреционный фонд, используемый для финансирования будущих разработок Kolibri. Распределения определяются с помощью запланированного механизма управления."
+  },
+
+  "developerSplit": {
+    "en": "developer fund split.",
+    "ru": "разделение фонда развития"
+  },
+
+  "developerFund": {
+    "en": "developer fund",
+    "ru": "фонд развития"
+  },
+
+  "stabilityFund": {
+    "en": "stability fund",
+    "ru": "стабилизационный фонд"
+  },
+
+  "underwaterFirst": {
+    "ru": "underwater",
+    "en": "утонувшие"
+  },
+  "underwaterSecond": {
+    "ru": "underwater",
+    "en": "утонувшую"
+  }
+}

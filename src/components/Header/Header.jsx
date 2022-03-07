@@ -94,7 +94,7 @@ const Header = () => {
           text={walletConnect[`${lang}`]}
         />
       )}
-      {width <= 589 && <Aside isOpen={isOpen} handleIsOpen={handleIsOpen} />}
+      {width <= 594 && <Aside isOpen={isOpen} handleIsOpen={handleIsOpen} />}
     </header>
   );
 };

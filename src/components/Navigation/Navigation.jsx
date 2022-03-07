@@ -35,10 +35,14 @@ const Navigation = ({ isAside }) => {
             );
           })}
           <li className={styles.navigation__item}>
-            <I18n />
+            <I18n isAside />
           </li>
           <li className={styles.navigation__item} onClick={toggleTheme}>
-            {theme === 'light' ? <Sun /> : <Moon />}
+            {theme === 'light' ? (
+              <Sun className={styles['navigation__sub-item']} />
+            ) : (
+              <Moon className={styles['navigation__sub-item']} />
+            )}
           </li>
         </ul>
       </nav>

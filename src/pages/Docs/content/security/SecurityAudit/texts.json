@@ -1,0 +1,71 @@
+{
+  "title": {
+    "en": "Security Audit",
+    "ru": "Аудит безопасности"
+  },
+
+  "subTitle": {
+    "en": "Status",
+    "ru": "Статус"
+  },
+
+  "firstParagraphBefore": {
+    "en": "The Kolibri project has been audited by",
+    "ru": "Проект Kolibri прошел аудит"
+  },
+
+  "firstParagraph": {
+    "en": ", and no contract code updates have taken place since the review was conducted. There were no major findings discovered that would put funds or the economic model at risk, but as with every security review it's only an indicator of security, not a guarantee.",
+    "ru": ", и с момента проведения проверки не было обновлений кода контракта. Не было обнаружено серьезных находок, которые могли бы подвергнуть риску средства или экономическую модель, но, как и в случае с любой проверкой безопасности, это всего лишь показатель безопасности, а не гарантия."
+  },
+
+  "button": {
+    "en": "Read The Report",
+    "ru": "Читать отчет"
+  },
+
+  "timeline": {
+    "en": "Timeline",
+    "ru": "Лента новостей"
+  },
+
+  "feb": {
+    "en": "Feb",
+    "ru": "Фев"
+  },
+
+  "jan": {
+    "en": "Jan",
+    "ru": "Янв"
+  },
+
+  "dec": {
+    "en": "Dec",
+    "ru": "Дек"
+  },
+
+  "listFirst": {
+    "en": "We have received the report, and have no major issues to remedy!",
+    "ru": "Мы получили отчет, и у нас нет серьезных проблем, которые нужно исправить!"
+  },
+
+  "listSecond": {
+    "en": "We had a check-in with the review team with no issues reported so far.",
+    "ru": "У нас была встреча с группой проверки, и до сих пор не сообщалось о проблемах."
+  },
+
+  "listThird": {
+    "en": "The review has kicked off, and will complete in 3 weeks.",
+    "ru": "Проверка уже началась и завершится через 3 недели."
+  },
+
+  "listFourth": {
+    "en": "We have a start date and rough timeline for the review - code review will start January 18 and end on February 12. We'll have a report in-hand by February 17 and will work to remedy any issues that arise!",
+    "ru": "У нас есть дата начала и примерный график проверки — проверка кода начнется 18 января и закончится 12 февраля. У нас будет отчет к 17 февраля, и мы будем работать над устранением любых возникающих проблем!"
+  },
+
+  "listFifth": {
+    "en": "We have a review in the information-gathering phase with a reputable firm. Updates will be posted here as things progress.",
+    "ru": "У нас есть проверка на этапе сбора информации с уважаемой фирмой. Обновления будут публиковаться здесь по мере развития событий."
+  }
+}

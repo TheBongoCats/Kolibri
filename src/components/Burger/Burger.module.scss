@@ -1,4 +1,5 @@
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 $burger-item-pos: -6px;
 
@@ -9,7 +10,7 @@ $burger-item-pos: -6px;
   display: block;
   width: 22px;
   height: 3px;
-  background-color: $white;
+  @include useTheme('background-color', 'burger');
   transition: all 0.2s;
 }
 
@@ -18,7 +19,7 @@ $burger-item-pos: -6px;
   position: relative;
   width: 22px;
   height: 3px;
-  background-color: $white;
+  @include useTheme('background-color', 'burger');
   border: none;
 
   @media only screen and (max-width: 594px) {
@@ -36,8 +37,7 @@ $burger-item-pos: -6px;
   }
 
   &--clicked {
-    display: inline-block;
-    background-color: transparent;
+    @include useTheme('background-color', 'burger-main');
 
     &:before {
       transform: rotate(-45deg) translate(-5px, 5px);
