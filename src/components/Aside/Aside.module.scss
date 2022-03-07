@@ -1,10 +1,11 @@
 @import '/src/styles/mixins';
 
-$header-height: 59.5px;
+$header-height: 49.5px;
 
 .aside {
   position: absolute;
   top: $header-height;
+
   bottom: 0;
   left: 0;
   width: 0;

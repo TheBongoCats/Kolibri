@@ -1,0 +1,56 @@
+{
+  "description": {
+    "en": "Kolibri is an Tezos based stablecoin built on Collateralized Debt Positions (CDPs) known as",
+    "ru": "Kolibri это стабильная монета на основе Tezos, построенная на обеспеченных долговых позициях (CDP), известных как"
+  },
+  "overview": {
+    "en": "Overview",
+    "ru": "Обзор"
+  },
+
+  "overviewBefore": {
+    "en": "Kolibri uses CDPs (referred to as an ",
+    "ru": "Kolibri использует CDP (называемые"
+  },
+
+  "overviewAfter": {
+    "en": "to collateralize a soft pegged USD-stable value asset,",
+    "ru": "чтобы обеспечить актив с мягкой привязкой со стабильной стоимостью в долларах США,"
+  },
+
+  "functionTitle": {
+    "en": "Each Oven has four functions:",
+    "ru": "Каждая печка имеет четыре функции:"
+  },
+
+  "depositAfter": {
+    "en": "into the",
+    "ru": "в"
+  },
+
+  "removeAfter": {
+    "en": "from the",
+    "ru": "из"
+  },
+
+  "borrowAfter": {
+    "en": "against the",
+    "ru": "у"
+  },
+
+  "borrowUsing": {
+    "en": "using",
+    "ru": "используя"
+  },
+
+  "borrowCollateral": {
+    "en": "as collateral",
+    "ru": "В качестве залога"
+  },
+
+  "repayAfter": {
+    "en": "that was borrowed against the",
+    "ru": "которые были заимствованы у"
+  }
+
+}

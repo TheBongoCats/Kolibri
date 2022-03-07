@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useI18nDispatchContext } from '../../contexts/i18nContext';
 import styled from './I18n.module.scss';
 
@@ -6,7 +7,7 @@ const i18nConfig = [
   { value: 'ru', text: 'RU' },
 ];
 
-const I18n = () => {
+const I18n = ({ isAside }) => {
   const { handleSetLang } = useI18nDispatchContext();
 
   return (
@@ -15,7 +16,9 @@ const I18n = () => {
         handleSetLang(e.target.value);
       }}
       defaultValue={localStorage.lang || 'en'}
-      className={styled.i18n}
+      className={
+        isAside ? `${styled.i18n} ${styled['i18n--aside']}` : styled.i18n
+      }
     >
       {i18nConfig.map((item) => {
         const { value, text } = item;
@@ -31,3 +34,11 @@ const I18n = () => {
 };
 
 export default I18n;
+
+I18n.propTypes = {
+  isAside: PropTypes.bool,
+};
+
+I18n.defaultProps = {
+  isAside: false,
+};

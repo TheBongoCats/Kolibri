@@ -33,10 +33,12 @@
   &__list {
     padding: 16px;
     min-width: 30%;
+    @include useTheme('color', 'docs-color');
 
     @media only screen and (max-width: 594px) {
       position: absolute;
-      background-color: #307ff4;
+      @include useTheme('background-color', 'docs-aside');
+      @include useTheme('color', 'docs-color-aside');
       left: -1000px;
       top: 48px;
       bottom: 48px;
@@ -88,7 +90,7 @@
   &__background {
     position: absolute;
     top: 48px;
-    right: 8px;
+    right: 0px;
     bottom: 48px;
     left: 8px;
     background-color: #00000055;

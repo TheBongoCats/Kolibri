@@ -1,42 +1,53 @@
 import styles from '../../content.module.scss';
+import texts from './texts.json';
+import codeTexts from '../../codeTexts.json';
+import { useI18nStateContext } from '../../../../../contexts/i18nContext';
 
 const Intro = () => {
+  const { lang } = useI18nStateContext();
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.heading}>Kolibri</h2>
       <p className={styles.paragraph}>
-        Kolibri is an Tezos based stablecoin built on Collateralized Debt
-        Positions (CDPs) known as <code className={styles.code}>Oven</code>s.
+        {texts.description[`${lang}`]}{' '}
+        <code className={styles.code}>Ovens</code>
       </p>
-      <h3 className={styles['sub-heading']}>Overview</h3>
+      <h3 className={styles['sub-heading']}>{texts.overview[`${lang}`]}</h3>
       <p className={styles.paragraph}>
-        Kolibri uses CDPs (referred to as an{' '}
-        <code className={styles.code}>Oven</code>) to collateralize a soft
-        pegged USD-stable value asset, <code className={styles.code}>kUSD</code>
-        .
+        {texts.overviewBefore[`${lang}`]}{' '}
+        <code className={styles.code}>Oven</code>
+        {texts.overviewAfter[`${lang}`]}{' '}
+        <code className={styles.code}>kUSD</code>.
       </p>
-      <p className={styles.paragraph}>Each Oven has four functions:</p>
+      <p className={styles.paragraph}>{texts.functionTitle[`${lang}`]}</p>
       <ul className={styles.list}>
         <li className={styles.list__item}>
-          <code className={styles.code}>Deposit</code>: Place{' '}
-          <code className={styles.code}>XTZ</code> into the{' '}
+          <code className={styles.code}>Deposit</code>:{' '}
+          {codeTexts.place[`${lang}`]} <code className={styles.code}>XTZ</code>{' '}
+          {texts.depositAfter[`${lang}`]}{' '}
           <code className={styles.code}>Oven</code>
         </li>
         <li className={styles.list__item}>
-          <code className={styles.code}>Withdraw</code>: Remove{' '}
-          <code className={styles.code}>XTZ</code> from the{' '}
+          <code className={styles.code}>Remove</code>:{' '}
+          {codeTexts.remove[`${lang}`]} <code className={styles.code}>XTZ</code>{' '}
+          {texts.removeAfter[`${lang}`]}{' '}
           <code className={styles.code}>Oven</code>
         </li>
         <li className={styles.list__item}>
-          <code className={styles.code}>Borrow</code>: Borrow{' '}
-          <code className={styles.code}>kUSD</code> against the{' '}
-          <code className={styles.code}>Oven</code> using{' '}
-          <code className={styles.code}>XTZ</code> as collateral
+          <code className={styles.code}>Borrow</code>:{' '}
+          {codeTexts.borrow[`${lang}`]}{' '}
+          <code className={styles.code}>kUSD</code>{' '}
+          {texts.borrowAfter[`${lang}`]}{' '}
+          <code className={styles.code}>Oven</code>{' '}
+          {texts.borrowUsing[`${lang}`]}{' '}
+          <code className={styles.code}>XTZ</code>{' '}
+          {texts.borrowCollateral[`${lang}`]}
         </li>
         <li className={styles.list__item}>
-          <code className={styles.code}>Repay</code>: Repay{' '}
-          <code className={styles.code}>kUSD</code> that was borrowed against
-          the <code className={styles.code}>Oven</code>.
+          <code className={styles.code}>Repay</code>:{' '}
+          {codeTexts.repay[`${lang}`]} <code className={styles.code}>kUSD</code>{' '}
+          {texts.repayAfter[`${lang}`]}{' '}
+          <code className={styles.code}>Oven</code>.
         </li>
       </ul>
     </div>
