@@ -6,6 +6,7 @@ import {
   CONTRACTS,
   TokenClient,
 } from '@hover-labs/kolibri-js';
+// import addNotification from 'react-push-notification';
 import propTypes from 'prop-types';
 import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import axios from 'axios';
@@ -156,6 +157,14 @@ const KolibriProvider = ({ children }) => {
     setTezosPrice(result);
   };
 
+  const updateActualPrice = async () => {
+    const result = await harbingerClient.getPriceData();
+
+    if (+tezosPrice.time !== +result.time) {
+      setTezosPrice(result);
+    }
+  };
+
   const getStabilityFeeYear = async () => {
     const result = await stableCoinClient.getSimpleStabilityFee();
     setStabilityFeeYear(mutateBigNumber(result, undefined, 1));
@@ -188,7 +197,7 @@ const KolibriProvider = ({ children }) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      getActualPrice();
+      updateActualPrice();
     }, 60000);
     return () => clearInterval(intervalId);
   }, [tezosPrice]);

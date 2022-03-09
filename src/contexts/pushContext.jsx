@@ -1,5 +1,14 @@
-import { createContext, useContext, useEffect, useMemo } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import propTypes from 'prop-types';
+import { useKolibriStateContext } from './kolibriContext';
+import { mutateBigNumber } from '../utils';
 
 // state context
 const PushStateContext = createContext({});
@@ -31,64 +40,70 @@ const usePushDispatchContext = () => {
 
 // Provider
 const PushProvider = ({ children }) => {
-  const requestPermission = () => {
-    return new Promise((resolve, reject) => {
-      const permissionResult = Notification.requestPermission((result) => {
-        // Поддержка устаревшей версии с функцией обратного вызова.
-        resolve(result);
-      });
+  const { tezosPrice } = useKolibriStateContext();
+  const [permission, setPermission] = useState(false);
+  const [notifyOracle, setNotifyOracle] = useState(true);
+  const firstUpdate = useRef(true);
 
-      if (permissionResult) {
-        permissionResult.then(resolve, reject);
-      }
-    }).then((permissionResult) => {
-      if (permissionResult !== 'granted') {
-        throw new Error('Permission not granted.');
-      }
-    });
+  const requestPermission = () => {
+    Notification.requestPermission();
   };
 
-  function subscribeUserToPush() {
-    return navigator.serviceWorker
-      .register('service-worker.js')
-      .then((registration) => {
-        const subscribeOptions = {
-          userVisibleOnly: true,
-          applicationServerKey: btoa(
-            'BKnGSV001HiVKlKcR88lVjL0J1EYv0iIBqzKvLhzrHA_Mgwo_6G4B3zT7sQiDXP1rs9cAaDWfDQdE66pjj0b5yc',
-          ),
-        };
+  let handleSetNotify;
 
-        return registration.pushManager.subscribe(subscribeOptions);
-      })
-      .then((pushSubscription) => {
-        console.log('PushSubscription: ', JSON.stringify(pushSubscription));
-        return pushSubscription;
-      });
+  try {
+    const storage = localStorage;
+
+    handleSetNotify = () => {
+      if (permission) {
+        setNotifyOracle(!notifyOracle);
+        storage.setItem('oracleNotify', !notifyOracle);
+      }
+    };
+
+    useEffect(() => {
+      const storageOracleNotify = storage.getItem('oracleNotify');
+
+      return storageOracleNotify
+        ? setNotifyOracle(storageOracleNotify)
+        : storage.setItem('oracleNotify', false);
+    }, []);
+  } catch {
+    if (permission) {
+      handleSetNotify = () => {
+        setNotifyOracle(!notifyOracle);
+      };
+    }
   }
 
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
-    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-      // Браузер не поддерживает сервис-воркеры.
-      return null;
-    }
+    if (tezosPrice) {
+      if (firstUpdate.current) {
+        firstUpdate.current = false;
+        return;
+      }
 
-    requestPermission();
-  }, []);
+      if (notifyOracle) {
+        // eslint-disable-next-line no-new
+        new Notification('Hey! Kolibri oracle has updated!', {
+          body: `New XTZ/USD price is ${mutateBigNumber(tezosPrice.price)}$`,
+        });
+      }
+    }
+  }, [tezosPrice]);
+
+  useEffect(() => {
+    setPermission(Notification.permission === 'granted');
+  }, [Notification.permission]);
 
   const stateValue = useMemo(
-    () => ({
-      lang,
-    }),
-    [lang],
+    () => ({ permission, notifyOracle }),
+    [permission, notifyOracle],
   );
 
   const dispatchValue = useMemo(
-    () => ({
-      handleSetLang,
-    }),
-    [handleSetLang],
+    () => ({ requestPermission, handleSetNotify }),
+    [requestPermission, handleSetNotify],
   );
 
   return (

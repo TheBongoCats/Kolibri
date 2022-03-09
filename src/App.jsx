@@ -3,6 +3,7 @@ import { I18nProvider } from './contexts/i18nContext';
 import { ThemeProvider } from './contexts/themeContext';
 import { BeaconProvider } from './contexts/beaconContext';
 import { KolibriProvider } from './contexts/kolibriContext';
+import { PushProvider } from './contexts/pushContext';
 import { OvenModalProvider } from './contexts/modalContext';
 import AppRouter from './route/AppRouter';
 import Header from './components/Header';
@@ -16,14 +17,16 @@ const App = () => {
       <I18nProvider>
         <BeaconProvider>
           <KolibriProvider>
-            <OvenModalProvider>
-              <HashRouter>
-                <Header />
-                <AppRouter />
-                <Footer />
-                <Modal />
-              </HashRouter>
-            </OvenModalProvider>
+            <PushProvider>
+              <OvenModalProvider>
+                <HashRouter>
+                  <Header />
+                  <AppRouter />
+                  <Footer />
+                  <Modal />
+                </HashRouter>
+              </OvenModalProvider>
+            </PushProvider>
           </KolibriProvider>
         </BeaconProvider>
       </I18nProvider>

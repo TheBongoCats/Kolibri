@@ -19,7 +19,7 @@ const OvenModalInfo = ({
     switch (modalId) {
       case 'borrow':
         return (
-          <>
+          <div>
             <p>Borrowed kUSD: {mutatedData.loan} kUSD</p>
             <p>
               Max borrow amount KUSD:{' '}
@@ -34,11 +34,11 @@ const OvenModalInfo = ({
               Oven liquidatable when XTZ price is: $
               {mutateBigNumber(tezosPrice.price * newCollateralRatio, 1e8)}
             </p>
-          </>
+          </div>
         );
       case 'repay':
         return (
-          <>
+          <div>
             <p>Borrowed kUSD: {mutatedData.loan} kUSD</p>
             <p>Wallet holdings: {tokens} kUSD</p>
             <p>Max payback amount: {mutatedData.loan} kUSD</p>
@@ -50,11 +50,11 @@ const OvenModalInfo = ({
               Oven liquidatable when XTZ price is: $
               {mutateBigNumber(tezosPrice.price * newCollateralRatio, 1e8)}
             </p>
-          </>
+          </div>
         );
       case 'withdraw':
         return (
-          <>
+          <div>
             <p>Oven collateral: {mutatedData.balance}</p>
             <p>
               Max withdraw amount:{' '}
@@ -65,17 +65,17 @@ const OvenModalInfo = ({
             </p>
             <p>Current collateral utilization: {mutatedData.collateralRatio}</p>
             <p>New collateral utilization: {newCollateralRatio}</p>
-          </>
+          </div>
         );
       case 'deposit':
         return (
-          <>
+          <div>
             <p>Oven collateral: {mutatedData.balance}</p>
             <p>Wallet holdings: {beaconBalance.toFixed(2)}</p>
             <p>Max deposit: {beaconBalance.toFixed(2)}</p>
             <p>Current collateral utilization: {mutatedData.collateralRatio}</p>
             <p>New collateral utilization: {newCollateralRatio}</p>
-          </>
+          </div>
         );
       default:
         break;

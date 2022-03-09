@@ -4,7 +4,9 @@
 $border-radius: 20px;
 
 .navigation {
-  @include useTheme('color', 'nav-color');
+  a {
+    @include useTheme('color', 'nav-color');
+  }
 
   &__list {
     display: flex;
