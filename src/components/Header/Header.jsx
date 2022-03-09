@@ -13,36 +13,6 @@ import { useI18nStateContext } from '../../contexts/i18nContext';
 import Aside from '../Aside';
 import Burger from '../Burger';
 
-// const notifyMe = () => {
-//   // eslint-disable-next-line no-unused-vars
-//   const notification = new Notification('Notification', {
-//     tag: 'ache-mail',
-//     body: 'Body of notification',
-//     icon: Logo,
-//   });
-//
-//   if (notification) {
-//     console.log(123);
-//   }
-// };
-//
-// const notifSet = () => {
-//   if (!('Notification' in window)) {
-//     alert('asd');
-//   } else if (Notification.permission === 'granted') {
-//     setTimeout(notifyMe, 10000);
-//   } else if (Notification.permission !== 'denied') {
-//     Notification.requestPermission((permission) => {
-//       if (!('permission' in Notification)) {
-//         Notification.permission = permission;
-//       }
-//       if (permission === 'granted') {
-//         setTimeout(notifyMe, 10000);
-//       }
-//     });
-//   }
-// };
-
 const Header = () => {
   const { connectWallet, disconnectWallet } = useBeaconDispatchContext();
   const { isLogin } = useBeaconStateContext();

@@ -10,7 +10,7 @@ import { useModalDispatchContext } from '../../../contexts/modalContext';
 
 import Button from '../../Button';
 import CircularProgress from '../CircularProgress';
-import ModalInfo from './OvenModalInfo';
+import OvenModalInfo from './OvenModalInfo';
 
 import styled from './OvenModal.module.scss';
 import CONSTANTS from '../../../utils/constants';
@@ -210,7 +210,7 @@ const OvenModal = ({ ovenData, section }) => {
               {MODAL_CONFIG[modalId].unit}
             </span>
           </div>
-          <ModalInfo
+          <OvenModalInfo
             styled={styled}
             tezosPrice={tezosPrice}
             mutatedData={mutatedData}
