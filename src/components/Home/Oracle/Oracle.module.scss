@@ -18,6 +18,22 @@
 
   &__updated {
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__bell {
+    height: 30px;
+    width: auto;
+
+    * {
+      @include useTheme('stroke', 'logo');
+    }
+
+    &--filled {
+      @include useTheme('fill', 'metric-color');
+    }
   }
 
   &__time {

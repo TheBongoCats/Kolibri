@@ -42,7 +42,7 @@ const usePushDispatchContext = () => {
 const PushProvider = ({ children }) => {
   const { tezosPrice } = useKolibriStateContext();
   const [permission, setPermission] = useState(false);
-  const [notifyOracle, setNotifyOracle] = useState(true);
+  const [notifyOracle, setNotifyOracle] = useState(false);
   const firstUpdate = useRef(true);
 
   const requestPermission = () => {
@@ -62,7 +62,7 @@ const PushProvider = ({ children }) => {
     };
 
     useEffect(() => {
-      const storageOracleNotify = storage.getItem('oracleNotify');
+      const storageOracleNotify = JSON.parse(storage.getItem('oracleNotify'));
 
       return storageOracleNotify
         ? setNotifyOracle(storageOracleNotify)
