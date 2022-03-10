@@ -58,6 +58,8 @@ const PushProvider = ({ children }) => {
       if (permission) {
         setNotifyOracle(!notifyOracle);
         storage.setItem('oracleNotify', !notifyOracle);
+      } else {
+        requestPermission();
       }
     };
 
@@ -69,11 +71,13 @@ const PushProvider = ({ children }) => {
         : storage.setItem('oracleNotify', false);
     }, []);
   } catch {
-    if (permission) {
-      handleSetNotify = () => {
+    handleSetNotify = () => {
+      if (permission) {
         setNotifyOracle(!notifyOracle);
-      };
-    }
+      } else {
+        requestPermission();
+      }
+    };
   }
 
   useEffect(() => {
