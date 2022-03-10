@@ -17,6 +17,7 @@ import {
   usePushDispatchContext,
   usePushStateContext,
 } from '../../../contexts/pushContext';
+import { ReactComponent as Bell } from '../../../images/bell.svg';
 
 const Oracle = () => {
   const { lang } = useI18nStateContext();
@@ -83,18 +84,21 @@ const Oracle = () => {
       <div className={styled.oracle__title}>
         {latest[`${lang}`]} <b>XTZ/USD Oracle</b> {priceText[`${lang}`]}
         {tezosPrice ? (
-          <>
-            <span className={styled.oracle__price}> ${price}</span>
-            <button type="button" onClick={handleSetNotify}>
-              {notifyOracle ? 'cancel' : 'notify'}
-            </button>
-          </>
+          <span className={styled.oracle__price}> ${price}</span>
         ) : (
           <Loader />
         )}
       </div>
       <div className={styled.oracle__updated}>
         {oracleUpdate[`${lang}`]} {+minutes ? lastUpdate() : <Loader />}
+        {notifyOracle ? (
+          <Bell
+            onClick={handleSetNotify}
+            className={`${styled.oracle__bell} ${styled['oracle__bell--filled']}`}
+          />
+        ) : (
+          <Bell onClick={handleSetNotify} className={styled.oracle__bell} />
+        )}
       </div>
     </div>
   );
