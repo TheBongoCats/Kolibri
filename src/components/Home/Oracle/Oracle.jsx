@@ -91,14 +91,19 @@ const Oracle = () => {
       </div>
       <div className={styled.oracle__updated}>
         {oracleUpdate[`${lang}`]} {+minutes ? lastUpdate() : <Loader />}
-        {notifyOracle ? (
-          <Bell
-            onClick={handleSetNotify}
-            className={`${styled.oracle__bell} ${styled['oracle__bell--filled']}`}
-          />
-        ) : (
-          <Bell onClick={handleSetNotify} className={styled.oracle__bell} />
-        )}
+        <button
+          onClick={handleSetNotify}
+          type="button"
+          className={styled.oracle__button}
+        >
+          {notifyOracle ? (
+            <Bell
+              className={`${styled.oracle__bell} ${styled['oracle__bell--filled']}`}
+            />
+          ) : (
+            <Bell className={styled.oracle__bell} />
+          )}
+        </button>
       </div>
     </div>
   );

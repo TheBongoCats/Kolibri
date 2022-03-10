@@ -44,6 +44,7 @@ const ROUTE_CONFIG = [
     ),
   },
   { path: '/404', component: <Error404 /> },
+  { path: '/docs', component: <Navigate to="/docs/intro" /> },
   { path: '*', component: <Navigate to="/404" /> },
 ];
 
@@ -53,7 +54,6 @@ const AppRouter = () => (
       {ROUTE_CONFIG.map((route) => (
         <Route key={route.path} path={route.path} element={route.component} />
       ))}
-      <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
   </main>
 );

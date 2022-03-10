@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import {
@@ -43,12 +44,14 @@ const Home = () => {
           <span className={styled.home__title}>Kolibri</span>
           <span className={styled.home__subtitle}>Stablecoin</span>
           <div className={styled.home__buttons}>
-            <Button
-              callback={() => null}
-              text={learnMoreButton[`${lang}`]}
-              isTransparent
-              isRounded
-            />
+            <Link to="/docs">
+              <Button
+                callback={() => null}
+                text={learnMoreButton[`${lang}`]}
+                isTransparent
+                isRounded
+              />
+            </Link>
             <Button
               callback={() => null}
               text={metricsButton[`${lang}`]}
