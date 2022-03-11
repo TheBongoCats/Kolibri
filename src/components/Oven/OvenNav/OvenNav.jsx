@@ -3,16 +3,19 @@ import { useModalDispatchContext } from '../../../contexts/modalContext';
 import Button from '../../Button';
 import OvenModal from '../OvenModal/OvenModal';
 import styled from './OvenNav.module.scss';
-
-const NAV_CONFIG = [
-  { text: 'Withdraw ꜩ', modalId: 'withdraw' },
-  { text: 'Deposit ꜩ', modalId: 'deposit' },
-  { text: 'Borrow kUSD', modalId: 'borrow' },
-  { text: 'Repay kUSD', modalId: 'repay' },
-];
+import texts from '../textsAction.json';
+import { useI18nStateContext } from '../../../contexts/i18nContext';
 
 const OvenNav = ({ ovenData }) => {
+  const { lang } = useI18nStateContext();
   const { handleOpenModal } = useModalDispatchContext();
+
+  const NAV_CONFIG = [
+    { text: `${texts.withdraw[`${lang}`]}`, modalId: 'withdraw' },
+    { text: `${texts.deposit[`${lang}`]}`, modalId: 'deposit' },
+    { text: `${texts.borrow[`${lang}`]}`, modalId: 'borrow' },
+    { text: `${texts.repay[`${lang}`]}`, modalId: 'repay' },
+  ];
 
   return (
     <ul className={styled['oven-nav']}>

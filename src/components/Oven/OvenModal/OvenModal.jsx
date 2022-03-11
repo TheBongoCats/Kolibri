@@ -13,8 +13,10 @@ import CircularProgress from '../CircularProgress';
 import OvenModalInfo from './OvenModalInfo';
 
 import styled from './OvenModal.module.scss';
+import textsAction from '../textsAction.json';
 import CONSTANTS from '../../../utils/constants';
 import { mutateOvenData, mutateBigNumber } from '../../../utils';
+import { useI18nStateContext } from '../../../contexts/i18nContext';
 
 const OvenModal = ({ ovenData, section }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
@@ -22,6 +24,7 @@ const OvenModal = ({ ovenData, section }) => {
   const { getDataFromAddress, setMyOvens, setLoadingOven } =
     useKolibriDispatchContext();
   const { setIsOpen } = useModalDispatchContext();
+  const { lang } = useI18nStateContext();
 
   const [newCollateralRatio, setNewCollateralRatio] = useState('');
   const [modalId, setModalId] = useState(section);
@@ -100,22 +103,22 @@ const OvenModal = ({ ovenData, section }) => {
 
   const MODAL_CONFIG = {
     borrow: {
-      section: 'Borrow kUSD',
+      section: `${textsAction.borrow[`${lang}`]}`,
       unit: 'kUSD',
       handleClick: handleBorrow,
     },
     repay: {
-      section: 'Repay kUSD',
+      section: `${textsAction.repay[`${lang}`]}`,
       unit: 'kUSD',
       handleClick: handleRepay,
     },
     withdraw: {
-      section: 'Withdraw ꜩ',
+      section: `${textsAction.withdraw[`${lang}`]}`,
       unit: 'ꜩ',
       handleClick: handleWithdraw,
     },
     deposit: {
-      section: 'Deposit ꜩ',
+      section: `${textsAction.deposit[`${lang}`]}`,
       unit: 'ꜩ',
       handleClick: handleDeposit,
     },
