@@ -2,6 +2,7 @@
 import propTypes from 'prop-types';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import { mutateOvenData } from '../../utils';
+import texts from './texts.json';
 
 import OvenNav from './OvenNav/OvenNav';
 import Metric from './Metric/Metric';
@@ -9,8 +10,10 @@ import Metric from './Metric/Metric';
 import styled from './Oven.module.scss';
 import CircularProgress from './CircularProgress';
 import Loader from '../Loader';
+import { useI18nStateContext } from '../../contexts/i18nContext';
 
 const Oven = ({ ovenData }) => {
+  const { lang } = useI18nStateContext();
   const { tezosPrice, loadingOven } = useKolibriStateContext();
 
   const mutatedData = mutateOvenData(ovenData, tezosPrice);
@@ -18,21 +21,21 @@ const Oven = ({ ovenData }) => {
   return (
     <div className={styled.oven}>
       {loadingOven === ovenData.ovenAddress ? (
-        <Loader text="Transaction pending..." />
+        <Loader text={texts.loader[`${lang}`]} />
       ) : (
         <>
           <p className={styled.oven__title}>{ovenData.ovenAddress}</p>
           <div className={styled.oven__flexbox}>
             <div className={styled.oven__info}>
               <Metric
-                title="Delegated baker:"
+                title={texts.metricBaker[`${lang}`]}
                 value={ovenData.baker}
                 position="left"
                 size="s"
               />
               {ovenData.ovenClient ? (
                 <Metric
-                  title="Liquidatable when xtz:"
+                  title={texts.metricLiquidity[`${lang}`]}
                   value={mutatedData.liquidatablePrice}
                   unit="$"
                   position="left"
@@ -40,7 +43,7 @@ const Oven = ({ ovenData }) => {
                 />
               ) : (
                 <Metric
-                  title="Owner:"
+                  title={texts.metricOwner[`${lang}`]}
                   value={ovenData.ovenOwner}
                   position="left"
                   size="s"
@@ -53,14 +56,22 @@ const Oven = ({ ovenData }) => {
           </div>
           <div className={styled.oven__metrics}>
             <Metric
-              title="Collateral value:"
+              title={texts.metricCollateral[`${lang}`]}
               value={mutatedData.collateralValue}
               unit=" USD"
             />
-            <Metric title="Balance:" value={mutatedData.balance} unit=" ꜩ" />
-            <Metric title="Loan:" value={mutatedData.loan} unit=" kUSD" />
             <Metric
-              title="Stability fees:"
+              title={texts.metricBalance[`${lang}`]}
+              value={mutatedData.balance}
+              unit=" ꜩ"
+            />
+            <Metric
+              title={texts.metricLoan[`${lang}`]}
+              value={mutatedData.loan}
+              unit=" kUSD"
+            />
+            <Metric
+              title={texts.metricStability[`${lang}`]}
               value={mutatedData.stabilityFees}
               unit=" kUSD"
               dataTitle={mutatedData.stabilityFeesFull}

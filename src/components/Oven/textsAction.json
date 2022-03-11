@@ -1,0 +1,21 @@
+{
+  "withdraw": {
+    "en": "Withdraw ꜩ",
+    "ru": "Вывести ꜩ"
+  },
+
+  "deposit": {
+    "en": "Deposit ꜩ",
+    "ru": "Депозит ꜩ"
+  },
+
+  "borrow": {
+    "en": "Borrow kUSD",
+    "ru": "Занять kUSD"
+  },
+
+  "repay": {
+    "en": "Repay kUSD",
+    "ru": "Погасить kUSD"
+  }
+}
