@@ -44,3 +44,16 @@ export const mutateOvenData = (ovenData, tezosPrice) => {
     ovenClient: ovenData.ovenClient,
   };
 };
+
+export const deviceType = () => {
+  const ua = navigator.userAgent;
+  if (
+    /(tablet|ipad|playbook|silk)|(android(?!.*mobi))|Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/i.test(
+      ua,
+    )
+  ) {
+    return false;
+  }
+
+  return true;
+};
