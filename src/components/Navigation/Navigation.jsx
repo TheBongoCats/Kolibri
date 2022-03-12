@@ -10,10 +10,12 @@ import { useThemeState } from '../../contexts/themeContext';
 import { ReactComponent as Sun } from '../../images/sun.svg';
 import { ReactComponent as Moon } from '../../images/moon.svg';
 import UserData from '../UserData';
+import { useBeaconStateContext } from '../../contexts/beaconContext';
 
 const Navigation = ({ isAside }) => {
   const { lang } = useI18nStateContext();
   const { theme, handleSetTheme } = useThemeState();
+  const { isLogin } = useBeaconStateContext();
   const toggleTheme = () =>
     theme === 'light' ? handleSetTheme('dark') : handleSetTheme('light');
 
@@ -45,9 +47,11 @@ const Navigation = ({ isAside }) => {
               <Moon />
             )}
           </li>
-          <li>
-            <UserData />
-          </li>
+          {isLogin && (
+            <li>
+              <UserData />
+            </li>
+          )}
         </ul>
       </nav>
     );
