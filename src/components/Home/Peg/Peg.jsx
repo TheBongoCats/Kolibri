@@ -7,7 +7,7 @@ const Peg = ({ percents }) => {
   return (
     <div className={styled.peg}>
       <p className={styled.peg__title}>
-        KUSD PRICE / PEG DEPTH - <b>$6.46</b> / <b>0,04 KUSD</b> (?)
+        KUSD PRICE / PEG DEPTH <b>$6.46 / 0,04 KUSD</b>
       </p>
       <div
         className={styled.peg__progress}

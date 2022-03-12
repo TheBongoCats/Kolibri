@@ -17,13 +17,7 @@ const UserData = () => {
   return (
     <div className={styles['user-data']}>
       <div className={`${styles['user-data__wrapper']}`}>
-        {!isShown && (
-          <Eye
-            className={styles['user-data__show']}
-            onClick={() => setIsShown(true)}
-          />
-        )}
-        {isShown && (
+        {isShown ? (
           <>
             <div
               role="button"
@@ -32,27 +26,34 @@ const UserData = () => {
               className={styles['user-data__button']}
             />
             <span className={styles['user-data__address']}>{address}</span>
-            <div>
-              <span className={styles['user-data__currency']}>
-                kUSD Holdings
-              </span>
-              <span className={styles['user-data__amount']}>
-                {myTokens ? (myTokens / 1e18).toFixed(2) : '0.00'} kUSD
-              </span>
-            </div>
-            <div>
-              <span className={styles['user-data__currency']}>
-                Tezos Holdings
-              </span>
-              <span className={styles['user-data__amount']}>
-                {beaconBalance && beaconBalance.toFixed(2)} ꜩ
-              </span>
+            <div className={`${styles['user-data__wrapper']}`}>
+              <div>
+                <span className={styles['user-data__currency']}>
+                  kUSD Holdings
+                </span>
+                <span className={styles['user-data__amount']}>
+                  {myTokens ? (myTokens / 1e18).toFixed(2) : '0.00'} kUSD
+                </span>
+              </div>
+              <div>
+                <span className={styles['user-data__currency']}>
+                  Tezos Holdings
+                </span>
+                <span className={styles['user-data__amount']}>
+                  {beaconBalance && beaconBalance.toFixed(2)} ꜩ
+                </span>
+              </div>
             </div>
             <div className={styles['user-data__network']}>
               <span>Network: </span>
               <span>{beaconNet && beaconNet.toUpperCase()}</span>
             </div>
           </>
+        ) : (
+          <Eye
+            className={styles['user-data__eye']}
+            onClick={() => setIsShown(true)}
+          />
         )}
       </div>
     </div>

@@ -48,7 +48,7 @@ const Header = () => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <header className={styles.header}>
       <Logo />
-      {width >= 595 ? (
+      {width >= 700 ? (
         <Navigation />
       ) : (
         <Burger isOpen={isOpen} callback={handleIsOpen} />
@@ -64,7 +64,7 @@ const Header = () => {
           text={walletConnect[`${lang}`]}
         />
       )}
-      {width <= 594 && <Aside isOpen={isOpen} handleIsOpen={handleIsOpen} />}
+      {width <= 700 && <Aside isOpen={isOpen} handleIsOpen={handleIsOpen} />}
     </header>
   );
 };

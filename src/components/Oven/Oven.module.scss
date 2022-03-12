@@ -14,10 +14,22 @@
   @include useTheme('background', 'oven-background');
   border-radius: 40px;
 
+  @media only screen and (max-width: 980px) {
+    max-width: 465px;
+  }
+
+  @media only screen and (max-width: 700px) {
+    max-width: 320px;
+  }
+
   &__flexbox {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media only screen and (max-width: 700px) {
+      flex-direction: column-reverse;
+    }
   }
 
   &__info {
@@ -25,6 +37,10 @@
     max-width: 270px;
     flex-direction: column;
     gap: 20px;
+
+    @media only screen and (max-width: 700px) {
+      max-width: initial;
+    }
   }
 
   &__title {
@@ -32,29 +48,29 @@
     font-weight: 800;
     word-wrap: break-word;
 
-    @media only screen and (max-width: 589px) {
-      max-width: 130px;
-      @include typography(800, 10px);
+    @media only screen and (max-width: 980px) {
+      font-size: 16px;
+    }
+
+    @media only screen and (max-width: 700px) {
+      text-align: center;
     }
   }
 
   &__metrics {
     display: flex;
     justify-content: space-between;
-    gap: 30px;
+    row-gap: 20px;
     flex-wrap: wrap;
     align-items: center;
-
-    @media only screen and (max-width: 589px) {
-      justify-content: center;
-    }
   }
 
   &__progress {
     width: 160px;
     padding: 20px;
 
-    @media only screen and (max-width: 589px) {
+    @media only screen and (max-width: 700px) {
+      padding: 5px;
       width: 120px;
     }
   }

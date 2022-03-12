@@ -4,19 +4,20 @@
 $currency-radius: 10px;
 
 .user-data {
-  display: flex;
-  align-items: center;
-  align-self: center;
   position: sticky;
   z-index: 10;
   top: 20px;
   @include useTheme('background-color', 'wallet');
   padding: 20px;
   border-radius: 40px;
-  box-shadow: 5px 5px 30px #0f001d74,
-    inset 0 0 30px rgba(255, 255, 255, 0.15);
+  box-shadow: 5px 5px 30px #0f001d74, inset 0 0 30px rgba(255, 255, 255, 0.15);
 
-  &__show {
+  @media only screen and (max-width: 700px) {
+    padding: 10px;
+    border-radius: 0;
+  }
+
+  &__eye {
     height: 30px;
     cursor: pointer;
     @include useTheme('fill', 'logo');
@@ -46,7 +47,7 @@ $currency-radius: 10px;
     @include useTheme('color', 'metric-color');
     @include typography(800, 18px, 22px);
 
-    @media only screen and (max-width: 589px) {
+    @media only screen and (max-width: 980px) {
       font-size: 15px;
     }
   }
@@ -56,14 +57,23 @@ $currency-radius: 10px;
     gap: 2px;
     @include typography(400, 15px, 15px);
 
+    @media only screen and (max-width: 980px) {
+      font-size: 12px;
+    }
+
     :last-child {
       @include typography(800, 15px, 15px);
+      @media only screen and (max-width: 980px) {
+        font-size: 12px;
+      }
     }
   }
 
   &__wrapper {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
   }
 
@@ -78,7 +88,7 @@ $currency-radius: 10px;
 
     padding: 5px 5px 5px 10px;
 
-    @media only screen and (max-width: 589px) {
+    @media only screen and (max-width: 980px) {
       font-size: 12px;
     }
   }
@@ -93,7 +103,7 @@ $currency-radius: 10px;
       top-right-radius: $currency-radius;
     }
 
-    @media only screen and (max-width: 589px) {
+    @media only screen and (max-width: 980px) {
       font-size: 12px;
     }
   }

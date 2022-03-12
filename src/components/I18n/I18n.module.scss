@@ -7,11 +7,4 @@
   outline: none;
   cursor: pointer;
   @include useTheme('color', 'i18n-color');
-
-  &--aside {
-    display: inline-block;
-    margin-bottom: 24px;
-
-    @include useTheme('color', 'i18n-aside');
-  }
 }

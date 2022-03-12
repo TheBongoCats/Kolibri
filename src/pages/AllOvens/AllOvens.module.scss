@@ -18,7 +18,7 @@
     border-radius: 40px;
     box-shadow: 5px 5px 30px #0f001db4, inset 0 0 30px rgba(255, 255, 255, 0.15);
 
-    @media only screen and (max-width: 589px) {
+    @media only screen and (max-width: 700px) {
       max-width: 450px;
     }
   }
@@ -34,7 +34,7 @@
       @include useTheme('border-color', 'input-border');
     }
 
-    @media only screen and (max-width: 589px) {
+    @media only screen and (max-width: 700px) {
       font-size: 12px;
     }
   }
