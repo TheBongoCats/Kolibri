@@ -39,7 +39,11 @@ const Navigation = ({ isAside }) => {
             <I18n />
           </li>
           <li onClick={toggleTheme}>
-            {theme === 'light' ? <Sun /> : <Moon />}
+            {theme === 'light' ? (
+              <Sun className={styles.navigation__sun} />
+            ) : (
+              <Moon />
+            )}
           </li>
           <li>
             <UserData />
