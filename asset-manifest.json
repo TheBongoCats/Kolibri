@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Kolibri/static/css/main.60ea8679.chunk.css",
-    "main.js": "/Kolibri/static/js/main.b8ee0552.chunk.js",
-    "main.js.map": "/Kolibri/static/js/main.b8ee0552.chunk.js.map",
+    "main.js": "/Kolibri/static/js/main.f8b16ccb.chunk.js",
+    "main.js.map": "/Kolibri/static/js/main.f8b16ccb.chunk.js.map",
     "runtime-main.js": "/Kolibri/static/js/runtime-main.537e06f6.js",
     "runtime-main.js.map": "/Kolibri/static/js/runtime-main.537e06f6.js.map",
     "static/js/2.16e04064.chunk.js": "/Kolibri/static/js/2.16e04064.chunk.js",
@@ -27,6 +27,6 @@
     "static/js/runtime-main.537e06f6.js",
     "static/js/2.16e04064.chunk.js",
     "static/css/main.60ea8679.chunk.css",
-    "static/js/main.b8ee0552.chunk.js"
+    "static/js/main.f8b16ccb.chunk.js"
   ]
 }
