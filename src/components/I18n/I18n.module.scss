@@ -7,4 +7,8 @@
   outline: none;
   cursor: pointer;
   @include useTheme('color', 'i18n-color');
+
+  @media only screen and (max-width: 700px) {
+    @include useTheme('color', 'i18n-aside');
+  }
 }
