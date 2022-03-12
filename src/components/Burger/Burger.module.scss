@@ -15,16 +15,12 @@ $burger-item-pos: -6px;
 }
 
 .burger {
-  display: none;
+  display: block;
   position: relative;
   width: 22px;
   height: 3px;
   @include useTheme('background-color', 'burger');
   border: none;
-
-  @media only screen and (max-width: 594px) {
-    display: block;
-  }
 
   &:before {
     top: $burger-item-pos;

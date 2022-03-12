@@ -1,12 +1,12 @@
 .oven-nav {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
+  row-gap: 20px;
   flex-wrap: wrap;
   align-items: center;
 
   &__button {
-    max-width: 200px;
+    max-width: 50%;
     width: 100%;
     text-align: center;
   }

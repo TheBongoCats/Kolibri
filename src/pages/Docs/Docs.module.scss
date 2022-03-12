@@ -1,4 +1,4 @@
-@import "/src/styles/variables";
+@import '/src/styles/variables';
 @import '/src/styles/mixins';
 
 .docs {
@@ -9,8 +9,7 @@
     max-width: 95%;
     margin: 0 auto;
 
-    box-shadow: 5px 5px 30px #0f001d74,
-    inset 0 0 30px rgba(255, 255, 255, 0.15);
+    box-shadow: 5px 5px 30px #0f001d74, inset 0 0 30px rgba(255, 255, 255, 0.15);
   }
 
   &__header {
@@ -35,7 +34,7 @@
     min-width: 30%;
     @include useTheme('color', 'docs-color');
 
-    @media only screen and (max-width: 594px) {
+    @media only screen and (max-width: 700px) {
       position: absolute;
       @include useTheme('background-color', 'docs-aside');
       @include useTheme('color', 'docs-color-aside');
@@ -73,14 +72,13 @@
     display: block;
 
     padding: 8px 12px;
-    transition: all .5s;
+    transition: all 0.5s;
 
     &:hover {
       @include useTheme('background-color', 'docs-links');
       color: $white;
-      transition: all .5s;
+      transition: all 0.5s;
     }
-
   }
 
   &__content {

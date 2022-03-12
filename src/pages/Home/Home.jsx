@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import {
@@ -35,11 +36,24 @@ const Home = () => {
   const { isLogin } = useBeaconStateContext();
   const { lang } = useI18nStateContext();
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  // for testing
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+  // for testing end
+
   return (
     <div className={styled.home}>
-      {isLogin && <UserData />}
+      {isLogin && width >= 700 && <UserData />}
       <div className={styled.home__head}>
-        <Logo isBig />
+        {width >= 700 && <Logo isBig />}
         <div className={styled.home__info}>
           <span className={styled.home__title}>Kolibri</span>
           <span className={styled.home__subtitle}>Stablecoin</span>

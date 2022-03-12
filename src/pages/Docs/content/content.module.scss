@@ -8,14 +8,7 @@ $default-margin: 16px;
 }
 
 .wrapper {
-  padding: 16px;
   @include typography(400, 16px, 24px);
-
-  @include typography(400, 16px, 24px);
-
-  @media only screen and (max-width: 594px) {
-   padding: 0;
-  }
 }
 
 .heading {
@@ -69,10 +62,10 @@ $default-margin: 16px;
   padding: 7px 16px;
   @include useTheme('background-color', 'docs-code');
   color: $white;
-  transition: all .5s;
+  transition: all 0.5s;
 
   &:hover {
     transform: scale(1.1);
-    transition: all .5s;
+    transition: all 0.5s;
   }
 }

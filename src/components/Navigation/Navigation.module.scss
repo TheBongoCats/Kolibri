@@ -12,7 +12,7 @@ $border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
   }
 
   &__item {
@@ -30,10 +30,7 @@ $border-radius: 20px;
       transition: all 0.5s;
     }
 
-    @media only screen and (max-width: 829px) {
-      font-size: 12px;
-    }
-    @media only screen and (max-width: 594px) {
+    @media only screen and (max-width: 980px) {
       font-size: 12px;
     }
   }
@@ -66,11 +63,6 @@ $border-radius: 20px;
   &__list {
     display: flex;
     flex-direction: column;
-  }
-
-  &__item {
-    display: flex;
-    align-items: flex-end;
-    margin-bottom: 24px;
+    gap: 24px;
   }
 }

@@ -1,22 +1,16 @@
 @import '../../styles/variables';
 @import '../../styles/mixins';
 
-%logo-basic {
-  width: 55px;
-}
-
 .logo {
-  @extend %logo-basic;
-  height: 55px;
+  width: 55px;
+  height: auto;
 
   &--sub-logo {
-    @extend %logo-basic;
-    height: 80px;
+    width: 80px;
   }
 
-  @media only screen and (max-width: 829px) {
+  @media only screen and (max-width: 980px) {
     width: 65px;
-    height: 35px;
   }
 
   & g {
@@ -25,15 +19,17 @@
 }
 
 .logo-big {
-  height: 232px;
-  width: auto;
+  height: auto;
+  width: 220px;
+
+  @media only screen and (max-width: 980px) {
+    width: 200px;
+  }
 
   & g {
     @include useTheme('fill', 'logo');
   }
 }
-
-
 
 .logo__link {
   display: flex;

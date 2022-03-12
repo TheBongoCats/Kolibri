@@ -9,6 +9,7 @@ import I18n from '../I18n';
 import { useThemeState } from '../../contexts/themeContext';
 import { ReactComponent as Sun } from '../../images/sun.svg';
 import { ReactComponent as Moon } from '../../images/moon.svg';
+import UserData from '../UserData';
 
 const Navigation = ({ isAside }) => {
   const { lang } = useI18nStateContext();
@@ -29,20 +30,19 @@ const Navigation = ({ isAside }) => {
           {NAVIGATION_CONFIG.map((navItem) => {
             const { path, text } = navItem;
             return (
-              <li key={path} className={styles['aside-nav__item']}>
+              <li key={path}>
                 <Link to={path}>{text}</Link>
               </li>
             );
           })}
-          <li className={styles.navigation__item}>
-            <I18n isAside />
+          <li>
+            <I18n />
           </li>
-          <li className={styles.navigation__item} onClick={toggleTheme}>
-            {theme === 'light' ? (
-              <Sun className={styles['navigation__sub-item']} />
-            ) : (
-              <Moon className={styles['navigation__sub-item']} />
-            )}
+          <li onClick={toggleTheme}>
+            {theme === 'light' ? <Sun /> : <Moon />}
+          </li>
+          <li>
+            <UserData />
           </li>
         </ul>
       </nav>
