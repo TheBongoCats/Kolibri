@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
-import { mutateBigNumber } from '../../../utils';
+import { isDesktop, mutateBigNumber } from '../../../utils';
 import CONSTANTS from '../../../utils/constants';
 import Loader from '../../Loader';
 import {
@@ -26,6 +26,8 @@ const Oracle = () => {
   const { notifyOracle } = usePushStateContext();
 
   const [minutes, setMinutes] = useState(0);
+
+  const desktop = isDesktop();
 
   const price = mutateBigNumber(tezosPrice?.price);
   const lastUpdateTime = tezosPrice?.time;
@@ -91,19 +93,21 @@ const Oracle = () => {
       </div>
       <div className={styled.oracle__updated}>
         {oracleUpdate[`${lang}`]} {+minutes ? lastUpdate() : <Loader />}
-        <button
-          onClick={handleSetNotify}
-          type="button"
-          className={styled.oracle__button}
-        >
-          {notifyOracle ? (
-            <Bell
-              className={`${styled.oracle__bell} ${styled['oracle__bell--filled']}`}
-            />
-          ) : (
-            <Bell className={styled.oracle__bell} />
-          )}
-        </button>
+        {desktop && (
+          <button
+            onClick={handleSetNotify}
+            type="button"
+            className={styled.oracle__button}
+          >
+            {notifyOracle ? (
+              <Bell
+                className={`${styled.oracle__bell} ${styled['oracle__bell--filled']}`}
+              />
+            ) : (
+              <Bell className={styled.oracle__bell} />
+            )}
+          </button>
+        )}
       </div>
     </div>
   );

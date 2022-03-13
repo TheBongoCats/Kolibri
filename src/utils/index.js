@@ -45,7 +45,7 @@ export const mutateOvenData = (ovenData, tezosPrice) => {
   };
 };
 
-export const deviceType = () => {
+export const isDesktop = () => {
   const ua = navigator.userAgent;
   if (
     /(tablet|ipad|playbook|silk)|(android(?!.*mobi))|Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/i.test(

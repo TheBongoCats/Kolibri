@@ -38,10 +38,10 @@ const Header = () => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <header className={styles.header}>
       <Logo />
-      {width <= 700 ? (
-        <Burger isOpen={isOpen} callback={handleIsOpen} />
-      ) : (
+      {width >= 700 ? (
         <Navigation />
+      ) : (
+        <Burger isOpen={isOpen} callback={handleIsOpen} />
       )}
       {isLogin ? (
         <Button
