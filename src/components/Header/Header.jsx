@@ -4,14 +4,15 @@ import Logo from '../Logo';
 import Navigation from '../Navigation';
 import styles from './Header.module.scss';
 import Button from '../Button';
+import Aside from '../Aside';
+import Burger from '../Burger';
+import { useI18nStateContext } from '../../contexts/i18nContext';
 import {
   useBeaconDispatchContext,
   useBeaconStateContext,
 } from '../../contexts/beaconContext';
 import { walletConnect, walletDisconnect } from './texts.json';
-import { useI18nStateContext } from '../../contexts/i18nContext';
-import Aside from '../Aside';
-import Burger from '../Burger';
+import useWindowWidth from '../../hooks/useWindowWidth';
 
 const Header = () => {
   const { connectWallet, disconnectWallet } = useBeaconDispatchContext();
@@ -19,6 +20,8 @@ const Header = () => {
   const { lang } = useI18nStateContext();
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const width = useWindowWidth();
   const location = useLocation();
 
   useEffect(() => {
@@ -30,19 +33,6 @@ const Header = () => {
       setIsOpen(!isOpen);
     }
   };
-
-  const [width, setWidth] = useState(window.innerWidth);
-
-  // for testing
-  const updateWidth = () => {
-    setWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  }, []);
-  // for testing end
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
