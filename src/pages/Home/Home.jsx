@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import {
@@ -14,6 +13,7 @@ import Peg from '../../components/Home/Peg';
 import Oracle from '../../components/Home/Oracle/Oracle';
 import OvenList from '../../components/OvenList/OvenList';
 import UserData from '../../components/UserData';
+import Logo from '../../components/Logo';
 
 import styled from './Home.module.scss';
 import {
@@ -27,7 +27,7 @@ import {
   connectButton,
   loaderText,
 } from './texts.json';
-import Logo from '../../components/Logo';
+import useWindowWidth from '../../hooks/useWindowWidth';
 
 const Home = () => {
   const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
@@ -36,18 +36,7 @@ const Home = () => {
   const { isLogin } = useBeaconStateContext();
   const { lang } = useI18nStateContext();
 
-  const [width, setWidth] = useState(window.innerWidth);
-
-  // for testing
-  const updateWidth = () => {
-    setWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  }, []);
-  // for testing end
+  const width = useWindowWidth();
 
   return (
     <div className={styled.home}>
