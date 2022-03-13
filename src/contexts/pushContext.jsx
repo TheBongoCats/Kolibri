@@ -8,7 +8,7 @@ import {
 } from 'react';
 import propTypes from 'prop-types';
 import { useKolibriStateContext } from './kolibriContext';
-import { mutateBigNumber } from '../utils';
+import { deviceType, mutateBigNumber } from '../utils';
 
 // state context
 const PushStateContext = createContext({});
@@ -46,7 +46,10 @@ const PushProvider = ({ children }) => {
   const firstUpdate = useRef(true);
 
   const requestPermission = () => {
-    Notification.requestPermission();
+    if (deviceType()) {
+      return Notification.requestPermission();
+    }
+    return () => null;
   };
 
   let handleSetNotify;
@@ -97,8 +100,11 @@ const PushProvider = ({ children }) => {
   }, [tezosPrice]);
 
   useEffect(() => {
-    setPermission(Notification.permission === 'granted');
-  }, [Notification.permission]);
+    if (deviceType()) {
+      console.log('useEffect');
+      setPermission(Notification.permission === 'granted');
+    }
+  }, []);
 
   const stateValue = useMemo(
     () => ({ permission, notifyOracle }),
