@@ -2,7 +2,6 @@
 @import '/src/styles/mixins';
 
 .docs {
-  position: relative;
   padding: 48px 0;
 
   &__wrapper {
@@ -26,21 +25,25 @@
   }
 
   &__data {
+    position: relative;
     display: flex;
   }
 
   &__list {
     padding: 16px;
     min-width: 30%;
+
     @include useTheme('color', 'docs-color');
 
     @media only screen and (max-width: 700px) {
       position: absolute;
+      left: -1000px;
+      top: 0;
+      bottom: 0;
+
       @include useTheme('background-color', 'docs-aside');
       @include useTheme('color', 'docs-color-aside');
-      left: -1000px;
-      top: 48px;
-      bottom: 48px;
+
       transition: left 0.5s;
       border: {
         top-right-radius: 20px;
@@ -49,7 +52,7 @@
     }
 
     &--is-open {
-      left: 8px;
+      left: 0;
       transition: left 0.5s;
     }
   }
@@ -87,10 +90,10 @@
 
   &__background {
     position: absolute;
-    top: 48px;
-    right: 0px;
-    bottom: 48px;
-    left: 8px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background-color: #00000055;
   }
 }

@@ -23,7 +23,20 @@ const titleConfig = [
 
 const Docs = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+
   const location = useLocation();
+
+  // for testing
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+  // for testing end
 
   useEffect(() => {
     setIsOpen(false);
@@ -31,19 +44,21 @@ const Docs = ({ children }) => {
 
   return (
     <div className={styles.docs}>
-      {isOpen && (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-        <div
-          className={styles.docs__background}
-          onClick={() => setIsOpen(!isOpen)}
-        />
-      )}
       <div className={styles.docs__wrapper}>
         <div className={styles.docs__header}>
           <h1 className={styles.docs__heading}>Documentation</h1>
-          <Burger callback={() => setIsOpen(!isOpen)} isOpen={isOpen} />
+          {width <= 700 && (
+            <Burger callback={() => setIsOpen(!isOpen)} isOpen={isOpen} />
+          )}
         </div>
         <div className={styles.docs__data}>
+          {isOpen && (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+            <div
+              className={styles.docs__background}
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          )}
           <ul
             className={
               isOpen
