@@ -3,13 +3,21 @@
 
 $burger-item-pos: -6px;
 
+%cursor-pointer {
+  cursor: pointer;
+}
+
+%burger-item-size {
+  width: 22px;
+  height: 3px;
+}
+
 %burger-item {
   left: 0;
   position: absolute;
   content: '';
   display: block;
-  width: 22px;
-  height: 3px;
+  @extend %burger-item-size;
   @include useTheme('background-color', 'burger');
   transition: all 0.2s;
 }
@@ -17,10 +25,13 @@ $burger-item-pos: -6px;
 .burger {
   display: block;
   position: relative;
-  width: 22px;
-  height: 3px;
-  @include useTheme('background-color', 'burger');
+  @extend %burger-item-size;
+
+  // safari padding remove
+  padding: 0;
   border: none;
+  @extend %cursor-pointer;
+  @include useTheme('background-color', 'burger');
 
   &:before {
     top: $burger-item-pos;
@@ -43,4 +54,9 @@ $burger-item-pos: -6px;
       transform: rotate(45deg) translate(-3px, -4px);
     }
   }
+}
+
+.wrapper {
+  padding: 10px 5px;
+  @extend %cursor-pointer;
 }
