@@ -1,5 +1,10 @@
+/* eslint-disable no-nested-ternary */
 import { Link } from 'react-router-dom';
-import { useKolibriStateContext } from '../../contexts/kolibriContext';
+import { useState } from 'react';
+import {
+  useKolibriDispatchContext,
+  useKolibriStateContext,
+} from '../../contexts/kolibriContext';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import {
   useBeaconDispatchContext,
@@ -26,17 +31,33 @@ import {
   connectWalletParagraph,
   connectButton,
   loaderText,
+  deployButton,
 } from './texts.json';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
 const Home = () => {
   const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
     useKolibriStateContext();
+  const { deployOven } = useKolibriDispatchContext();
   const { connectWallet } = useBeaconDispatchContext();
   const { isLogin } = useBeaconStateContext();
   const { lang } = useI18nStateContext();
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const width = useWindowWidth();
+
+  const handleDeployOven = async () => {
+    try {
+      setButtonDisabled(true);
+      await deployOven();
+      setButtonDisabled(false);
+    } catch (e) {
+      setButtonDisabled(false);
+      // for testing
+      console.error(e);
+      // for testing end
+    }
+  };
 
   return (
     <div className={styled.home}>
@@ -92,7 +113,21 @@ const Home = () => {
         </div>
         <Oracle />
       </div>
-      {!isLogin && (
+      {isLogin ? (
+        myOvens.length > 0 ? (
+          <>
+            <Button
+              callback={handleDeployOven}
+              text={deployButton[`${lang}`]}
+              isBig
+              isDisabled={buttonDisabled}
+            />
+            <OvenList ovens={myOvens} />
+          </>
+        ) : (
+          <Loader text={loaderText[`${lang}`]} />
+        )
+      ) : (
         <>
           <p className={styled.home__connect}>
             {connectWalletParagraph[`${lang}`]}
@@ -104,14 +139,6 @@ const Home = () => {
           />
         </>
       )}
-      <div>
-        {isLogin &&
-          (myOvens.length > 0 ? (
-            <OvenList ovens={myOvens} />
-          ) : (
-            <Loader text={loaderText[`${lang}`]} />
-          ))}
-      </div>
     </div>
   );
 };
