@@ -176,9 +176,7 @@ const KolibriProvider = ({ children }) => {
   };
 
   const deployOven = async () => {
-    if (beaconWalletData) {
-      await stableCoinClient.deployOven(beaconWalletData);
-    }
+    await stableCoinClient.deployOven(beaconWalletData);
   };
 
   useEffect(() => {

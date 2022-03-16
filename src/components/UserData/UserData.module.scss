@@ -67,6 +67,10 @@ $currency-radius: 10px;
         font-size: 12px;
       }
     }
+
+    @media only screen and (max-width: 700px) {
+      @include useTheme('color', 'user-data-aside');
+    }
   }
 
   &__wrapper {
@@ -90,6 +94,10 @@ $currency-radius: 10px;
 
     @media only screen and (max-width: 980px) {
       font-size: 12px;
+    }
+
+    @media only screen and (max-width: 700px) {
+      @include useTheme('color', 'user-data-aside');
     }
   }
 

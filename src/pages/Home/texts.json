@@ -31,6 +31,10 @@
     "en": "Connect Wallet",
     "ru": "Подключить кошелек"
   },
+  "deployButton": {
+    "en": "Deploy Oven",
+    "ru": "Создать печку"
+  },
   "loaderText": {
     "en": "Looking for your ovens",
     "ru": "Ищем Ваши печки"
