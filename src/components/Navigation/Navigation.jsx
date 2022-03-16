@@ -71,12 +71,8 @@ const Navigation = ({ isAside }) => {
         <li className={styles.navigation__item}>
           <I18n />
         </li>
-        <li className={styles.navigation__item}>
-          {theme === 'light' ? (
-            <Sun onClick={toggleTheme} />
-          ) : (
-            <Moon onClick={toggleTheme} />
-          )}
+        <li className={styles.navigation__item} onClick={toggleTheme}>
+          {theme === 'light' ? <Sun /> : <Moon />}
         </li>
       </ul>
     </nav>
