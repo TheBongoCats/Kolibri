@@ -70,8 +70,7 @@ footer {
 
   &:after {
     content: attr(data-title);
-    background-color: $blue;
-    color: white;
+    background-color: $white;
     font-size: 12px;
     position: absolute;
     padding: 2px 5px;
