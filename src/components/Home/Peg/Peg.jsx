@@ -1,5 +1,6 @@
 import styled from './Peg.module.scss';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
+import Loader from '../../Loader';
 
 const Peg = () => {
   const { kUSDPrice } = useKolibriStateContext();
@@ -7,7 +8,7 @@ const Peg = () => {
   const percents = ((kUSDPrice - 1) * 100).toFixed(0);
   const remainder = 50 + (50 * percents) / 100;
 
-  return (
+  return kUSDPrice ? (
     <div className={styled.peg}>
       <p className={styled.peg__title}>
         <span>
@@ -43,6 +44,8 @@ const Peg = () => {
         <div className={styled.peg__separator} />
       </div>
     </div>
+  ) : (
+    <Loader />
   );
 };
 
