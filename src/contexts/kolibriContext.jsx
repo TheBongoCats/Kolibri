@@ -6,7 +6,7 @@ import {
   CONTRACTS,
   TokenClient,
 } from '@hover-labs/kolibri-js';
-// import addNotification from 'react-push-notification';
+import { estimateSwap } from '@quipuswap/sdk';
 import propTypes from 'prop-types';
 import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import axios from 'axios';
@@ -50,13 +50,14 @@ const useKolibriDispatchContext = () => {
 const KolibriProvider = ({ children }) => {
   const [allOvens, setAllOvens] = useState();
   const [tezosPrice, setTezosPrice] = useState();
+  const [kUSDPrice, setkUSDPrice] = useState();
   const [myOvens, setMyOvens] = useState([]);
   const [myTokens, setMyTokens] = useState();
   const [stabilityFeeYear, setStabilityFeeYear] = useState();
   const [collateralRatio, setCollaterlRatio] = useState();
   const [loadingOven, setLoadingOven] = useState('');
 
-  const { beaconWalletData, beaconAddress } = useBeaconStateContext();
+  const { beaconWalletData, beaconAddress, tezos } = useBeaconStateContext();
 
   const harbingerClient = new HarbingerClient(
     CONSTANTS.NODE_URL,
@@ -179,6 +180,40 @@ const KolibriProvider = ({ children }) => {
     await stableCoinClient.deployOven(beaconWalletData);
   };
 
+  const getRateForSwap = async () => {
+    const from = 'tez';
+    const to = { contract: CONTRACTS.TEST.TOKEN };
+    const amount = {
+      inputValue: 1,
+    };
+    const fact = {
+      fa1_2Factory: 'KT1HrQWkSFe7ugihjoMWwQ7p8ja9e18LdUFn',
+    };
+
+    try {
+      const value = await estimateSwap(tezos, fact, from, to, amount);
+
+      return mutateBigNumber(value, 1e12, 3);
+    } catch (e) {
+      return 0;
+    }
+  };
+
+  const getkUSDNormalPrice = async () => {
+    const rateForSwap = await getRateForSwap();
+
+    try {
+      const price = mutateBigNumber(
+        tezosPrice.price / rateForSwap,
+        undefined,
+        2,
+      );
+      setkUSDPrice(price);
+    } catch {
+      setkUSDPrice(0);
+    }
+  };
+
   useEffect(() => {
     if (beaconWalletData) {
       getAllMyOvens();
@@ -194,6 +229,7 @@ const KolibriProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    getkUSDNormalPrice();
     const intervalId = setInterval(() => {
       updateActualPrice();
     }, 60000);
@@ -209,6 +245,7 @@ const KolibriProvider = ({ children }) => {
       collateralRatio,
       myTokens,
       loadingOven,
+      kUSDPrice,
     }),
     [
       allOvens,
@@ -218,18 +255,18 @@ const KolibriProvider = ({ children }) => {
       collateralRatio,
       myTokens,
       loadingOven,
+      kUSDPrice,
     ],
   );
 
   const dispatchValue = useMemo(
     () => ({
-      getOvens,
       deployOven,
       getDataFromAddress,
       setMyOvens,
       setLoadingOven,
     }),
-    [getOvens, deployOven, getDataFromAddress, setMyOvens, setLoadingOven],
+    [deployOven, getDataFromAddress, setMyOvens, setLoadingOven],
   );
 
   return (

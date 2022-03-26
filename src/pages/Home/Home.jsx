@@ -27,7 +27,7 @@ import {
   activeOvensCount,
   stabilityFeeCount,
   collateralValueCount,
-  moreButton,
+  // moreButton,
   connectWalletParagraph,
   connectButton,
   loaderText,
@@ -53,9 +53,6 @@ const Home = () => {
       setButtonDisabled(false);
     } catch (e) {
       setButtonDisabled(false);
-      // for testing
-      console.error(e);
-      // for testing end
     }
   };
 
@@ -105,12 +102,12 @@ const Home = () => {
             size="l"
           />
         </div>
-        <Peg percents="35" />
-        <div className={styled.home__line}>
+        {/* <div className={styled.home__line}>
           <button type="button" className={styled.home__more}>
             {moreButton[`${lang}`]}
           </button>
-        </div>
+        </div> */}
+        <Peg />
         <Oracle />
       </div>
       {isLogin ? (

@@ -149,6 +149,7 @@ const BeaconProvider = ({ children }) => {
       beaconPk,
       beaconWalletData,
       isLogin,
+      tezos,
     }),
     [
       beaconAddress,
@@ -158,6 +159,7 @@ const BeaconProvider = ({ children }) => {
       beaconBalance,
       beaconWalletData,
       isLogin,
+      tezos,
     ],
   );
 

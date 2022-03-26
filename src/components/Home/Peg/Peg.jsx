@@ -1,13 +1,23 @@
-import propTypes from 'prop-types';
 import styled from './Peg.module.scss';
+import { useKolibriStateContext } from '../../../contexts/kolibriContext';
 
-const Peg = ({ percents }) => {
+const Peg = () => {
+  const { kUSDPrice } = useKolibriStateContext();
+
+  const percents = ((kUSDPrice - 1) * 100).toFixed(0);
   const remainder = 50 + (50 * percents) / 100;
 
   return (
     <div className={styled.peg}>
       <p className={styled.peg__title}>
-        KUSD PRICE / PEG DEPTH <b>$6.46 / 0,04 KUSD</b>
+        <span>
+          kUSD price <b>${kUSDPrice}</b>
+        </span>
+        /
+        <span>
+          kUSD {+kUSDPrice > 1 ? 'overbought' : 'oversold'} by{' '}
+          <b>{percents}%</b>
+        </span>
       </p>
       <div
         className={styled.peg__progress}
@@ -32,13 +42,8 @@ const Peg = ({ percents }) => {
         <div className={styled.peg__separator} />
         <div className={styled.peg__separator} />
       </div>
-      <span className={styled.peg__percents}>{percents}%</span>
     </div>
   );
 };
 
 export default Peg;
-
-Peg.propTypes = {
-  percents: propTypes.string.isRequired,
-};

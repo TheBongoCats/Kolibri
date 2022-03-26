@@ -53,9 +53,6 @@ const OvenModal = ({ ovenData, section }) => {
     } catch (e) {
       setLoadingOven('');
       setIsOpen(false);
-      // for testing
-      console.error(e);
-      // for testing end
     }
   };
 

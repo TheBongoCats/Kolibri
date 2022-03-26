@@ -6,6 +6,7 @@
   "dependencies": {
     "@airgap/beacon-sdk": "^2.3.9",
     "@hover-labs/kolibri-js": "^3.2.1",
+    "@quipuswap/sdk": "^3.0.0",
     "@taquito/beacon-wallet": "^11.0.2",
     "@taquito/local-forging": "^11.0.2",
     "@taquito/taquito": "^11.0.2",
