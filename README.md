@@ -12,8 +12,8 @@ BongoCats - a team of two young front-end developers from Ukraine who started th
 
 Our main idea is to create something new and in the same time all-too-familiar.
 
-<img width="480" alt="Example_1" src="https://user-images.githubusercontent.com/60012511/160279029-92079885-f646-4249-855e-cfc054e7bbc4.png">
-<img width="480" alt="Example_2" src="https://user-images.githubusercontent.com/60012511/160279233-df862ebf-56ee-4da9-bd06-1a0c786d0cb1.png">
+<img width="720" alt="Example_1" src="https://user-images.githubusercontent.com/60012511/160279029-92079885-f646-4249-855e-cfc054e7bbc4.png">
+<img width="720" alt="Example_2" src="https://user-images.githubusercontent.com/60012511/160279233-df862ebf-56ee-4da9-bd06-1a0c786d0cb1.png">
 
 ### Light/Dark mode:
 
@@ -34,7 +34,9 @@ Example:
 
 Sometimes you need to make a transaction, but Oracle last updated more than 30 minutes ago. In this case you are stucked. Well, our idea is that you don't need to monitor the website, just tick the bell and leave it open. As result, when Oracle update the price, you'll get such browser notificaiton:
 
-### What are we going to implement? 
+<img width="345" alt="Screenshot 2022-03-27 at 14 57 32" src="https://user-images.githubusercontent.com/60012511/160280614-4683ff20-47cd-465b-9cb9-5702369fdf2a.png">
+
+## What are we going to implement? 
 
 ### More Notifications
 
@@ -42,19 +44,19 @@ Notifications are usefull for being up-to-date with Kolibri. We also want to imp
 
 ## Technology stack:
 
-Front-end: ReactJS
-Styling: SASS
+Front-end: ReactJS </br>
+Styling: SASS </br>
 Blockchain libs: [Taquito](https://tezostaquito.io/), [QuipuSwap SDK](https://github.com/madfish-solutions/quipuswap-sdk), [Kolibri.JS](https://github.com/Hover-Labs/kolibri-js)
 
-### Get in touch:
+## Get in touch:
 
-Email: 
-- Alexandr Petrenko:
+#### Email: 
+- Alexandr Petrenko: alexandr.petrenko.fe@gmail.com
 - Alexey Altyntsev: altalex491@gmail.com
-Telegram: 
+#### Telegram: 
 - Alexandr Petrenko: @AlexandrPetrenkoFe
 - Alexey Altyntsev: @altyntsev
-Discord:
+#### Discord:
 - Alexandr Petrenko:
 - Alexey Altyntsev: Alik#5272
 
