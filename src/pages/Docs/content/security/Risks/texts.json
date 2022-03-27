@@ -1,66 +1,66 @@
 {
   "title": {
     "en": "Kolibri Risks",
-    "ru": "Kolibri риски"
+    "ua": "Kolibri ризики"
   },
 
   "firstParagraph": {
     "en": "All smart contracts deployed (as with all software) run the risk of software bugs, some of which can compromise the overall security of system. When systems have administrative controls there is also the risk of malicious actors abusing those controls for nefarious purposes.",
-    "ru": "Все развернутые смарт-контракты (как и все программное обеспечение) подвержены риску программные ошибки, некоторые из которых могут поставить под угрозу общую безопасность система. Когда системы имеют административный контроль, существует также риск злоумышленников, злоупотребляющих этими элементами управления в гнусных целях."
+    "ua": "Всі розгорнуті смарт-контракти (як і все програмне забезпечення) наражаються на ризик програмних помилок, деякі з яких можуть поставити під загрозу загальну безпеку системи. Коли системи мають адміністративний контроль, існує також ризик зловмисників, які зловживають цими елементами управління в мерзенних цілях."
   },
 
   "secondParagraph": {
     "en": "Kolibri is no different, and has a number of risks associated with it. We’ve tried to keep things as simple as possible, had a security review done by a reputable company, and written extensive tests (unit + integration) to gain confidence that Kolibri operates as we expect it to, but with security there is no guarantee that it’s 100% safe to use.",
-    "ru": "Колибри ничем не отличается, и с ним связан ряд рисков. Мы постарались сделать все как можно проще, проверили безопасность уважаемой компанией и написали обширные тесты (модуль + интеграция), чтобы убедиться, что Kolibri работает так, как мы ожидаем, но с безопасностью нет никаких гарантий. что это на 100% безопасно для использования."
+    "ua": "Колібрі нічим не відрізняється, і з ним пов'язана низка ризиків. Ми постаралися зробити все якомога простіше, перевірили безпеку шановною компанією та написали великі тести (модуль + інтеграція), щоб переконатися, що Kolibri працює так, як ми очікуємо, але з безпекою немає жодних гарантій. що це на 100% безпечно для використання."
   },
 
   "thirdParagraph": {
     "en": "Below we outline some of the risks that exist in the system. It’s an ever-growing document and likely not 100% inclusive of every risk within the system. If you think something is missing please ping us on",
-    "ru": "Ниже мы обрисовываем некоторые из рисков, которые существуют в системе. Это постоянно растущий документ, и, вероятно, он не на 100% включает все риски в системе. Если вы считаете, что чего-то не хватает, пожалуйста, отправьте нам сообщение в"
+    "ua": "Нижче ми описуємо деякі з ризиків, які існують у системі. Це документ, що постійно зростає, і, ймовірно, він не на 100% включає всі ризики в системі. Якщо ви вважаєте, що чогось не вистачає, будь ласка, надішліть нам повідомлення в"
   },
 
   "thirdParagraphAfter": {
     "en": "or come join our",
-    "ru": "или присоединяйтесь к нам в"
+    "ua": "або приєднуйтесь до нас у"
   },
 
   "subTitle": {
     "en": "Protocol-level Risks",
-    "ru": "Риски уровня протокола"
+    "ua": "Ризики рівня протоколу"
   },
 
   "fourthParagraphBefore": {
     "en": "Tezos is an",
-    "ru": "Tezos это"
+    "ua": "Tezos це"
   },
 
   "protocol": {
     "en": "ever-evolving protocol",
-    "ru": "постоянно развивающийся протокол"
+    "ua": "Протокол, що постійно розвивається"
   },
 
   "fourthParagraph": {
     "en": ", which brings its own risks with it. Writing a fault tolerant and secure blockchain is no simple task, and where there is complexity there is defects",
-    "ru": ", что несет с собой свои риски. Написание отказоустойчивого и безопасного блокчейна — непростая задача, а где сложность, там и дефекты."
+    "ua": ", що несе з собою свої ризики Написання відмовостійкого та безпечного блокчейна - непросте завдання, а де складність, там і дефекти."
   },
 
   "fifthParagraph": {
     "en": "With these upgrades, the protocol can do or change literally anything about how the system operates. This is a feature not a bug, but if the protocol designers break assumptions it may lead to a loss of security for the system (imagine a scenario where the address of the current caller suddenly can be set arbitrarily somehow, that’d break our authorization checks immediately).",
-    "ru": "Благодаря этим обновлениям протокол может делать или изменять буквально все, что касается работы системы. Это функция, а не ошибка, но если разработчики протокола нарушат предположения, это может привести к потере безопасности системы (представьте себе сценарий, в котором адрес текущего вызывающего абонента может быть каким-то образом произвольно установлен, что нарушит нашу авторизацию). сразу проверяет)."
+    "ua": "Завдяки цим оновленням протокол може робити або змінювати буквально все, що стосується роботи системи. Це функція, а не помилка, але якщо розробники протоколу порушать припущення, це може призвести до втрати безпеки системи (уявіть собі сценарій, в якому адреса поточного абонента, що викликає, може бути якимось чином довільно встановлено, що порушить нашу авторизацію). одразу перевіряє)."
   },
 
   "sixthParagraphBefore": {
     "en": "Likewise, there have been real scenarios where the Nomadic Labs protocol development team has uncovered",
-    "ru": "Аналогичным образом, были реальные сценарии, в которых команда разработчиков протокола Nomadic Labs обнаружила"
+    "ua": "Аналогічним чином були реальні сценарії, в яких команда розробників протоколу Nomadic Labs виявила"
   },
 
   "sixthParagraphLink": {
     "en": "unexpected things with new features",
-    "ru": "неожиданные вещи с новыми функциями"
+    "ua": "yесподівані речі з новими функціями"
   },
 
   "sixthParagraph": {
     "en": "which would break parts of Kolibri. We try to be in constant contact with them to hedge against this risk, but if things like this baking account feature that has these unexpected consequences were to get elected and go live, it would cause issues in the system.",
-    "ru": "которые сломали бы части Kolibri. Мы пытаемся быть в постоянном контакте с ними, чтобы застраховаться от этого риска, но если такие вещи, как эта функция счета для выпекания, которая имеет такие неожиданные последствия, будут избраны и введены в действие, это вызовет проблемы в системе."
+    "ua": "які б зламали частини Kolibri. Ми намагаємося бути в постійному контакті з ними, щоб застрахуватися від цього ризику, але якщо такі речі, як ця функція рахунку для випікання, яка має такі несподівані наслідки, будуть обрані та введені в дію, це викликає проблеми у системі."
   }
 }

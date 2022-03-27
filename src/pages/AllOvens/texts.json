@@ -1,23 +1,23 @@
 {
   "showEmptyButton": {
     "en": "Show empty ovens",
-    "ru": "Показать пустые печки"
+    "ua": "Показати пусті пічки"
   },
   "hideEmptyButton": {
     "en": "Hide empty ovens",
-    "ru": "Спрятать пустые печки"
+    "ua": "Сховати пусті пічки"
   },
   "outstandingTokensSort": {
     "en": "Sort by outstanding tokens",
-    "ru": "Сортировать по выданным монетам"
+    "ua": "Сортувати по виданним монетам"
   },
   "valueSort": {
     "en": "Sort by value",
-    "ru": "Сортировать по стоимости"
+    "ua": "Сортувати по ціні"
   },
 
   "searchPlaceholder": {
     "en": "Any Contract or Wallet Address",
-    "ru": "Адрес Контракта или Кошелька"
+    "ua": "Адресса Контракту або Гаманця"
   }
 }

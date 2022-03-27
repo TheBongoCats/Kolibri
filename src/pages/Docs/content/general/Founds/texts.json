@@ -1,90 +1,90 @@
 {
   "title": {
     "en": "Developer and Stability Funds",
-    "ru": "Фонды стабилизации и развития"
+    "ua": "Фонди стабілізації та розвитку"
   },
 
   "subTitle": {
     "en": "Accrued stability and liquidation fees are deposited in two funds. The split is determined by the",
-    "ru": "Начисленные комиссионные за стабильность и ликвидацию депонируются в два фонда. Разделение определяется"
+    "ua": "Нараховані комісійни за стаюільність та ліквідацію депонуються у два фонди. Розділення визначається"
   },
 
   "subTitleStrong": {
     "en": "developer fund split.",
-    "ru": "разделением фонда развития."
+    "ua": "розділенням фонду розвитку."
   },
 
   "paragraphBefore": {
     "en": "The role of the",
-    "ru": "Роль"
+    "ua": "Роль"
   },
 
   "paragraphStrong": {
     "en": "stability fund",
-    "ru": "стабилизационного фонда"
+    "ua": "стабілізаційного фонду"
   },
 
   "paragraphAfter": {
     "en": "is to be a liquidator of last resort. If the price of the outstanding",
-    "ru": "это ликвидатор последней инстанции. Если цена непогашенного"
+    "ua": "це ліквідатор останньої інстанції. Якщо ціна непогашенного"
   },
 
   "paragraphGreater": {
     "en": "is greater than the",
-    "ru": "больше чем"
+    "ua": "більше за"
   },
 
   "paragraphValue": {
     "en": "value locked in the Ovens then a rational economic actor would not liquidate, and the",
-    "ru": "стоимость, находящаяся в печках, чем рационально для ликвидации, и"
+    "ua": "ціна, що знаходиться в пічках, ніж ріціональна для ліквідації, та"
   },
 
   "paragraphConsiderate": {
     "en": "is then considered underwater. This event should not occur since it is unlikely that",
-    "ru": "тогда считается утонувшей. Это событие не должно произойти, так как маловероятно, что"
+    "ua": "тоді вважається затонувшою. Ця подія не повинна статися, так як малоімовірно, що"
   },
 
   "paragraphAfterUnder": {
     "en": "values would go from undercollateralized to",
-    "ru": "стоимости перейдут от недостаточно обеспеченных к"
+    "ua": "ціни перейдуть від недостатьньо забезпесених до"
   },
 
   "paragraphAfterAbove": {
     "en": "fast enough that rational actors would not liquidate. However, in some sort of systemic black swan event, the stability fund acts as a powerful counter-balance and can liquidate",
-    "ru": "достаточно быстро, чтобы рациональные участники не ликвидировались. Однако в случае «черного лебедя» фонд стабильности действует как мощный противовес и может ликвидировать"
+    "ua": "достатьньо швидко, щоби раціональні учасники не ліквідувались. Однак в разі «чорного лебедя» фонд стабілізації діє як потужний противовіс та може ліквідувати"
   },
 
   "paragraphLast": {
     "en": "to restore collateralization (and thus stability) to the system.",
-    "ru": "чтобы восстановить обеспечение (и, следовательно, стабильность) системы."
+    "ua": "щоб відновити постачання (і, відповідно, стабільність) системи."
   },
 
   "secondParagraph": {
     "en": "is a discretionary fund used to fund future developments to Kolibri. Distributions are determined via a planned governance mechanism.",
-    "ru": "это дискреционный фонд, используемый для финансирования будущих разработок Kolibri. Распределения определяются с помощью запланированного механизма управления."
+    "ua": "це дискреційний фонд, використовуємий для фінансування майбутніх розробок Kolibri. Розподілення визначається за допомогою запланованого механізму керування."
   },
 
   "developerSplit": {
     "en": "developer fund split.",
-    "ru": "разделение фонда развития"
+    "ua": "розділення фонду розвитку"
   },
 
   "developerFund": {
     "en": "developer fund",
-    "ru": "фонд развития"
+    "ua": "фонд розвитку"
   },
 
   "stabilityFund": {
     "en": "stability fund",
-    "ru": "стабилизационный фонд"
+    "ua": "стабілізаційний фонд"
   },
 
   "underwaterFirst": {
     "ru": "underwater",
-    "en": "утонувшие"
+    "ua": "затонувші"
   },
   "underwaterSecond": {
-    "ru": "underwater",
-    "en": "утонувшую"
+    "en": "underwater",
+    "ua": "затоновшу"
   }
 }

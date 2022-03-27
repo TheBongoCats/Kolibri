@@ -1,71 +1,71 @@
 {
   "title": {
     "en": "Security Audit",
-    "ru": "Аудит безопасности"
+    "ua": "Аудит безпеки"
   },
 
   "subTitle": {
     "en": "Status",
-    "ru": "Статус"
+    "ua": "Статус"
   },
 
   "firstParagraphBefore": {
     "en": "The Kolibri project has been audited by",
-    "ru": "Проект Kolibri прошел аудит"
+    "ua": "Проект Kolibri пройшов аудит"
   },
 
   "firstParagraph": {
     "en": ", and no contract code updates have taken place since the review was conducted. There were no major findings discovered that would put funds or the economic model at risk, but as with every security review it's only an indicator of security, not a guarantee.",
-    "ru": ", и с момента проведения проверки не было обновлений кода контракта. Не было обнаружено серьезных находок, которые могли бы подвергнуть риску средства или экономическую модель, но, как и в случае с любой проверкой безопасности, это всего лишь показатель безопасности, а не гарантия."
+    "ua": ", і з моменту проведення перевірки не було оновлень коду контракту. Не було виявлено серйозних знахідок, які могли б зазнати ризику засобу або економічну модель, але, як і у випадку з будь-якою перевіркою безпеки, це лише показник безпеки, а не гарантія."
   },
 
   "button": {
     "en": "Read The Report",
-    "ru": "Читать отчет"
+    "ua": "Читати звіт"
   },
 
   "timeline": {
     "en": "Timeline",
-    "ru": "Лента новостей"
+    "ua": "Стрічка новин"
   },
 
   "feb": {
     "en": "Feb",
-    "ru": "Фев"
+    "ua": "Лют"
   },
 
   "jan": {
     "en": "Jan",
-    "ru": "Янв"
+    "ua": "Січ"
   },
 
   "dec": {
     "en": "Dec",
-    "ru": "Дек"
+    "ua": "Гру"
   },
 
   "listFirst": {
     "en": "We have received the report, and have no major issues to remedy!",
-    "ru": "Мы получили отчет, и у нас нет серьезных проблем, которые нужно исправить!"
+    "ua": "Ми отримали звіт, і у нас немає серйозних проблем, які потрібно виправити!"
   },
 
   "listSecond": {
     "en": "We had a check-in with the review team with no issues reported so far.",
-    "ru": "У нас была встреча с группой проверки, и до сих пор не сообщалось о проблемах."
+    "ua": "У нас була зустріч із групою перевірки, і досі не повідомлялося про проблеми."
   },
 
   "listThird": {
     "en": "The review has kicked off, and will complete in 3 weeks.",
-    "ru": "Проверка уже началась и завершится через 3 недели."
+    "ua": "Перевірка вже почалася і завершиться через 3 тижні."
   },
 
   "listFourth": {
     "en": "We have a start date and rough timeline for the review - code review will start January 18 and end on February 12. We'll have a report in-hand by February 17 and will work to remedy any issues that arise!",
-    "ru": "У нас есть дата начала и примерный график проверки — проверка кода начнется 18 января и закончится 12 февраля. У нас будет отчет к 17 февраля, и мы будем работать над устранением любых возникающих проблем!"
+    "ua": "У нас є дата початку і приблизний графік перевірки — перевірка коду почнеться 18 січня і закінчиться 12 лютого. У нас буде звіт до 17 лютого, і ми працюватимемо над усуненням будь-яких проблем!"
   },
 
   "listFifth": {
     "en": "We have a review in the information-gathering phase with a reputable firm. Updates will be posted here as things progress.",
-    "ru": "У нас есть проверка на этапе сбора информации с уважаемой фирмой. Обновления будут публиковаться здесь по мере развития событий."
+    "ua": "У нас є перевірка на етапі збору інформації з шановною фірмою. Оновлення будуть публікуватися тут у міру розвитку подій."
   }
 }

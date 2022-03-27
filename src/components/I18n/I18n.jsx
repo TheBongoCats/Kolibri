@@ -3,7 +3,7 @@ import styled from './I18n.module.scss';
 
 const i18nConfig = [
   { value: 'en', text: 'EN' },
-  { value: 'ru', text: 'RU' },
+  { value: 'ua', text: 'UA' },
 ];
 
 const I18n = () => {

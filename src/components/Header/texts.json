@@ -1,10 +1,10 @@
 {
   "walletConnect":{
   "en":"Connect Wallet",
-    "ru":"Подключить кошелек"
+    "ua":"Підключити гаманець"
   },
   "walletDisconnect":{
     "en":"Disconnect Wallet",
-    "ru":"Отключить кошелек"
+    "ua":"Відключити гаманець"
   }
 }

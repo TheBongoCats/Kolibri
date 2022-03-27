@@ -1,51 +1,51 @@
 {
   "borrowed": {
     "en": "Borrowed kUSD:",
-    "ru": "Заемные kUSD:"
+    "ua": "Запозичені kUSD:"
   },
 
   "maxBorrowed": {
     "en": "Max borrow amount KUSD:",
-    "ru": "Максимальная сумма займа KUSD:"
+    "ua": "Максимальна сума запозичень KUSD:"
   },
 
   "currentCollateral": {
     "en": "Current collateral utilization:",
-    "ru": "Текущее использование залога:"
+    "ua": "Поточне використання залогу:"
   },
 
   "newCollateral": {
     "en": "New collateral utilization:",
-    "ru": "Новое использование залога:"
+    "ua": "Нове використання залогу:"
   },
 
   "liquidatable": {
     "en": "Oven liquidatable when XTZ price is: $",
-    "ru": "Печка подлежит ликвидации, когда цена XTZ составляет: $"
+    "ua": "Пічка підлягае утилізації, коли ціна XTZ складае: $"
   },
 
   "walletHolding": {
     "en": "Wallet holdings:",
-    "ru": "Кошелек содержит"
+    "ua": "Гаманець містить:"
   },
 
   "maxPayback": {
     "en": "Max payback amount:",
-    "ru": "Максимальная сумма окупаемости:"
+    "ua": "Максимальна сумма окупності:"
   },
 
   "ovenCollateral": {
     "en": "Oven collateral:",
-    "ru": "Залог печи:"
+    "ua": "Застава пічки:"
   },
 
   "maxWithdraw": {
     "en": "Max withdraw amount:",
-    "ru": "Максимальная сумма вывода:"
+    "ua": "Максимальна сумма виводу:"
   },
 
   "maxDeposit": {
     "en": "Max deposit:",
-    "ru": "Максимальный депозит:"
+    "ua": "Максимальний депозит:"
   }
 }

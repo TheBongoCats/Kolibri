@@ -1,42 +1,42 @@
 {
   "metricsButton": {
     "en": "Metrics",
-    "ru": "Метрики"
+    "ua": "Метрики"
   },
   "learnMoreButton": {
     "en": "Learn More",
-    "ru": "Узнать больше"
+    "ua": "Дізнатись Більше"
   },
   "activeOvensCount": {
     "en": "Active Ovens",
-    "ru": "Активные печки"
+    "ua": "Активні пічки"
   },
   "stabilityFeeCount": {
     "en": "Stability fee (Yearly)",
-    "ru": "Годовая ставка"
+    "ua": "Річна ставка"
   },
   "collateralValueCount": {
     "en": "Collateral value",
-    "ru": "Стоимость залога"
+    "ua": "Ціна застави"
   },
   "moreButton": {
     "en": "MORE",
-    "ru": "Подробнее"
+    "ua": "БІЛЬШЕ"
   },
   "connectWalletParagraph": {
     "en": "Connect Your Wallet To Manage Your Ovens",
-    "ru": "Подключите Ваш кошелек для управления печками"
+    "ua": "Підключіть Ваш гаманець для управління пічками"
   },
   "connectButton": {
     "en": "Connect Wallet",
-    "ru": "Подключить кошелек"
+    "ua": "Підключити гаманець"
   },
   "deployButton": {
     "en": "Deploy Oven",
-    "ru": "Создать печку"
+    "ua": "Створити пічку"
   },
   "loaderText": {
     "en": "Looking for your ovens",
-    "ru": "Ищем Ваши печки"
+    "ua": "Шукаємо Ваші пічки"
   }
 }

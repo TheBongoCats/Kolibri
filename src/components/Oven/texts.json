@@ -1,41 +1,41 @@
 {
   "loader": {
     "en": "Transaction pending...",
-    "ru": "Транзакция обрабатывается..."
+    "ua": "Транзакція обробляється..."
   },
 
   "metricBaker": {
-    "en": "DELEGATED BAKER",
-    "ru": "ДЕЛЕГИРОВАННЫЙ ПЕКАРЬ"
+    "en": "DELEGATED BAKER:",
+    "ua": "ДЕЛИГОВАНИЙ ПЕКАР:"
   },
 
   "metricLiquidity": {
-    "en": "Liquidatable when xtz",
-    "ru": "Ликвидируется, когда xtz"
+    "en": "Liquidatable when xtz:",
+    "ua": "Ліквідується, коли xtz:"
   },
 
   "metricOwner": {
     "en": "Owner:",
-    "ru": "Owner:"
+    "ua": "Власник:"
   },
 
   "metricCollateral": {
-    "en": "Collateral value",
-    "ru": "Стоимость залога"
+    "en": "Collateral value:",
+    "ua": "Ціна застави:"
   },
 
   "metricBalance": {
     "en": "Balance:",
-    "ru": "Баланс:"
+    "ua": "Баланс:"
   },
 
   "metricLoan": {
     "en": "Loan:",
-    "ru": "Заем:"
+    "ua": "Позика:"
   },
 
   "metricStability": {
     "en": "Stability fees:",
-    "ru": "Плата за стабильность:"
+    "ua": "Плата за стабільність:"
   }
 }
