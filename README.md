@@ -1,10 +1,10 @@
 # Welcome to Kolibri Alternative User Interface
 
-Here you can find all information about new Kolibri front-ned created by the BongoCats team.
+Here you can find all information about the new Kolibri front-eтd created by the BongoCats team.
 
 ## Who we are? 
 
-BongoCats - a team of two young front-end developers from Ukraine who started their programming trip in Tezos Ukraine. Meet Alexandr Petrenko and Alexey Altyntsev. We are ambitious, flexible, curious and ready for new challenges.
+BongoCats - a team of two young front-end developers from Ukraine who started their programming trip in Tezos Ukraine. Meet Alexandr Petrenko and Alexey Altyntsev. We are ambitious, flexible, curious, and ready for new challenges.
 
 ## What we have done? 
 
@@ -17,7 +17,7 @@ Our main idea is to create something new and at the same time all-too-familiar.
 
 ### Light/Dark mode:
 
-We have implemented two themes on our product. Now, you can choose between light and dark mode. This is very usefull when the sun goes down, as it reduces the light emitted by device screens while maintaining the minimum colour contrast ratios required for readability.
+We have implemented two themes on our product. Now, you can choose between light and dark mode. This is very useful when the sun goes down, as it reduces the light emitted by device screens while maintaining the minimum color contrast ratios required for readability.
 
 That is how it looks like:
 
@@ -25,14 +25,14 @@ That is how it looks like:
 
 ### Internationalization:
 
-Internationalization provides an opportunity to make the Kolibri more worldwide and user-oriented. At the moment we've implemented EN, UA and RU options.
+Internationalization provides an opportunity to make the Kolibri more worldwide and user-oriented. At the moment we've implemented EN, UA, and RU options.
 Example:
 
 <img width="577" alt="Screenshot 2022-03-27 at 13 58 25" src="https://user-images.githubusercontent.com/60012511/160278303-d96c5618-33e5-455c-b1af-5d3f42616911.png">
 
 ### Push Notifications:
 
-Sometimes you need to make a transaction, but Oracle last updated more than 30 minutes ago. In this case you are stucked. Well, our idea is that you don't need to monitor the website, just tick the bell and leave it open. As result, when Oracle update the price, you'll get such browser notificaiton:
+Sometimes you need to make a transaction, but Oracle last updated more than 30 minutes ago. In this case, you are stuck. Well, our idea is that you don't need to monitor the website, just tick the bell and leave it open. As result, when Oracle update the price, you'll get such browser notification:
 
 <img width="345" alt="Screenshot 2022-03-27 at 14 57 32" src="https://user-images.githubusercontent.com/60012511/160280614-4683ff20-47cd-465b-9cb9-5702369fdf2a.png">
 
@@ -40,7 +40,7 @@ Sometimes you need to make a transaction, but Oracle last updated more than 30 m
 
 ### More Notifications
 
-Notifications are usefull for being up-to-date with Kolibri. We also want to implement notifications for changes in kUSD price and critical changes in your ovens. Also we think about mail notificaitons implementation.
+Notifications are useful for being up-to-date with Kolibri. We also want to implement notifications for changes in kUSD price and critical changes in your ovens. Also, we think about mail notifications implementation.
 
 ## Technology stack:
 
