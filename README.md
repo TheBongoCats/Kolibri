@@ -10,7 +10,7 @@ BongoCats - a team of two young front-end developers from Ukraine who started th
 
 ### New Design:
 
-Our main idea was to create something new and at the same time all-too-familiar.
+Our main idea was to create something new and at the same time all-too-familiar. Here you can view both desktop and mobile versions.
 
 ![design](https://user-images.githubusercontent.com/60012511/160284831-7e862574-3d3b-4d79-a9bb-20d937c55628.png)
 
