@@ -93,7 +93,7 @@ const PushProvider = ({ children }) => {
 
       if (notifyOracle) {
         // eslint-disable-next-line no-new
-        new Notification('Hey! Kolibri oracle has updated!', {
+        new Notification('Hey! Kolibri Oracle has updated!', {
           body: `New XTZ/USD price is ${mutateBigNumber(tezosPrice.price)}$`,
         });
       }
