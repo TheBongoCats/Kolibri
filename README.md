@@ -1,6 +1,6 @@
 # Welcome to Kolibri Alternative User Interface
 
-Here you can find all information about the new Kolibri front-eтd created by the BongoCats team.
+Here you can find all information about the new Kolibri front-end created by the BongoCats team.
 
 ## Who we are? 
 
@@ -10,10 +10,9 @@ BongoCats - a team of two young front-end developers from Ukraine who started th
 
 ### New Design:
 
-Our main idea is to create something new and at the same time all-too-familiar.
+Our main idea was to create something new and at the same time all-too-familiar.
 
-<img width="720" alt="Example_1" src="https://user-images.githubusercontent.com/60012511/160279029-92079885-f646-4249-855e-cfc054e7bbc4.png">
-<img width="720" alt="Example_2" src="https://user-images.githubusercontent.com/60012511/160279233-df862ebf-56ee-4da9-bd06-1a0c786d0cb1.png">
+![design](https://user-images.githubusercontent.com/60012511/160284831-7e862574-3d3b-4d79-a9bb-20d937c55628.png)
 
 ### Light/Dark mode:
 
@@ -25,10 +24,10 @@ That is how it looks like:
 
 ### Internationalization:
 
-Internationalization provides an opportunity to make the Kolibri more worldwide and user-oriented. At the moment we've implemented EN, UA, and RU options.
+Internationalization provides an opportunity to make the Kolibri more worldwide and user-oriented. At the moment we've implemented EN and UA options.
 Example:
 
-<img width="577" alt="Screenshot 2022-03-27 at 13 58 25" src="https://user-images.githubusercontent.com/60012511/160278303-d96c5618-33e5-455c-b1af-5d3f42616911.png">
+<img width="500" alt="Screenshot 2022-03-27 at 13 58 25" src="https://user-images.githubusercontent.com/60012511/160278303-d96c5618-33e5-455c-b1af-5d3f42616911.png">
 
 ### Push Notifications:
 
