@@ -27,7 +27,7 @@ That is how it looks like:
 Internationalization provides an opportunity to make the Kolibri more worldwide and user-oriented. At the moment we've implemented EN and UA options.
 Example:
 
-<img width="500" alt="Screenshot 2022-03-27 at 13 58 25" src="https://user-images.githubusercontent.com/60012511/160278303-d96c5618-33e5-455c-b1af-5d3f42616911.png">
+![int](https://user-images.githubusercontent.com/60012511/160285326-61ea9f38-1421-40b1-a665-be206fc676c0.png)
 
 ### Push Notifications:
 
