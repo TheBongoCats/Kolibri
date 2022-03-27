@@ -2,11 +2,14 @@
 
 Here you can find all information about the new Kolibri front-end created by the BongoCats team.
 
+
 ## Who we are? 
 
 BongoCats - a team of two young front-end developers from Ukraine who started their programming trip in Tezos Ukraine. Meet Alexandr Petrenko and Alexey Altyntsev. We are ambitious, flexible, curious, and ready for new challenges.
 
 ## What we have done? 
+
+### [Live Demo Kolibri by BongoCats](https://thebongocats.github.io/Kolibri/)
 
 ### New Design:
 
