@@ -57,6 +57,6 @@ Blockchain libs: [Taquito](https://tezostaquito.io/), [QuipuSwap SDK](https://gi
 - Alexandr Petrenko: @AlexandrPetrenkoFe
 - Alexey Altyntsev: @altyntsev
 #### Discord:
-- Alexandr Petrenko:
+- Alexandr Petrenko: Kaizer#5829
 - Alexey Altyntsev: Alik#5272
 
