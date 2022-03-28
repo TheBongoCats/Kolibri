@@ -9,10 +9,10 @@ import styled from './Modal.module.scss';
 
 const Modal = () => {
   const { handleCloseModal, closeEscape } = useModalDispatchContext();
-  const { isOpen, component } = useModalStateContext();
+  const { component } = useModalStateContext();
 
   useEffect(() => {
-    if (isOpen) {
+    if (component) {
       document.addEventListener('keydown', closeEscape);
       document.body.style.overflow = 'hidden';
     }
@@ -20,15 +20,13 @@ const Modal = () => {
       document.removeEventListener('keydown', closeEscape);
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen]);
+  }, [component]);
 
-  return (
-    isOpen && (
-      <div className={styled.backdrop} onClick={handleCloseModal} role="none">
-        {component}
-      </div>
-    )
-  );
+  return component ? (
+    <div className={styled.backdrop} onClick={handleCloseModal} role="none">
+      {component}
+    </div>
+  ) : null;
 };
 
 export default Modal;

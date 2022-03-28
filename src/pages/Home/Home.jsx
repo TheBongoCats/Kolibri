@@ -16,7 +16,7 @@ import Loader from '../../components/Loader';
 import Metric from '../../components/Oven/Metric';
 import Peg from '../../components/Home/Peg';
 import Oracle from '../../components/Home/Oracle/Oracle';
-import OvenList from '../../components/OvenList/OvenList';
+import OvenList from '../../components/OvenList';
 import UserData from '../../components/UserData';
 import Logo from '../../components/Logo';
 

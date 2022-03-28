@@ -15,7 +15,7 @@ import {
   searchPlaceholder,
 } from './texts.json';
 import { useI18nStateContext } from '../../contexts/i18nContext';
-import OvenList from '../../components/OvenList/OvenList';
+import OvenList from '../../components/OvenList';
 import { useBeaconStateContext } from '../../contexts/beaconContext';
 import UserData from '../../components/UserData';
 
@@ -24,13 +24,12 @@ const AllOvens = () => {
   const { isLogin } = useBeaconStateContext();
   const { getKusdBalance } = useKolibriDispatchContext();
   const { lang } = useI18nStateContext();
-  const [ovens, setOvens] = useState([]);
   const [withBalance, setWithBalance] = useState(true);
   const [searchedOvens, setSearchedOvens] = useState([]);
   const [searchWasDone, setSearchWasDone] = useState(false);
   const [ovensWithBalance, setOvensWithBalance] = useState([]);
   const [isSorted, setIsSorted] = useState(false);
-  const ovensForSearch = withBalance ? ovensWithBalance : ovens;
+  const ovensForSearch = withBalance ? ovensWithBalance : allOvens;
   const ovensForRender = searchWasDone ? searchedOvens : ovensForSearch;
 
   const compare = (a, b) => {
@@ -64,11 +63,8 @@ const AllOvens = () => {
     return 0;
   };
 
-  useEffect(async () => {
-    if (allOvens) {
-      setOvens([...allOvens]);
-      setOvensWithBalance(allOvens.filter((oven) => oven.balance > 0));
-    }
+  useEffect(() => {
+    setOvensWithBalance(allOvens.filter((oven) => oven.balance > 0));
   }, [allOvens]);
 
   const changeHandler = (e) => {
@@ -119,8 +115,10 @@ const AllOvens = () => {
           onClick={getKusdBalance}
         />
       </div>
-      {ovensForRender && tezosPrice ? (
-        <OvenList ovens={ovensForRender.sort(compare)} />
+      {allOvens.length > 0 ? (
+        ovensForRender.length > 0 && (
+          <OvenList ovens={ovensForRender.sort(compare)} />
+        )
       ) : (
         <Loader text="Loading..." />
       )}

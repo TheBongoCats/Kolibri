@@ -30,7 +30,7 @@ const Oracle = () => {
   const desktop = isDesktop();
 
   const price = mutateBigNumber(tezosPrice?.price);
-  const lastUpdateTime = tezosPrice?.time;
+  const time = tezosPrice?.time;
 
   const lastUpdate = () => {
     switch (true) {
@@ -62,21 +62,15 @@ const Oracle = () => {
   };
 
   useEffect(() => {
-    setMinutes(
-      mutateBigNumber(Date.now() - lastUpdateTime, CONSTANTS.MS_PER_MINUTE, 0),
-    );
+    setMinutes(mutateBigNumber(Date.now() - time, CONSTANTS.MS_PER_MINUTE, 0));
   }, [tezosPrice]);
 
   useEffect(() => {
     const timeoutId = setInterval(() => {
       setMinutes(
-        mutateBigNumber(
-          Date.now() - lastUpdateTime,
-          CONSTANTS.MS_PER_MINUTE,
-          0,
-        ),
+        mutateBigNumber(Date.now() - time, CONSTANTS.MS_PER_MINUTE, 0),
       );
-    }, 30000);
+    }, 60000);
 
     return () => clearInterval(timeoutId);
   }, [minutes]);

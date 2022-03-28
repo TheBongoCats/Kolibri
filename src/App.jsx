@@ -1,36 +1,24 @@
 import { HashRouter } from 'react-router-dom';
-import { I18nProvider } from './contexts/i18nContext';
-import { ThemeProvider } from './contexts/themeContext';
-import { BeaconProvider } from './contexts/beaconContext';
-import { KolibriProvider } from './contexts/kolibriContext';
-import { PushProvider } from './contexts/pushContext';
-import { OvenModalProvider } from './contexts/modalContext';
+
+import AppContextProvider from './contexts/AppContextProvider';
 import AppRouter from './route/AppRouter';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
-import './styles/index.scss';
 import Modal from './components/Modal';
+
+import './styles/index.scss';
 
 const App = () => {
   return (
-    <ThemeProvider>
-      <I18nProvider>
-        <BeaconProvider>
-          <KolibriProvider>
-            <PushProvider>
-              <OvenModalProvider>
-                <HashRouter>
-                  <Header />
-                  <AppRouter />
-                  <Footer />
-                  <Modal />
-                </HashRouter>
-              </OvenModalProvider>
-            </PushProvider>
-          </KolibriProvider>
-        </BeaconProvider>
-      </I18nProvider>
-    </ThemeProvider>
+    <AppContextProvider>
+      <HashRouter>
+        <Header />
+        <AppRouter />
+        <Footer />
+        <Modal />
+      </HashRouter>
+    </AppContextProvider>
   );
 };
 

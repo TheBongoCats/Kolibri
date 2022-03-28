@@ -1,63 +1,55 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 import propTypes from 'prop-types';
-// import { useKolibriDispatchContext } from './kolibriContext';
 
 // state context
-const OvenModalStateContext = createContext({});
-OvenModalStateContext.displayName = 'OvenModalStateContext';
+const ModalStateContext = createContext({});
+ModalStateContext.displayName = 'ModalStateContext';
 
 const useModalStateContext = () => {
-  const context = useContext(OvenModalStateContext);
+  const context = useContext(ModalStateContext);
 
   if (!context) {
-    throw new Error(
-      'OvenModalStateContext must be used within a OvenModalProvider',
-    );
+    throw new Error('ModalStateContext must be used within a ModalProvider');
   }
 
   return context;
 };
 
 // dispatch context
-const OvenModalDispatchContext = createContext({});
-OvenModalDispatchContext.displayName = 'OvenModalDispatchContext';
+const ModalDispatchContext = createContext({});
+ModalDispatchContext.displayName = 'ModalDispatchContext';
 
 const useModalDispatchContext = () => {
-  const context = useContext(OvenModalDispatchContext);
+  const context = useContext(ModalDispatchContext);
 
   if (!context) {
-    throw new Error(
-      'OvenModalDispatchContext must be used within a OvenModalProvider',
-    );
+    throw new Error('ModalDispatchContext must be used within a ModalProvider');
   }
 
   return context;
 };
 
 // Provider
-const OvenModalProvider = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const ModalProvider = ({ children }) => {
   const [component, setComponent] = useState();
 
   const handleOpenModal = (modalComponent) => {
     setComponent(modalComponent);
-    setIsOpen(true);
   };
 
   const handleCloseModal = (e) => {
-    return e.target === e.currentTarget ? setIsOpen(false) : null;
+    return e.target === e.currentTarget ? setComponent(null) : null;
   };
 
   const closeEscape = (e) => {
-    return e.key === 'Escape' ? setIsOpen(false) : null;
+    return e.key === 'Escape' ? setComponent(null) : null;
   };
 
   const stateValue = useMemo(
     () => ({
-      isOpen,
       component,
     }),
-    [isOpen, component],
+    [component],
   );
 
   const dispatchValue = useMemo(
@@ -65,22 +57,22 @@ const OvenModalProvider = ({ children }) => {
       handleOpenModal,
       handleCloseModal,
       closeEscape,
-      setIsOpen,
+      setComponent,
     }),
-    [handleOpenModal, handleCloseModal, closeEscape, setIsOpen],
+    [handleOpenModal, handleCloseModal, closeEscape, setComponent],
   );
 
   return (
-    <OvenModalStateContext.Provider value={stateValue}>
-      <OvenModalDispatchContext.Provider value={dispatchValue}>
+    <ModalStateContext.Provider value={stateValue}>
+      <ModalDispatchContext.Provider value={dispatchValue}>
         {children}
-      </OvenModalDispatchContext.Provider>
-    </OvenModalStateContext.Provider>
+      </ModalDispatchContext.Provider>
+    </ModalStateContext.Provider>
   );
 };
 
-export { useModalStateContext, useModalDispatchContext, OvenModalProvider };
+export { useModalStateContext, useModalDispatchContext, ModalProvider };
 
-OvenModalProvider.propTypes = {
+ModalProvider.propTypes = {
   children: propTypes.node.isRequired,
 };
