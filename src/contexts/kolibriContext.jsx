@@ -6,13 +6,13 @@ import {
   CONTRACTS,
   TokenClient,
 } from '@hover-labs/kolibri-js';
-import { estimateSwap } from '@quipuswap/sdk';
 import propTypes from 'prop-types';
 import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import axios from 'axios';
 import CONSTANTS from '../utils/constants';
 import { useBeaconStateContext } from './beaconContext';
-import { mutateBigNumber } from '../utils';
+import { getRateForSwap, mutateBigNumber } from '../utils';
+import { useErrorState } from './errorContext';
 
 // state context
 const KolibriStateContext = createContext({});
@@ -48,7 +48,7 @@ const useKolibriDispatchContext = () => {
 
 // Provider
 const KolibriProvider = ({ children }) => {
-  const [allOvens, setAllOvens] = useState();
+  const [allOvens, setAllOvens] = useState([]);
   const [tezosPrice, setTezosPrice] = useState();
   const [kUSDPrice, setkUSDPrice] = useState();
   const [myOvens, setMyOvens] = useState([]);
@@ -58,6 +58,7 @@ const KolibriProvider = ({ children }) => {
   const [loadingOven, setLoadingOven] = useState('');
 
   const { beaconWalletData, beaconAddress, tezos } = useBeaconStateContext();
+  const { addError } = useErrorState();
 
   const harbingerClient = new HarbingerClient(
     CONSTANTS.NODE_URL,
@@ -74,7 +75,7 @@ const KolibriProvider = ({ children }) => {
 
   const tokenClient = new TokenClient(CONSTANTS.NODE_URL, CONTRACTS.TEST.TOKEN);
 
-  const getDataFromAddress = async (ovenAddress) => {
+  const getDataFromAddress = async (ovenAddress, isOwn = true) => {
     const ovenClient = new OvenClient(
       CONSTANTS.NODE_URL,
       beaconWalletData,
@@ -93,69 +94,59 @@ const KolibriProvider = ({ children }) => {
       ovenOwner: await ovenClient.getOwner(),
       stabilityFees: await ovenClient.getStabilityFees(),
       loading: false,
-      ovenClient,
+      ovenClient: isOwn && ovenClient,
     };
   };
 
   const getAllMyOvens = async () => {
-    const ovens = await stableCoinClient.ovensOwnedByAddress(beaconAddress);
+    try {
+      const ovens = await stableCoinClient.ovensOwnedByAddress(beaconAddress);
 
-    const ovensData = await Promise.all(
-      ovens.map(async (ovenAddress) => {
-        return getDataFromAddress(ovenAddress);
-      }),
-    );
+      const ovensData = await Promise.all(
+        ovens.map(async (ovenAddress) => {
+          return getDataFromAddress(ovenAddress);
+        }),
+      );
 
-    setMyOvens(ovensData);
+      setMyOvens(ovensData);
+    } catch {
+      addError("ERROR: We can't load your ovens");
+    }
   };
 
   const getKUSDTokens = async () => {
-    const result = await tokenClient.getBalance(beaconAddress);
-    setMyTokens(result);
+    try {
+      const result = await tokenClient.getBalance(beaconAddress);
+      setMyTokens(result);
+    } catch {
+      addError("ERROR: We can't load your kUSD tokens");
+    }
   };
 
-  // eslint-disable-next-line consistent-return
   const getOvens = async () => {
-    const response = await axios(
-      'https://kolibri-data.s3.amazonaws.com/hangzhounet/oven-data.json',
-    );
-
-    if (response) {
+    try {
+      const response = await axios(
+        'https://kolibri-data.s3.amazonaws.com/hangzhounet/oven-data.json',
+      );
       setAllOvens(response.data.allOvenData);
-      return;
+    } catch {
+      const ovens = await stableCoinClient.getAllOvens();
+      const ovensData = await Promise.all(
+        ovens.map(async (oven) => {
+          return getDataFromAddress(oven.ovenAddress, false);
+        }),
+      );
+      setAllOvens(ovensData);
     }
-    // backup
-    const ovens = await stableCoinClient.getAllOvens();
-
-    const ovensData = await Promise.all(
-      ovens.map(async (ovenAddress) => {
-        const ovenClient = new OvenClient(
-          CONSTANTS.NODE_URL,
-          beaconWalletData,
-          ovenAddress,
-          stableCoinClient,
-          harbingerClient,
-        );
-
-        return {
-          baker: await ovenClient.getBaker(),
-          balance: await ovenClient.getBalance(),
-          borrowedTokens: await ovenClient.getBorrowedTokens(),
-          isLiquidated: await ovenClient.isLiquidated(),
-          outstandingTokens: await ovenClient.getTotalOutstandingTokens(),
-          ovenAddress: await ovenClient.ovenAddress,
-          ovenOwner: await ovenClient.getOwner(),
-          stabilityFees: await ovenClient.getStabilityFees(),
-        };
-      }),
-    );
-
-    setAllOvens(ovensData);
   };
 
   const getActualPrice = async () => {
-    const result = await harbingerClient.getPriceData();
-    setTezosPrice(result);
+    try {
+      const result = await harbingerClient.getPriceData();
+      setTezosPrice(result);
+    } catch {
+      addError("ERROR: We can't get actual price");
+    }
   };
 
   const updateActualPrice = async () => {
@@ -167,42 +158,31 @@ const KolibriProvider = ({ children }) => {
   };
 
   const getStabilityFeeYear = async () => {
-    const result = await stableCoinClient.getSimpleStabilityFee();
-    setStabilityFeeYear(mutateBigNumber(result, undefined, 1));
+    try {
+      const result = await stableCoinClient.getSimpleStabilityFee();
+      setStabilityFeeYear(mutateBigNumber(result, undefined, 1));
+    } catch {
+      addError("ERROR: We can't get stability fee");
+    }
   };
 
-  const getCollaterlRatio = async () => {
-    const result = await stableCoinClient.getRequiredCollateralizationRatio();
-    setCollaterlRatio(mutateBigNumber(result, 1e18, 0));
+  const getCollateralRatio = async () => {
+    try {
+      const result = await stableCoinClient.getRequiredCollateralizationRatio();
+      setCollaterlRatio(mutateBigNumber(result, 1e18, 0));
+    } catch {
+      addError("ERROR: We can't get collateral ration");
+    }
   };
 
   const deployOven = async () => {
     await stableCoinClient.deployOven(beaconWalletData);
   };
 
-  const getRateForSwap = async () => {
-    const from = 'tez';
-    const to = { contract: CONTRACTS.TEST.TOKEN };
-    const amount = {
-      inputValue: 1,
-    };
-    const fact = {
-      fa1_2Factory: 'KT1HrQWkSFe7ugihjoMWwQ7p8ja9e18LdUFn',
-    };
-
-    try {
-      const value = await estimateSwap(tezos, fact, from, to, amount);
-
-      return mutateBigNumber(value, 1e12, 3);
-    } catch (e) {
-      return 0;
-    }
-  };
-
   const getkUSDNormalPrice = async () => {
-    const rateForSwap = await getRateForSwap();
-
     try {
+      const rateForSwap = await getRateForSwap(tezos);
+
       const price = mutateBigNumber(
         tezosPrice.price / rateForSwap,
         undefined,
@@ -222,10 +202,12 @@ const KolibriProvider = ({ children }) => {
   }, [beaconWalletData]);
 
   useEffect(() => {
-    getOvens();
-    getActualPrice();
-    getStabilityFeeYear();
-    getCollaterlRatio();
+    (async () => {
+      getStabilityFeeYear();
+      getCollateralRatio();
+      await getActualPrice();
+      getOvens();
+    })();
   }, []);
 
   useEffect(() => {

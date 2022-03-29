@@ -12,13 +12,13 @@ import { isDesktop, mutateBigNumber } from '../utils';
 
 // state context
 const PushStateContext = createContext({});
-PushStateContext.displayName = 'pushStateContext';
+PushStateContext.displayName = 'PushStateContext';
 
 const usePushStateContext = () => {
   const context = useContext(PushStateContext);
 
   if (!context) {
-    throw new Error('pushStateContext must be used within a PushProvider');
+    throw new Error('PushStateContext must be used within a PushProvider');
   }
 
   return context;
@@ -26,13 +26,13 @@ const usePushStateContext = () => {
 
 // dispatch context
 const PushDispatchContext = createContext({});
-PushDispatchContext.displayName = 'pushDispatchContext';
+PushDispatchContext.displayName = 'PushDispatchContext';
 
 const usePushDispatchContext = () => {
   const context = useContext(PushDispatchContext);
 
   if (!context) {
-    throw new Error('pushDispatchContext must be used within a PushProvider');
+    throw new Error('PushDispatchContext must be used within a PushProvider');
   }
 
   return context;

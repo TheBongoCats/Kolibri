@@ -1,4 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+import { estimateSwap } from '@quipuswap/sdk';
+import { CONTRACTS } from '@hover-labs/kolibri-js';
 import CONSTANTS from './constants';
 
 export const mutateBigNumber = (
@@ -56,4 +58,23 @@ export const isDesktop = () => {
   }
 
   return true;
+};
+
+export const getRateForSwap = async (tezos) => {
+  const from = 'tez';
+  const to = { contract: CONTRACTS.TEST.TOKEN };
+  const amount = {
+    inputValue: 1,
+  };
+  const fact = {
+    fa1_2Factory: 'KT1HrQWkSFe7ugihjoMWwQ7p8ja9e18LdUFn',
+  };
+
+  try {
+    const value = await estimateSwap(tezos, fact, from, to, amount);
+
+    return mutateBigNumber(value, 1e12, 3);
+  } catch (e) {
+    return 0;
+  }
 };

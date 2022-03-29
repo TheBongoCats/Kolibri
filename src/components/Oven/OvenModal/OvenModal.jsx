@@ -23,7 +23,7 @@ const OvenModal = ({ ovenData, section }) => {
   const { beaconBalance } = useBeaconStateContext();
   const { getDataFromAddress, setMyOvens, setLoadingOven } =
     useKolibriDispatchContext();
-  const { setIsOpen } = useModalDispatchContext();
+  const { setComponent } = useModalDispatchContext();
   const { lang } = useI18nStateContext();
 
   const [newCollateralRatio, setNewCollateralRatio] = useState('');
@@ -38,7 +38,7 @@ const OvenModal = ({ ovenData, section }) => {
       setDisabled(true);
       setLoadingOven(ovenData.ovenAddress);
       const transaction = await callback();
-      setIsOpen(false);
+      setComponent(null);
       await transaction.confirmation();
 
       const newData = await getDataFromAddress(ovenData.ovenAddress);
@@ -52,12 +52,12 @@ const OvenModal = ({ ovenData, section }) => {
       setLoadingOven('');
     } catch (e) {
       setLoadingOven('');
-      setIsOpen(false);
+      setComponent(null);
     }
   };
 
   const handleChangeAmount = (e) => {
-    const re = /[+-]?([0-9]*[.])?[0-9]+/;
+    const re = /^[0-9]*\.?[0-9]*$/;
     if (e.target.value === '' || re.test(e.target.value)) {
       setAmount(e.target.value);
     }
@@ -134,12 +134,16 @@ const OvenModal = ({ ovenData, section }) => {
         );
         break;
       case 'repay':
-        setNewCollateralRatio(
-          (
-            ((mutatedData.loan - amount) / mutatedData.collateralValue) *
-            200
-          ).toFixed(2),
-        );
+        if (mutatedData.loan - amount > 0) {
+          setNewCollateralRatio(
+            (
+              ((mutatedData.loan - amount) / mutatedData.collateralValue) *
+              200
+            ).toFixed(2),
+          );
+        } else {
+          setNewCollateralRatio('0.00');
+        }
         break;
       case 'withdraw':
         setNewCollateralRatio(
@@ -168,6 +172,14 @@ const OvenModal = ({ ovenData, section }) => {
       default:
     }
   }, [amount]);
+
+  useEffect(() => {
+    if (newCollateralRatio > 100 || newCollateralRatio < 0 || amount <= 0) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [newCollateralRatio]);
 
   return (
     <div className={styled.modal}>
@@ -230,7 +242,7 @@ const OvenModal = ({ ovenData, section }) => {
         isRounded
         isTransparent
         callback={MODAL_CONFIG[modalId].handleClick}
-        isDisabled={disabled || amount <= 0}
+        isDisabled={disabled}
       />
     </div>
   );
