@@ -110,6 +110,7 @@ const KolibriProvider = ({ children }) => {
 
       setMyOvens(ovensData);
     } catch {
+      setMyOvens([]);
       addError("ERROR: We can't load your ovens");
     }
   };
@@ -119,6 +120,7 @@ const KolibriProvider = ({ children }) => {
       const result = await tokenClient.getBalance(beaconAddress);
       setMyTokens(result);
     } catch {
+      setMyTokens(0);
       addError("ERROR: We can't load your kUSD tokens");
     }
   };
@@ -130,13 +132,18 @@ const KolibriProvider = ({ children }) => {
       );
       setAllOvens(response.data.allOvenData);
     } catch {
-      const ovens = await stableCoinClient.getAllOvens();
-      const ovensData = await Promise.all(
-        ovens.map(async (oven) => {
-          return getDataFromAddress(oven.ovenAddress, false);
-        }),
-      );
-      setAllOvens(ovensData);
+      try {
+        const ovens = await stableCoinClient.getAllOvens();
+        const ovensData = await Promise.all(
+          ovens.map(async (oven) => {
+            return getDataFromAddress(oven.ovenAddress, false);
+          }),
+        );
+        setAllOvens(ovensData);
+      } catch {
+        setAllOvens([]);
+        addError("ERROR: We can't load all ovens");
+      }
     }
   };
 
@@ -145,6 +152,7 @@ const KolibriProvider = ({ children }) => {
       const result = await harbingerClient.getPriceData();
       setTezosPrice(result);
     } catch {
+      setTezosPrice(0);
       addError("ERROR: We can't get actual price");
     }
   };
@@ -162,6 +170,7 @@ const KolibriProvider = ({ children }) => {
       const result = await stableCoinClient.getSimpleStabilityFee();
       setStabilityFeeYear(mutateBigNumber(result, undefined, 1));
     } catch {
+      setStabilityFeeYear('0.00');
       addError("ERROR: We can't get stability fee");
     }
   };
@@ -171,6 +180,7 @@ const KolibriProvider = ({ children }) => {
       const result = await stableCoinClient.getRequiredCollateralizationRatio();
       setCollaterlRatio(mutateBigNumber(result, 1e18, 0));
     } catch {
+      setCollaterlRatio('0');
       addError("ERROR: We can't get collateral ration");
     }
   };
