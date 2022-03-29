@@ -2,6 +2,10 @@
 
 Here you can find all information about the new Kolibri front-end created by the BongoCats team.
 
+## Links
+
+#### [Live Demo Kolibri by BongoCats](https://thebongocats.github.io/Kolibri/)
+#### [Forum Discussion](https://discuss.kolibri.finance/t/grant-for-bongocats-altrenative-kolibri-ui/155)
 
 ## Who we are? 
 
@@ -9,7 +13,6 @@ BongoCats - a team of two young front-end developers from Ukraine who started th
 
 ## What we have done? 
 
-### [Live Demo Kolibri by BongoCats](https://thebongocats.github.io/Kolibri/)
 
 ### New Design:
 
@@ -61,4 +64,3 @@ Blockchain libs: [Taquito](https://tezostaquito.io/), [QuipuSwap SDK](https://gi
 #### Discord:
 - Alexandr Petrenko: Kaizer#5829
 - Alexey Altyntsev: Alik#5272
-
