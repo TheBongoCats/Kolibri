@@ -19,9 +19,9 @@ Our main idea was to create something new and at the same time all-too-familiar.
 
 ### Light/Dark mode:
 
-We have implemented two themes on our product. Now, you can choose between light and dark mode. This is very useful when the sun goes down, as it reduces the light emitted by device screens while maintaining the minimum color contrast ratios required for readability.
+We have implemented two themes for our product. Now, you can choose between light and dark mode. This is very useful when the sun goes down, as it reduces the light emitted by device screens while maintaining the minimum color contrast ratios required for readability.
 
-That is how it looks like:
+This is how it looks like:
 
 ![Light Dark](https://user-images.githubusercontent.com/60012511/160277943-e157c820-264b-4987-9ae9-ee3b531fbb83.png)
 
