@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="336px" height="340px"><svg width="336px" height="340px" viewBox="0 0 336 340" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Group 3 Copy</title>
     <g id="SvgjsG1006" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="SvgjsG1005" transform="translate(0.500000, -47.250000)" fill="#313131">
+        <g id="SvgjsG1005" transform="translate(0.500000, -47.250000)" fill="#8c82f2">
             <g id="SvgjsG1004" transform="translate(0.000000, 48.000000)">
                 <path d="M200.20764,105.090971 C197.627698,105.090971 195.534082,103.000804 195.534082,100.420862 C195.534082,97.8374713 197.627698,95.7473044 200.20764,95.7473044 C202.791031,95.7473044 204.881198,97.8374713 204.881198,100.420862 C204.881198,103.000804 202.791031,105.090971 200.20764,105.090971 Z" id="SvgjsPath1003"></path>
                 <path d="M295.167281,105.035015 C319.469783,109.560261 333.783633,116.299842 334.621769,117.134529 C335.456456,117.972666 331.079522,119.400602 329.406699,119.400602 C329.406699,119.400602 296.15373,106.707839 255.488601,110.018994 L224.922496,106.345681 C236.083849,103.355294 238.47409,101.21339 242.106014,97.0330561 C242.106014,97.0330561 270.868228,100.509769 295.167281,105.035015 Z" id="SvgjsPath1002"></path>
@@ -10,6 +9,6 @@
             </g>
         </g>
     </g>
-</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
-@media (prefers-color-scheme: dark) { :root { filter: contrast(1) brightness(1); } }
-</style></svg>
+   
+</svg>
+</svg>
