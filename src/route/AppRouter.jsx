@@ -44,7 +44,7 @@ const ROUTE_CONFIG = [
     ),
   },
   { path: '/404', component: <Error404 /> },
-  { path: '/docs', component: <Navigate to="/docs/intro" /> },
+  { path: '/docs', component: <Navigate replace to="/docs/intro" /> },
   { path: '*', component: <Navigate to="/404" /> },
 ];
 
