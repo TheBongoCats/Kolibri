@@ -1,5 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="336px" height="340px"><svg width="336px" height="340px" viewBox="0 0 336 340" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Group 3 Copy</title>
     <g id="SvgjsG1006" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="SvgjsG1005" transform="translate(0.500000, -47.250000)" fill="#313131">
             <g id="SvgjsG1004" transform="translate(0.000000, 48.000000)">
@@ -10,6 +9,15 @@
             </g>
         </g>
     </g>
-</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
-@media (prefers-color-scheme: dark) { :root { filter: contrast(1) brightness(1); } }
-</style></svg>
+    <style>
+    g {
+      fill: #313131;
+    }
+    @media (prefers-color-scheme: dark) {
+      g {
+        fill: #ffffff;
+      }
+    }
+  </style>
+</svg>
+</svg>
