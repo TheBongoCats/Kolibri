@@ -44,14 +44,11 @@ const Header = () => {
         <Burger isOpen={isOpen} callback={handleIsOpen} />
       )}
       {isLogin ? (
-        <Button
-          callback={disconnectWallet}
-          text={walletDisconnect[`${lang}`]}
-        />
+        <Button callback={disconnectWallet} text={walletDisconnect[lang]} />
       ) : (
         <Button
           callback={() => connectWallet(true, 'hangzhounet')}
-          text={walletConnect[`${lang}`]}
+          text={walletConnect[lang]}
         />
       )}
       {width <= 700 && <Aside isOpen={isOpen} handleIsOpen={handleIsOpen} />}

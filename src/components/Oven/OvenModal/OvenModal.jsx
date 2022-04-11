@@ -10,7 +10,7 @@ import { useModalDispatchContext } from '../../../contexts/modalContext';
 
 import Button from '../../Button';
 import CircularProgress from '../CircularProgress';
-import OvenModalInfo from './OvenModalInfo';
+import OvenModalInfo from '../OvenModalInfo/OvenModalInfo';
 
 import styled from './OvenModal.module.scss';
 import textsAction from '../textsAction.json';
@@ -21,7 +21,7 @@ import { useI18nStateContext } from '../../../contexts/i18nContext';
 const OvenModal = ({ ovenData, section }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
-  const { getDataFromAddress, setMyOvens, setLoadingOven } =
+  const { getDataFromAddress, setMyOvens, setLoadingOven, getKUSDTokens } =
     useKolibriDispatchContext();
   const { setComponent } = useModalDispatchContext();
   const { lang } = useI18nStateContext();
@@ -29,19 +29,21 @@ const OvenModal = ({ ovenData, section }) => {
   const [newCollateralRatio, setNewCollateralRatio] = useState('');
   const [modalId, setModalId] = useState(section);
   const [amount, setAmount] = useState('');
-  const [disabled, setDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const mutatedData = mutateOvenData(ovenData, tezosPrice);
 
   const ovenAction = async (callback) => {
     try {
-      setDisabled(true);
+      setIsDisabled(true);
       setLoadingOven(ovenData.ovenAddress);
       const transaction = await callback();
       setComponent(null);
       await transaction.confirmation();
 
       const newData = await getDataFromAddress(ovenData.ovenAddress);
+
+      getKUSDTokens();
 
       setMyOvens((prevState) => {
         return prevState.map((oven) => {
@@ -69,57 +71,51 @@ const OvenModal = ({ ovenData, section }) => {
   };
 
   const handleBorrow = () => {
-    if (newCollateralRatio <= 100 && newCollateralRatio > 0) {
-      ovenAction(() => ovenData.ovenClient.borrow(amount * 1e18));
-    }
+    ovenAction(() => ovenData.ovenClient.borrow(amount * 1e18));
   };
 
   const handleRepay = () => {
-    if (
-      newCollateralRatio <= 100 &&
-      newCollateralRatio > 0 &&
-      amount <= myTokens
-    ) {
-      ovenAction(() => ovenData.ovenClient.repay(amount * 1e18));
-    }
+    ovenAction(() => ovenData.ovenClient.repay(amount * 1e18));
   };
 
   const handleWithdraw = () => {
-    if (newCollateralRatio <= 100 && newCollateralRatio > 0) {
-      ovenAction(() =>
-        ovenData.ovenClient.withdraw(amount * CONSTANTS.MUTEZ_IN_TEZOS),
-      );
-    }
+    ovenAction(() =>
+      ovenData.ovenClient.withdraw(amount * CONSTANTS.MUTEZ_IN_TEZOS),
+    );
   };
 
   const handleDeposit = () => {
-    if (amount <= beaconBalance) {
-      ovenAction(() =>
-        ovenData.ovenClient.deposit(amount * CONSTANTS.MUTEZ_IN_TEZOS),
-      );
-    }
+    ovenAction(() =>
+      ovenData.ovenClient.deposit(amount * CONSTANTS.MUTEZ_IN_TEZOS),
+    );
   };
+
+  // NEED TO BE FIXED
 
   const MODAL_CONFIG = {
     borrow: {
-      section: `${textsAction.borrow[`${lang}`]}`,
+      section: textsAction.borrow[lang],
       unit: 'kUSD',
       handleClick: handleBorrow,
+      isDisabled: newCollateralRatio > 100 || amount <= 0,
     },
     repay: {
-      section: `${textsAction.repay[`${lang}`]}`,
+      section: textsAction.repay[lang],
       unit: 'kUSD',
       handleClick: handleRepay,
+      isDisabled: amount > mutatedData.loan || amount <= 0 || amount > myTokens,
     },
     withdraw: {
-      section: `${textsAction.withdraw[`${lang}`]}`,
+      section: textsAction.withdraw[lang],
       unit: 'ꜩ',
       handleClick: handleWithdraw,
+      isDisabled: newCollateralRatio >= 100 || amount <= 0,
     },
     deposit: {
-      section: `${textsAction.deposit[`${lang}`]}`,
+      section: textsAction.deposit[lang],
       unit: 'ꜩ',
       handleClick: handleDeposit,
+      isDisabled: amount > beaconBalance || amount <= 0,
     },
   };
 
@@ -172,14 +168,6 @@ const OvenModal = ({ ovenData, section }) => {
       default:
     }
   }, [amount]);
-
-  useEffect(() => {
-    if (newCollateralRatio > 100 || newCollateralRatio < 0 || amount <= 0) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
-  }, [newCollateralRatio]);
 
   return (
     <div className={styled.modal}>
@@ -242,7 +230,7 @@ const OvenModal = ({ ovenData, section }) => {
         isRounded
         isTransparent
         callback={MODAL_CONFIG[modalId].handleClick}
-        isDisabled={disabled}
+        isDisabled={isDisabled || MODAL_CONFIG[modalId].isDisabled}
       />
     </div>
   );

@@ -39,7 +39,7 @@ const Oracle = () => {
           <span
             className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
           >
-            {hoursUpdate[`${lang}`]}
+            {hoursUpdate[lang]}
           </span>
         );
       case minutes >= 30:
@@ -47,7 +47,7 @@ const Oracle = () => {
           <span
             className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
           >
-            {minutes} {minutesUpdate[`${lang}`]}
+            {minutes} {minutesUpdate[lang]}
           </span>
         );
       default:
@@ -55,7 +55,7 @@ const Oracle = () => {
           <span
             className={`${styled.oracle__time} ${styled['oracle__time--s--ok']}`}
           >
-            {minutes} {minutesUpdate[`${lang}`]}
+            {minutes} {minutesUpdate[lang]}
           </span>
         );
     }
@@ -78,7 +78,7 @@ const Oracle = () => {
   return (
     <div className={styled.oracle}>
       <div className={styled.oracle__title}>
-        {latest[`${lang}`]} <b>XTZ/USD Oracle</b> {priceText[`${lang}`]}
+        {latest[lang]} <b>XTZ/USD Oracle</b> {priceText[lang]}
         {tezosPrice ? (
           <span className={styled.oracle__price}> ${price}</span>
         ) : (
@@ -86,7 +86,7 @@ const Oracle = () => {
         )}
       </div>
       <div className={styled.oracle__updated}>
-        {oracleUpdate[`${lang}`]} {+minutes ? lastUpdate() : <Loader />}
+        {oracleUpdate[lang]} {+minutes ? lastUpdate() : <Loader />}
         {desktop && (
           <button
             onClick={handleSetNotify}

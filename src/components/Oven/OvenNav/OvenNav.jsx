@@ -11,10 +11,10 @@ const OvenNav = ({ ovenData }) => {
   const { handleOpenModal } = useModalDispatchContext();
 
   const NAV_CONFIG = [
-    { text: `${texts.withdraw[`${lang}`]}`, modalId: 'withdraw' },
-    { text: `${texts.deposit[`${lang}`]}`, modalId: 'deposit' },
-    { text: `${texts.borrow[`${lang}`]}`, modalId: 'borrow' },
-    { text: `${texts.repay[`${lang}`]}`, modalId: 'repay' },
+    { text: texts.withdraw[lang], modalId: 'withdraw' },
+    { text: texts.deposit[lang], modalId: 'deposit' },
+    { text: texts.borrow[lang], modalId: 'borrow' },
+    { text: texts.repay[lang], modalId: 'repay' },
   ];
 
   return (

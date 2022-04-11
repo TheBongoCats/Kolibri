@@ -20,9 +20,9 @@ const Navigation = ({ isAside }) => {
     theme === 'light' ? handleSetTheme('dark') : handleSetTheme('light');
 
   const NAVIGATION_CONFIG = [
-    { path: '/', text: homeNav[`${lang}`] },
-    { path: '/all-ovens', text: allOvensNav[`${lang}`] },
-    { path: '/docs/intro', text: docsNav[`${lang}`] },
+    { path: '/', text: homeNav[lang] },
+    { path: '/all-ovens', text: allOvensNav[lang] },
+    { path: '/docs/intro', text: docsNav[lang] },
   ];
 
   if (isAside) {

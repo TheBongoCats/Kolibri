@@ -257,8 +257,9 @@ const KolibriProvider = ({ children }) => {
       getDataFromAddress,
       setMyOvens,
       setLoadingOven,
+      getKUSDTokens,
     }),
-    [deployOven, getDataFromAddress, setMyOvens, setLoadingOven],
+    [deployOven, getDataFromAddress, setMyOvens, setLoadingOven, getKUSDTokens],
   );
 
   return (

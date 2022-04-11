@@ -68,14 +68,14 @@ const Home = () => {
             <Link to="/docs">
               <Button
                 callback={() => null}
-                text={learnMoreButton[`${lang}`]}
+                text={learnMoreButton[lang]}
                 isTransparent
                 isRounded
               />
             </Link>
             <Button
               callback={() => null}
-              text={metricsButton[`${lang}`]}
+              text={metricsButton[lang]}
               isTransparent
               isRounded
             />
@@ -85,18 +85,18 @@ const Home = () => {
       <div className={styled.home__container}>
         <div className={styled.home__metrics}>
           <Metric
-            title={activeOvensCount[`${lang}`]}
+            title={activeOvensCount[lang]}
             value={allOvens?.length}
             size="l"
           />
           <Metric
-            title={stabilityFeeCount[`${lang}`]}
+            title={stabilityFeeCount[lang]}
             value={stabilityFeeYear}
             unit="%"
             size="l"
           />
           <Metric
-            title={collateralValueCount[`${lang}`]}
+            title={collateralValueCount[lang]}
             value={collateralRatio}
             unit="%"
             size="l"
@@ -104,7 +104,7 @@ const Home = () => {
         </div>
         {/* <div className={styled.home__line}>
           <button type="button" className={styled.home__more}>
-            {moreButton[`${lang}`]}
+            {moreButton[lang]}
           </button>
         </div> */}
         <Peg />
@@ -115,23 +115,21 @@ const Home = () => {
           <>
             <Button
               callback={handleDeployOven}
-              text={deployButton[`${lang}`]}
+              text={deployButton[lang]}
               isBig
               isDisabled={buttonDisabled}
             />
             <OvenList ovens={myOvens} />
           </>
         ) : (
-          <Loader text={loaderText[`${lang}`]} />
+          <Loader text={loaderText[lang]} />
         )
       ) : (
         <>
-          <p className={styled.home__connect}>
-            {connectWalletParagraph[`${lang}`]}
-          </p>
+          <p className={styled.home__connect}>{connectWalletParagraph[lang]}</p>
           <Button
             callback={() => connectWallet(true, 'hangzhounet')}
-            text={connectButton[`${lang}`]}
+            text={connectButton[lang]}
             isBig
           />
         </>

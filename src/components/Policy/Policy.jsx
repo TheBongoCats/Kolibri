@@ -9,7 +9,7 @@ const Policy = () => {
   return (
     <div className={styles.policy}>
       <div>
-        {heading[`${lang}`]}{' '}
+        {heading[lang]}{' '}
         <a
           href="https://hover.engineering"
           target="_blank"
@@ -26,7 +26,7 @@ const Policy = () => {
           rel="noopener noreferrer"
           className={styles.policy__links}
         >
-          {terms[`${lang}`]}
+          {terms[lang]}
         </a>{' '}
         <span className={styles.policy__links}>|</span>{' '}
         <a
@@ -35,7 +35,7 @@ const Policy = () => {
           rel="noopener noreferrer"
           className={styles.policy__links}
         >
-          {policy[`${lang}`]}
+          {policy[lang]}
         </a>
       </div>
     </div>

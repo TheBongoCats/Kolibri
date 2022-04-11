@@ -8,10 +8,10 @@ const Risks = () => {
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.heading}>Kolibri Risks</h2>
-      <p className={styles.paragraph}>{texts.firstParagraph[`${lang}`]}</p>
-      <p className={styles.paragraph}>{texts.secondParagraph[`${lang}`]}</p>
+      <p className={styles.paragraph}>{texts.firstParagraph[lang]}</p>
+      <p className={styles.paragraph}>{texts.secondParagraph[lang]}</p>
       <p className={styles.paragraph}>
-        {texts.thirdParagraph[`${lang}`]}{' '}
+        {texts.thirdParagraph[lang]}{' '}
         <a
           href="https://twitter.com/hovereng"
           target="_blank"
@@ -20,7 +20,7 @@ const Risks = () => {
         >
           twitter
         </a>
-        {texts.thirdParagraphAfter[`${lang}`]}{' '}
+        {texts.thirdParagraphAfter[lang]}{' '}
         <a
           href="https://discord.com/invite/pCKVNTw6Pf"
           target="_blank"
@@ -31,31 +31,31 @@ const Risks = () => {
         </a>
         !
       </p>
-      <h2 className={styles['sub-heading']}>{texts.subTitle[`${lang}`]}</h2>
+      <h2 className={styles['sub-heading']}>{texts.subTitle[lang]}</h2>
       <p className={styles.paragraph}>
-        {texts.fourthParagraphBefore[`${lang}`]}{' '}
+        {texts.fourthParagraphBefore[lang]}{' '}
         <a
           href="https://news.tezoscommons.org/tezos-blockchains-fast-pace-of-evolution-delivers-new-features-with-edo-upgrade-fec6a62a4b8b"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}
         >
-          {texts.protocol[`${lang}`]}
+          {texts.protocol[lang]}
         </a>
-        {texts.fourthParagraph[`${lang}`]}
+        {texts.fourthParagraph[lang]}
       </p>
-      <p className={styles.paragraph}>{texts.fifthParagraph[`${lang}`]}</p>
+      <p className={styles.paragraph}>{texts.fifthParagraph[lang]}</p>
       <p className={styles.paragraph}>
-        {texts.sixthParagraphBefore[`${lang}`]}{' '}
+        {texts.sixthParagraphBefore[lang]}{' '}
         <a
           href="https://forum.tezosagora.org/t/baking-accounts-proposal-contains-unexpected-breaking-changes/2844"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}
         >
-          {texts.sixthParagraphLink[`${lang}`]}
+          {texts.sixthParagraphLink[lang]}
         </a>
-        {texts.sixthParagraph[`${lang}`]}
+        {texts.sixthParagraph[lang]}
       </p>
     </div>
   );

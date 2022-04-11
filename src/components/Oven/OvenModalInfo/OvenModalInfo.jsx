@@ -2,7 +2,7 @@
 import { useBeaconStateContext } from '../../../contexts/beaconContext';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
 import { mutateBigNumber } from '../../../utils';
-import texts from './textsOvenModalInfo.json';
+import texts from '../OvenModal/textsOvenModalInfo.json';
 import { useI18nStateContext } from '../../../contexts/i18nContext';
 
 const OvenModalInfo = ({
@@ -25,22 +25,21 @@ const OvenModalInfo = ({
         return (
           <div>
             <p>
-              {`${texts.borrowed[`${lang}`]}`} {mutatedData.loan} kUSD
+              {`${texts.borrowed[lang]}`} {mutatedData.loan} kUSD
             </p>
             <p>
-              {texts.maxBorrowed[`${lang}`]}{' '}
+              {texts.maxBorrowed[lang]}{' '}
               {(mutatedData.collateralValue / 2 - mutatedData.loan).toFixed(2)}{' '}
               kUSD
             </p>
             <p>
-              {texts.currentCollateral[`${lang}`]} {mutatedData.collateralRatio}
-              %
+              {texts.currentCollateral[lang]} {mutatedData.collateralRatio}%
             </p>
             <p>
-              {texts.newCollateral[`${lang}`]} {newCollateralRatio}%
+              {texts.newCollateral[lang]} {newCollateralRatio}%
             </p>
             <p>
-              {texts.liquidatable[`${lang}`]}
+              {texts.liquidatable[lang]}
               {mutateBigNumber(tezosPrice.price * newCollateralRatio, 1e8)}
             </p>
           </div>
@@ -49,23 +48,22 @@ const OvenModalInfo = ({
         return (
           <div>
             <p>
-              {texts.borrowed[`${lang}`]} {mutatedData.loan} kUSD
+              {texts.borrowed[lang]} {mutatedData.loan} kUSD
             </p>
             <p>
-              {texts.walletHolding[`${lang}`]} {tokens} kUSD
+              {texts.walletHolding[lang]} {tokens} kUSD
             </p>
             <p>
-              {texts.maxPayback[`${lang}`]} {mutatedData.loan} kUSD
+              {texts.maxPayback[lang]} {mutatedData.loan} kUSD
             </p>
             <p>
-              {texts.currentCollateral[`${lang}`]} {mutatedData.collateralRatio}
-              %
+              {texts.currentCollateral[lang]} {mutatedData.collateralRatio}%
             </p>
             <p>
-              {texts.newCollateral[`${lang}`]} {newCollateralRatio}%
+              {texts.newCollateral[lang]} {newCollateralRatio}%
             </p>
             <p>
-              {texts.liquidatable[`${lang}`]}
+              {texts.liquidatable[lang]}
               {mutateBigNumber(tezosPrice.price * newCollateralRatio, 1e8)}
             </p>
           </div>
@@ -74,20 +72,21 @@ const OvenModalInfo = ({
         return (
           <div>
             <p>
-              {texts.ovenCollateral[`${lang}`]} {mutatedData.balance}
+              {texts.ovenCollateral[lang]} {mutatedData.balance} ꜩ
             </p>
             <p>
-              {texts.maxWithdraw[`${lang}`]}{' '}
+              {texts.maxWithdraw[lang]}{' '}
               {(
                 mutatedData.balance *
                 (1 - (mutatedData.loan / mutatedData.collateralValue) * 2)
-              ).toFixed(2)}
+              ).toFixed(2)}{' '}
+              ꜩ
             </p>
             <p>
-              {texts.currentCollateral[`${lang}`]} {mutatedData.collateralRatio}
+              {texts.currentCollateral[lang]} {mutatedData.collateralRatio}%
             </p>
             <p>
-              {texts.newCollateral[`${lang}`]} {newCollateralRatio}
+              {texts.newCollateral[lang]} {newCollateralRatio}%
             </p>
           </div>
         );
@@ -95,19 +94,19 @@ const OvenModalInfo = ({
         return (
           <div>
             <p>
-              {texts.ovenCollateral[`${lang}`]} {mutatedData.balance}
+              {texts.ovenCollateral[lang]} {mutatedData.balance} ꜩ
             </p>
             <p>
-              {texts.walletHolding[`${lang}`]} {beaconBalance.toFixed(2)}
+              {texts.walletHolding[lang]} {beaconBalance.toFixed(2)} ꜩ
             </p>
             <p>
-              {texts.maxDeposit[`${lang}`]} {beaconBalance.toFixed(2)}
+              {texts.maxDeposit[lang]} {beaconBalance.toFixed(2)} ꜩ
             </p>
             <p>
-              {texts.currentCollateral[`${lang}`]} {mutatedData.collateralRatio}
+              {texts.currentCollateral[lang]} {mutatedData.collateralRatio}%
             </p>
             <p>
-              {texts.newCollateral[`${lang}`]} {newCollateralRatio}
+              {texts.newCollateral[lang]} {newCollateralRatio}%
             </p>
           </div>
         );

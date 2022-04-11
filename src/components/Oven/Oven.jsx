@@ -21,21 +21,21 @@ const Oven = ({ ovenData }) => {
   return (
     <div className={styled.oven}>
       {loadingOven === ovenData.ovenAddress ? (
-        <Loader text={texts.loader[`${lang}`]} />
+        <Loader text={texts.loader[lang]} />
       ) : (
         <>
           <p className={styled.oven__title}>{ovenData.ovenAddress}</p>
           <div className={styled.oven__flexbox}>
             <div className={styled.oven__info}>
               <Metric
-                title={texts.metricBaker[`${lang}`]}
+                title={texts.metricBaker[lang]}
                 value={ovenData.baker}
                 position="left"
                 size="s"
               />
               {ovenData.ovenClient ? (
                 <Metric
-                  title={texts.metricLiquidity[`${lang}`]}
+                  title={texts.metricLiquidity[lang]}
                   value={mutatedData.liquidatablePrice}
                   unit="$"
                   position="left"
@@ -43,7 +43,7 @@ const Oven = ({ ovenData }) => {
                 />
               ) : (
                 <Metric
-                  title={texts.metricOwner[`${lang}`]}
+                  title={texts.metricOwner[lang]}
                   value={ovenData.ovenOwner}
                   position="left"
                   size="s"
@@ -56,22 +56,22 @@ const Oven = ({ ovenData }) => {
           </div>
           <div className={styled.oven__metrics}>
             <Metric
-              title={texts.metricCollateral[`${lang}`]}
+              title={texts.metricCollateral[lang]}
               value={mutatedData.collateralValue}
               unit=" USD"
             />
             <Metric
-              title={texts.metricBalance[`${lang}`]}
+              title={texts.metricBalance[lang]}
               value={mutatedData.balance}
               unit=" ꜩ"
             />
             <Metric
-              title={texts.metricLoan[`${lang}`]}
+              title={texts.metricLoan[lang]}
               value={mutatedData.loan}
               unit=" kUSD"
             />
             <Metric
-              title={texts.metricStability[`${lang}`]}
+              title={texts.metricStability[lang]}
               value={mutatedData.stabilityFees}
               unit=" kUSD"
               dataTitle={mutatedData.stabilityFeesFull}

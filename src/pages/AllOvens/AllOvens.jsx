@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react';
+
 import {
   useKolibriDispatchContext,
   useKolibriStateContext,
 } from '../../contexts/kolibriContext';
+import { useI18nStateContext } from '../../contexts/i18nContext';
+import { useBeaconStateContext } from '../../contexts/beaconContext';
+
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
+import OvenList from '../../components/OvenList';
+import UserData from '../../components/UserData';
+
 import styles from './AllOvens.module.scss';
 import { mutateBigNumber } from '../../utils';
 import {
@@ -14,10 +21,6 @@ import {
   valueSort,
   searchPlaceholder,
 } from './texts.json';
-import { useI18nStateContext } from '../../contexts/i18nContext';
-import OvenList from '../../components/OvenList';
-import { useBeaconStateContext } from '../../contexts/beaconContext';
-import UserData from '../../components/UserData';
 
 const AllOvens = () => {
   const { allOvens, tezosPrice } = useKolibriStateContext();
@@ -92,25 +95,19 @@ const AllOvens = () => {
         <Button
           type="button"
           callback={() => setWithBalance(!withBalance)}
-          text={
-            withBalance
-              ? showEmptyButton[`${lang}`]
-              : hideEmptyButton[`${lang}`]
-          }
+          text={withBalance ? showEmptyButton[lang] : hideEmptyButton[lang]}
         />
         <Button
           type="button"
           callback={() => setIsSorted(!isSorted)}
-          text={
-            isSorted ? outstandingTokensSort[`${lang}`] : valueSort[`${lang}`]
-          }
+          text={isSorted ? outstandingTokensSort[lang] : valueSort[lang]}
         />
 
         <input
           id="search"
           type="text"
           onChange={changeHandler}
-          placeholder={searchPlaceholder[`${lang}`]}
+          placeholder={searchPlaceholder[lang]}
           className={styles['all-ovens__input']}
           onClick={getKusdBalance}
         />

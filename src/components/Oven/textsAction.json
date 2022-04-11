@@ -1,21 +1,21 @@
 {
   "withdraw": {
     "en": "Withdraw ꜩ",
-    "ru": "Вивести ꜩ"
+    "ua": "Вивести ꜩ"
   },
 
   "deposit": {
     "en": "Deposit ꜩ",
-    "ru": "Депозит ꜩ"
+    "ua": "Депозит ꜩ"
   },
 
   "borrow": {
     "en": "Borrow kUSD",
-    "ru": "Позичити kUSD"
+    "ua": "Позичити kUSD"
   },
 
   "repay": {
     "en": "Repay kUSD",
-    "ru": "Погасити kUSD"
+    "ua": "Погасити kUSD"
   }
 }

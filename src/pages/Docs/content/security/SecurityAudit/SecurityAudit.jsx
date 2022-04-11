@@ -7,10 +7,10 @@ const SecurityAudit = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.heading}>{texts.title[`${lang}`]}</h2>
-      <h3 className={styles['sub-heading']}>{texts.subTitle[`${lang}`]}</h3>
+      <h2 className={styles.heading}>{texts.title[lang]}</h2>
+      <h3 className={styles['sub-heading']}>{texts.subTitle[lang]}</h3>
       <p className={styles.paragraph}>
-        {texts.firstParagraphBefore[`${lang}`]}{' '}
+        {texts.firstParagraphBefore[lang]}{' '}
         <a
           href="https://leastauthority.com/"
           target="_blank"
@@ -19,7 +19,7 @@ const SecurityAudit = () => {
         >
           Least Authority
         </a>
-        {texts.firstParagraph[`${lang}`]}
+        {texts.firstParagraph[lang]}
       </p>
       <a
         href="https://testnet.kolibri.finance/docs/security-report.pdf"
@@ -27,29 +27,24 @@ const SecurityAudit = () => {
         rel="noopener noreferrer"
         className={styles.button}
       >
-        {texts.button[`${lang}`]}
+        {texts.button[lang]}
       </a>
-      <h3 className={styles['sub-heading']}>{texts.timeline[`${lang}`]}</h3>
+      <h3 className={styles['sub-heading']}>{texts.timeline[lang]}</h3>
       <ul className={styles.list}>
         <li className={styles.list__item}>
-          <strong>{texts.feb[`${lang}`]} 17, 2021</strong>{' '}
-          {texts.listFirst[`${lang}`]}
+          <strong>{texts.feb[lang]} 17, 2021</strong> {texts.listFirst[lang]}
         </li>
         <li className={styles.list__item}>
-          <strong>{texts.jan[`${lang}`]} 28, 2021</strong>{' '}
-          {texts.listSecond[`${lang}`]}
+          <strong>{texts.jan[lang]} 28, 2021</strong> {texts.listSecond[lang]}
         </li>
         <li className={styles.list__item}>
-          <strong>{texts.jan[`${lang}`]} 18, 2021</strong>{' '}
-          {texts.listThird[`${lang}`]}
+          <strong>{texts.jan[lang]} 18, 2021</strong> {texts.listThird[lang]}
         </li>
         <li className={styles.list__item}>
-          <strong>{texts.jan[`${lang}`]} 13, 2021</strong>{' '}
-          {texts.listFourth[`${lang}`]}
+          <strong>{texts.jan[lang]} 13, 2021</strong> {texts.listFourth[lang]}
         </li>
         <li className={styles.list__item}>
-          <strong>{texts.dec[`${lang}`]} 18, 2020</strong>{' '}
-          {texts.listFifth[`${lang}`]}
+          <strong>{texts.dec[lang]} 18, 2020</strong> {texts.listFifth[lang]}
         </li>
       </ul>
     </div>
