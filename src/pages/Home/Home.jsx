@@ -42,17 +42,17 @@ const Home = () => {
   const { connectWallet } = useBeaconDispatchContext();
   const { isLogin } = useBeaconStateContext();
   const { lang } = useI18nStateContext();
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const width = useWindowWidth();
 
   const handleDeployOven = async () => {
     try {
-      setButtonDisabled(true);
+      setIsDisabled(true);
       await deployOven();
-      setButtonDisabled(false);
+      setIsDisabled(false);
     } catch (e) {
-      setButtonDisabled(false);
+      setIsDisabled(false);
     }
   };
 
@@ -117,7 +117,7 @@ const Home = () => {
               callback={handleDeployOven}
               text={deployButton[lang]}
               isBig
-              isDisabled={buttonDisabled}
+              isDisabled={isDisabled}
             />
             <OvenList ovens={myOvens} />
           </>
@@ -128,7 +128,7 @@ const Home = () => {
         <>
           <p className={styled.home__connect}>{connectWalletParagraph[lang]}</p>
           <Button
-            callback={() => connectWallet(true, 'hangzhounet')}
+            callback={() => connectWallet(true)}
             text={connectButton[lang]}
             isBig
           />

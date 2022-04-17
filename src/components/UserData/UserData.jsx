@@ -5,6 +5,7 @@ import styles from './UserData.module.scss';
 import { useBeaconStateContext } from '../../contexts/beaconContext';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import { ReactComponent as Eye } from '../../images/eye.svg';
+import { mutateBigNumber } from '../../utils';
 
 const UserData = () => {
   const [isShown, setIsShown] = useState(true);
@@ -32,7 +33,7 @@ const UserData = () => {
                   kUSD Holdings
                 </span>
                 <span className={styles['user-data__amount']}>
-                  {myTokens ? (myTokens / 1e18).toFixed(2) : '0.00'} kUSD
+                  {myTokens ? mutateBigNumber(myTokens, 1e18) : '0.00'} kUSD
                 </span>
               </div>
               <div>

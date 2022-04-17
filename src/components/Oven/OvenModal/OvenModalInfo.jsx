@@ -1,22 +1,22 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable consistent-return */
+import propTypes from 'prop-types';
+
 import { useBeaconStateContext } from '../../../contexts/beaconContext';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
-import { mutateBigNumber } from '../../../utils';
-import texts from '../OvenModal/textsOvenModalInfo.json';
 import { useI18nStateContext } from '../../../contexts/i18nContext';
 
-const OvenModalInfo = ({
-  mutatedData,
-  styled,
-  newCollateralRatio,
-  modalId,
-}) => {
+import { mutateBigNumber } from '../../../utils';
+import { mutatedDataType } from '../../../utils/types';
+
+import texts from './textsOvenModalInfo.json';
+import styled from './OvenModal.module.scss';
+
+const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
 
   const tokens = mutateBigNumber(myTokens, 1e18);
 
-  // eslint-disable-next-line consistent-return
   const renderSwitch = () => {
     const { lang } = useI18nStateContext();
 
@@ -118,3 +118,9 @@ const OvenModalInfo = ({
 };
 
 export default OvenModalInfo;
+
+OvenModalInfo.propTypes = {
+  mutatedData: mutatedDataType.isRequired,
+  newCollateralRatio: propTypes.string.isRequired,
+  modalId: propTypes.string.isRequired,
+};

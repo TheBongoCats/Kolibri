@@ -43,7 +43,6 @@ export const mutateOvenData = (ovenData, tezosPrice) => {
     stabilityFeesFull,
     collateralRatio,
     liquidatablePrice,
-    ovenClient: ovenData.ovenClient,
   };
 };
 

@@ -98,10 +98,9 @@ const KolibriProvider = ({ children }) => {
     };
   };
 
-  const getAllMyOvens = async () => {
+  const getMyOvens = async () => {
     try {
       const ovens = await stableCoinClient.ovensOwnedByAddress(beaconAddress);
-
       const ovensData = await Promise.all(
         ovens.map(async (ovenAddress) => {
           return getDataFromAddress(ovenAddress);
@@ -115,13 +114,19 @@ const KolibriProvider = ({ children }) => {
     }
   };
 
-  const getKUSDTokens = async () => {
+  const getAllOvens = async () => {
     try {
-      const result = await tokenClient.getBalance(beaconAddress);
-      setMyTokens(result);
+      const ovens = await stableCoinClient.getAllOvens();
+      const ovensData = await Promise.all(
+        ovens.map(async (oven) => {
+          return getDataFromAddress(oven.ovenAddress, false);
+        }),
+      );
+
+      setAllOvens(ovensData);
     } catch {
-      setMyTokens(0);
-      addError("ERROR: We can't load your kUSD tokens");
+      setAllOvens([]);
+      addError("ERROR: We can't load all ovens");
     }
   };
 
@@ -130,20 +135,44 @@ const KolibriProvider = ({ children }) => {
       const response = await axios(
         'https://kolibri-data.s3.amazonaws.com/hangzhounet/oven-data.json',
       );
+
       setAllOvens(response.data.allOvenData);
-    } catch {
-      try {
-        const ovens = await stableCoinClient.getAllOvens();
-        const ovensData = await Promise.all(
-          ovens.map(async (oven) => {
-            return getDataFromAddress(oven.ovenAddress, false);
-          }),
-        );
-        setAllOvens(ovensData);
-      } catch {
-        setAllOvens([]);
-        addError("ERROR: We can't load all ovens");
+
+      if (beaconWalletData) {
+        const myOvensList = response.data.allOvenData
+          .filter((oven) => oven.ovenOwner === beaconAddress)
+          .map((oven) => {
+            const ovenClient = new OvenClient(
+              CONSTANTS.NODE_URL,
+              beaconWalletData,
+              oven.ovenAddress,
+              stableCoinClient,
+              harbingerClient,
+            );
+
+            return {
+              ...oven,
+              ovenClient,
+            };
+          });
+
+        setMyOvens(myOvensList);
       }
+    } catch {
+      if (beaconWalletData) {
+        getMyOvens();
+      }
+      getAllOvens();
+    }
+  };
+
+  const getKUSDTokens = async () => {
+    try {
+      const result = await tokenClient.getBalance(beaconAddress);
+      setMyTokens(result);
+    } catch {
+      setMyTokens(0);
+      addError("ERROR: We can't load your kUSD tokens");
     }
   };
 
@@ -205,20 +234,16 @@ const KolibriProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (beaconWalletData) {
-      getAllMyOvens();
-      getKUSDTokens();
-    }
-  }, [beaconWalletData]);
-
-  useEffect(() => {
     (async () => {
+      if (beaconWalletData) {
+        getKUSDTokens();
+      }
       getStabilityFeeYear();
       getCollateralRatio();
       await getActualPrice();
       getOvens();
     })();
-  }, []);
+  }, [beaconWalletData]);
 
   useEffect(() => {
     getkUSDNormalPrice();

@@ -17,17 +17,22 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    @include useTheme('color', 'modal-nav');
   }
 
   &__section {
     width: 100%;
     border: 1px solid;
     @include useTheme('border-color', 'modal-nav');
+    @include useTheme('color', 'modal-nav');
+    background: none;
     padding: 9px;
     text-align: center;
     font-weight: 600;
     cursor: pointer;
+
+    &:disabled {
+      cursor: initial;
+    }
 
     &:first-of-type {
       border-radius: 10px 0 0 10px;

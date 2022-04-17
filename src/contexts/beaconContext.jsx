@@ -60,8 +60,6 @@ const BeaconProvider = ({ children }) => {
   const [beaconWalletData, setBeaconWalletData] = useState();
   const [isLogin, setIsLogin] = useState(false);
 
-  // eslint-disable-next-line consistent-return
-
   const beaconNetwork = BeaconNetwork.HANGZHOUNET;
 
   const tezos = new TezosToolkit(defaultRpcUrls[beaconNetwork]);

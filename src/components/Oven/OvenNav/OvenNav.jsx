@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import { useModalDispatchContext } from '../../../contexts/modalContext';
 import Button from '../../Button';
-import OvenModal from '../OvenModal/OvenModal';
+import OvenModal from '../OvenModal/OvenModal.container';
 import styled from './OvenNav.module.scss';
 import texts from '../textsAction.json';
 import { useI18nStateContext } from '../../../contexts/i18nContext';

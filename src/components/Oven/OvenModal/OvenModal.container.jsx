@@ -1,24 +1,22 @@
-/* eslint-disable no-nested-ternary */
 import { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
+
 import {
   useKolibriStateContext,
   useKolibriDispatchContext,
 } from '../../../contexts/kolibriContext';
 import { useBeaconStateContext } from '../../../contexts/beaconContext';
 import { useModalDispatchContext } from '../../../contexts/modalContext';
-
-import Button from '../../Button';
-import CircularProgress from '../CircularProgress';
-import OvenModalInfo from '../OvenModalInfo/OvenModalInfo';
-
-import styled from './OvenModal.module.scss';
-import textsAction from '../textsAction.json';
-import CONSTANTS from '../../../utils/constants';
-import { mutateOvenData, mutateBigNumber } from '../../../utils';
 import { useI18nStateContext } from '../../../contexts/i18nContext';
 
-const OvenModal = ({ ovenData, section }) => {
+import OvenModal from './OvenModal.component';
+
+import CONSTANTS from '../../../utils/constants';
+import { mutateOvenData, mutateBigNumber } from '../../../utils';
+import { OvenDataType } from '../../../utils/types';
+import textsAction from '../textsAction.json';
+
+const OvenModalContainer = ({ ovenData, section }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
   const { getDataFromAddress, setMyOvens, setLoadingOven, getKUSDTokens } =
@@ -90,8 +88,6 @@ const OvenModal = ({ ovenData, section }) => {
     );
   };
 
-  // NEED TO BE FIXED
-
   const MODAL_CONFIG = {
     borrow: {
       section: textsAction.borrow[lang],
@@ -103,7 +99,10 @@ const OvenModal = ({ ovenData, section }) => {
       section: textsAction.repay[lang],
       unit: 'kUSD',
       handleClick: handleRepay,
-      isDisabled: amount > mutatedData.loan || amount <= 0 || amount > myTokens,
+      isDisabled:
+        amount > mutatedData.loan ||
+        amount <= 0 ||
+        amount > mutateBigNumber(myTokens, 1e18),
     },
     withdraw: {
       section: textsAction.withdraw[lang],
@@ -170,76 +169,23 @@ const OvenModal = ({ ovenData, section }) => {
   }, [amount]);
 
   return (
-    <div className={styled.modal}>
-      <nav className={styled.modal__nav}>
-        {Object.keys(MODAL_CONFIG).map((id) => {
-          return modalId === id ? (
-            <div
-              className={`${styled.modal__section} ${styled['modal__section--active']}`}
-              key={id}
-            >
-              {MODAL_CONFIG[id].section}
-            </div>
-          ) : +ovenData.balance === 0 ? (
-            <div className={styled.modal__section} role="none" key={id}>
-              {MODAL_CONFIG[id].section}
-            </div>
-          ) : (
-            <div
-              className={styled.modal__section}
-              onClick={() => handleChangeSection(id)}
-              role="none"
-              key={id}
-            >
-              {MODAL_CONFIG[id].section}
-            </div>
-          );
-        })}
-      </nav>
-      <div className={styled.modal__container}>
-        <div className={styled.modal__info}>
-          <div className={styled.modal__amount}>
-            <span>Amount:</span>
-            <input
-              type="text"
-              onChange={handleChangeAmount}
-              value={amount}
-              className={styled.modal__input}
-              style={{ width: `${(amount.length + 1) * 14}px` }}
-              placeholder="0"
-            />
-            <span className={styled.modal__unit}>
-              {MODAL_CONFIG[modalId].unit}
-            </span>
-          </div>
-          <OvenModalInfo
-            styled={styled}
-            tezosPrice={tezosPrice}
-            mutatedData={mutatedData}
-            newCollateralRatio={newCollateralRatio}
-            modalId={modalId}
-          />
-        </div>
-        <div className={styled.modal__progress}>
-          <CircularProgress percents={newCollateralRatio} />
-        </div>
-      </div>
-
-      <Button
-        text={MODAL_CONFIG[modalId].section}
-        isRounded
-        isTransparent
-        callback={MODAL_CONFIG[modalId].handleClick}
-        isDisabled={isDisabled || MODAL_CONFIG[modalId].isDisabled}
-      />
-    </div>
+    <OvenModal
+      modalConfig={MODAL_CONFIG}
+      modalId={modalId}
+      ovenData={ovenData}
+      amount={amount}
+      mutatedData={mutatedData}
+      newCollateralRatio={newCollateralRatio}
+      isDisabled={isDisabled}
+      handleChangeAmount={handleChangeAmount}
+      handleChangeSection={handleChangeSection}
+    />
   );
 };
 
-export default OvenModal;
+export default OvenModalContainer;
 
-OvenModal.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  ovenData: propTypes.object.isRequired,
+OvenModalContainer.propTypes = {
+  ovenData: OvenDataType.isRequired,
   section: propTypes.string.isRequired,
 };

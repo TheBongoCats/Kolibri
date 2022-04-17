@@ -1,5 +1,4 @@
 /* eslint-disable react/forbid-prop-types */
-import propTypes from 'prop-types';
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import { mutateOvenData } from '../../utils';
 import texts from './texts.json';
@@ -11,6 +10,7 @@ import styled from './Oven.module.scss';
 import CircularProgress from './CircularProgress';
 import Loader from '../Loader';
 import { useI18nStateContext } from '../../contexts/i18nContext';
+import { OvenDataType } from '../../utils/types';
 
 const Oven = ({ ovenData }) => {
   const { lang } = useI18nStateContext();
@@ -87,20 +87,7 @@ const Oven = ({ ovenData }) => {
 export default Oven;
 
 Oven.propTypes = {
-  ovenData: propTypes.shape({
-    baker: propTypes.string,
-    balance: propTypes.oneOfType([propTypes.object, propTypes.string]),
-    borrowedTokens: propTypes.oneOfType([propTypes.object, propTypes.string]),
-    isLiquidated: propTypes.bool,
-    outstandingTokens: propTypes.oneOfType([
-      propTypes.object,
-      propTypes.string,
-    ]),
-    ovenAddress: propTypes.string,
-    ovenOwner: propTypes.string,
-    stabilityFees: propTypes.oneOfType([propTypes.object, propTypes.string]),
-    ovenClient: () => null,
-  }),
+  ovenData: OvenDataType,
 };
 
 Oven.defaultProps = {

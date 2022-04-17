@@ -47,7 +47,7 @@ const Header = () => {
         <Button callback={disconnectWallet} text={walletDisconnect[lang]} />
       ) : (
         <Button
-          callback={() => connectWallet(true, 'hangzhounet')}
+          callback={() => connectWallet(true)}
           text={walletConnect[lang]}
         />
       )}
