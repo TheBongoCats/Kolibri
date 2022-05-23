@@ -11,7 +11,7 @@ const { MUTEZ_IN_TEZOS } = CONSTANTS;
 const APP_NAME = 'Kolibri';
 
 const defaultRpcUrls = {
-  hangzhounet: 'https://hangzhounet.api.tez.ie',
+  hangzhounet: 'https://hangzhounet.smartpy.io/',
 };
 
 const beaconWallet = new BeaconWallet({
