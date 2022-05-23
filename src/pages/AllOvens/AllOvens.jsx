@@ -32,8 +32,10 @@ const AllOvens = () => {
   const [searchWasDone, setSearchWasDone] = useState(false);
   const [ovensWithBalance, setOvensWithBalance] = useState([]);
   const [isSorted, setIsSorted] = useState(false);
+  const [paginationSelected, setPaginationSelected] = useState(1);
   const ovensForSearch = withBalance ? ovensWithBalance : allOvens;
   const ovensForRender = searchWasDone ? searchedOvens : ovensForSearch;
+  const paginationPages = Math.ceil(ovensForRender.length / 10);
 
   const compare = (a, b) => {
     const balanceA = mutateBigNumber(a.balance);
@@ -88,6 +90,32 @@ const AllOvens = () => {
     }
   };
 
+  const paginationHandler = (direction) => {
+    if (direction === 'right') {
+      if (!(paginationSelected === paginationPages)) {
+        setPaginationSelected(paginationSelected + 1);
+      }
+    }
+
+    if (direction === 'end') {
+      if (!(paginationSelected === paginationPages)) {
+        setPaginationSelected(paginationPages);
+      }
+    }
+
+    if (direction === 'left') {
+      if (!(paginationSelected === 1)) {
+        setPaginationSelected(paginationSelected - 1);
+      }
+    }
+
+    if (direction === 'start') {
+      if (!(paginationSelected === 1)) {
+        setPaginationSelected(1);
+      }
+    }
+  };
+
   return (
     <div className={styles['all-ovens']}>
       {isLogin && <UserData />}
@@ -114,7 +142,55 @@ const AllOvens = () => {
       </div>
       {allOvens.length > 0 ? (
         ovensForRender.length > 0 && (
-          <OvenList ovens={ovensForRender.sort(compare)} />
+          <>
+            <OvenList
+              ovens={
+                searchWasDone
+                  ? ovensForRender.sort(compare)
+                  : ovensForRender
+                      .sort(compare)
+                      .slice(
+                        (paginationSelected - 1) * 10,
+                        (paginationSelected - 1) * 10 + 10,
+                      )
+              }
+            />
+            {!searchWasDone ? (
+              <div className={styles['all-ovens__pagination']}>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <div
+                  className={`${styles['all-ovens__item']} ${styles['all-ovens__item--pointer']}`}
+                  onClick={() => paginationHandler('start')}
+                >
+                  {'<<'}
+                </div>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <div
+                  className={`${styles['all-ovens__item']} ${styles['all-ovens__item--pointer']}`}
+                  onClick={() => paginationHandler('left')}
+                >
+                  {'<'}
+                </div>
+                <div
+                  className={styles['all-ovens__item']}
+                >{`${paginationSelected} of ${paginationPages}`}</div>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <div
+                  className={`${styles['all-ovens__item']} ${styles['all-ovens__item--pointer']}`}
+                  onClick={() => paginationHandler('right')}
+                >
+                  {'>'}
+                </div>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <div
+                  className={`${styles['all-ovens__item']} ${styles['all-ovens__item--pointer']}`}
+                  onClick={() => paginationHandler('end')}
+                >
+                  {'>>'}
+                </div>
+              </div>
+            ) : null}
+          </>
         )
       ) : (
         <Loader text="Loading..." />

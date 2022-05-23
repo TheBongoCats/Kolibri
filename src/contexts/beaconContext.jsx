@@ -6,13 +6,13 @@ import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import { ReadOnlySigner } from '../utils/ReadOnlySigner.mjs';
 import CONSTANTS from '../utils/constants';
 
-const { MUTEZ_IN_TEZOS } = CONSTANTS;
+const { MUTEZ_IN_TEZOS, NODE_URL } = CONSTANTS;
 
 const APP_NAME = 'Kolibri';
 
-const defaultRpcUrls = {
-  hangzhounet: 'https://hangzhounet.smartpy.io/',
-};
+// const defaultRpcUrls = {
+//   hangzhounet: 'https://hangzhounet.smartpy.io/',
+// };
 
 const beaconWallet = new BeaconWallet({
   name: APP_NAME,
@@ -62,7 +62,7 @@ const BeaconProvider = ({ children }) => {
 
   const beaconNetwork = BeaconNetwork.HANGZHOUNET;
 
-  const tezos = new TezosToolkit(defaultRpcUrls[beaconNetwork]);
+  const tezos = new TezosToolkit(NODE_URL);
   tezos.setPackerProvider(michelEncoder);
   tezos.setWalletProvider(beaconWallet);
 

@@ -48,15 +48,9 @@ export const mutateOvenData = (ovenData, tezosPrice) => {
 
 export const isDesktop = () => {
   const ua = navigator.userAgent;
-  if (
-    /(tablet|ipad|playbook|silk)|(android(?!.*mobi))|Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/i.test(
-      ua,
-    )
-  ) {
-    return false;
-  }
-
-  return true;
+  return !/(tablet|ipad|playbook|silk)|(android(?!.*mobi))|Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/i.test(
+    ua,
+  );
 };
 
 export const getRateForSwap = async (tezos) => {
@@ -66,7 +60,7 @@ export const getRateForSwap = async (tezos) => {
     inputValue: 1,
   };
   const fact = {
-    fa1_2Factory: 'KT1HrQWkSFe7ugihjoMWwQ7p8ja9e18LdUFn',
+    fa1_2Factory: 'KT1K9gCRgaLRFKTErYt1wVxA3Frb9FjasjTV',
   };
 
   try {
