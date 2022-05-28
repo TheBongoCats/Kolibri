@@ -12,7 +12,7 @@ import {
 } from '../../contexts/beaconContext';
 
 import Button from '../../components/Button';
-import Loader from '../../components/Loader';
+// import Loader from '../../components/Loader';
 import Metric from '../../components/Oven/Metric';
 import Peg from '../../components/Home/Peg';
 import Oracle from '../../components/Home/Oracle/Oracle';
@@ -30,7 +30,7 @@ import {
   // moreButton,
   connectWalletParagraph,
   connectButton,
-  loaderText,
+  // loaderText,
   deployButton,
 } from './texts.json';
 import useWindowWidth from '../../hooks/useWindowWidth';
@@ -65,7 +65,7 @@ const Home = () => {
           <span className={styled.home__title}>Kolibri</span>
           <span className={styled.home__subtitle}>Stablecoin</span>
           <div className={styled.home__buttons}>
-            <Link to="/docs">
+            <Link to="/docs" target="_blank">
               <Button
                 callback={() => null}
                 text={learnMoreButton[lang]}
@@ -73,12 +73,18 @@ const Home = () => {
                 isRounded
               />
             </Link>
-            <Button
-              callback={() => null}
-              text={metricsButton[lang]}
-              isTransparent
-              isRounded
-            />
+            <a
+              href="https://metrics.kolibri.finance/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <Button
+                callback={() => null}
+                text={metricsButton[lang]}
+                isTransparent
+                isRounded
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -122,7 +128,12 @@ const Home = () => {
             <OvenList ovens={myOvens} />
           </>
         ) : (
-          <Loader text={loaderText[lang]} />
+          <Button
+            callback={handleDeployOven}
+            text={deployButton[lang]}
+            isBig
+            isDisabled={isDisabled}
+          />
         )
       ) : (
         <>

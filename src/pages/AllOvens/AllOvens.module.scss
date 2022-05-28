@@ -39,4 +39,18 @@
       font-size: 12px;
     }
   }
+
+  &__pagination {
+    display: flex;
+  }
+
+  &__item {
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    &--pointer {
+      cursor: pointer;
+    }
+  }
 }

@@ -133,7 +133,7 @@ const KolibriProvider = ({ children }) => {
   const getOvens = async () => {
     try {
       const response = await axios(
-        'https://kolibri-data.s3.amazonaws.com/hangzhounet/oven-data.json',
+        'https://kolibri-data.s3.amazonaws.com/mainnet/oven-data.json',
       );
 
       setAllOvens(response.data.allOvenData);
@@ -196,8 +196,8 @@ const KolibriProvider = ({ children }) => {
 
   const getStabilityFeeYear = async () => {
     try {
-      const result = await stableCoinClient.getSimpleStabilityFee();
-      setStabilityFeeYear(mutateBigNumber(result, undefined, 1));
+      const result = await stableCoinClient.getStabilityFeeApy();
+      setStabilityFeeYear(result.toFixed(2));
     } catch {
       setStabilityFeeYear('0.00');
       addError("ERROR: We can't get stability fee");
