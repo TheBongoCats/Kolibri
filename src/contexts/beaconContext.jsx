@@ -10,10 +10,6 @@ const { MUTEZ_IN_TEZOS, NODE_URL } = CONSTANTS;
 
 const APP_NAME = 'Kolibri';
 
-// const defaultRpcUrls = {
-//   hangzhounet: 'https://hangzhounet.smartpy.io/',
-// };
-
 const beaconWallet = new BeaconWallet({
   name: APP_NAME,
   iconUrl: `${process.env.REACT_APP_BASE_URL}/favicon.ico`,
@@ -60,7 +56,7 @@ const BeaconProvider = ({ children }) => {
   const [beaconWalletData, setBeaconWalletData] = useState();
   const [isLogin, setIsLogin] = useState(false);
 
-  const beaconNetwork = BeaconNetwork.HANGZHOUNET;
+  const beaconNetwork = BeaconNetwork.MAINNET;
 
   const tezos = new TezosToolkit(NODE_URL);
   tezos.setPackerProvider(michelEncoder);
@@ -87,7 +83,7 @@ const BeaconProvider = ({ children }) => {
   }, []);
 
   // eslint-disable-next-line consistent-return
-  const connectWallet = async (forcePermission) => {
+  const connectWallet = async (forcePermission = true) => {
     beaconWallet.client.preferredNetwork = beaconNetwork;
 
     const activeAccount = await beaconWallet.client.getActiveAccount();

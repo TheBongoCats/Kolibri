@@ -2,7 +2,17 @@ import propTypes from 'prop-types';
 import Loader from '../../Loader';
 import styled from './Metric.module.scss';
 
-const Metric = ({ title, value, unit, dataTitle, position, size }) => {
+const Metric = ({
+  title,
+  value,
+  unit,
+  dataTitle,
+  position,
+  size,
+  showZeroValue,
+}) => {
+  const shouldShowLoader = showZeroValue ? value >= 0 : value;
+
   return (
     <div className={`${styled.metric} ${styled[`metric--pos--${position}`]}`}>
       <p
@@ -12,7 +22,7 @@ const Metric = ({ title, value, unit, dataTitle, position, size }) => {
       >
         {title}
       </p>
-      {value ? (
+      {shouldShowLoader ? (
         <p
           className={`${styled.metric__value} ${
             styled[`metric__value--s--${size}`]
@@ -35,15 +45,17 @@ Metric.propTypes = {
   title: propTypes.string.isRequired,
   value: propTypes.oneOfType([propTypes.string, propTypes.number]),
   unit: propTypes.string,
-  dataTitle: propTypes.string,
+  dataTitle: propTypes.number,
   position: propTypes.oneOf(['center', 'left']),
   size: propTypes.oneOf(['s', 'm', 'l']),
+  showZeroValue: propTypes.bool,
 };
 
 Metric.defaultProps = {
   value: '',
   unit: '',
-  dataTitle: '',
+  dataTitle: null,
   position: 'center',
   size: 'm',
+  showZeroValue: false,
 };

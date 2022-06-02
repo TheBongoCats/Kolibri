@@ -25,7 +25,7 @@ const Button = ({
 export default Button;
 
 Button.propTypes = {
-  callback: PropTypes.func.isRequired,
+  callback: PropTypes.func,
   text: PropTypes.string.isRequired,
   isBig: PropTypes.bool,
   isTransparent: PropTypes.bool,
@@ -34,6 +34,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  callback: () => null,
   isBig: false,
   isTransparent: false,
   isRounded: false,

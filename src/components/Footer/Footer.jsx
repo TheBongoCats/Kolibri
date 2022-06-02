@@ -5,11 +5,11 @@ import Policy from '../Policy';
 
 const Footer = () => (
   <footer className={styles.footer}>
-    <Logo isSubLogo />
-    <div className={styles.footer__contacts}>
+    <div className={styles.footer__info}>
+      <Logo isSubLogo />
       <Policy />
-      <Socials />
     </div>
+    <Socials />
   </footer>
 );
 

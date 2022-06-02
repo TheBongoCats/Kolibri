@@ -9,6 +9,27 @@
     width: 80px;
   }
 
+  &-big {
+    height: auto;
+    width: 200px;
+
+    @media only screen and (max-width: 980px) {
+      width: 200px;
+    }
+
+    & g {
+      @include useTheme('fill', 'logo');
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include useTheme('color', 'logo-small');
+  }
+
   @media only screen and (max-width: 980px) {
     width: 65px;
   }
@@ -16,25 +37,4 @@
   & g {
     @include useTheme('fill', 'logo-small');
   }
-}
-
-.logo-big {
-  height: auto;
-  width: 220px;
-
-  @media only screen and (max-width: 980px) {
-    width: 200px;
-  }
-
-  & g {
-    @include useTheme('fill', 'logo');
-  }
-}
-
-.logo__link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  @include useTheme('color', 'logo-small');
 }

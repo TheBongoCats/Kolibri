@@ -13,7 +13,7 @@ import OvenList from '../../components/OvenList';
 import UserData from '../../components/UserData';
 
 import styles from './AllOvens.module.scss';
-import { mutateBigNumber } from '../../utils';
+import { mutateBigNumber } from '../../utils/helpers';
 import {
   showEmptyButton,
   hideEmptyButton,
@@ -21,6 +21,7 @@ import {
   valueSort,
   searchPlaceholder,
 } from './texts.json';
+import CONSTANTS from '../../utils/constants';
 
 const AllOvens = () => {
   const { allOvens, tezosPrice } = useKolibriStateContext();
@@ -38,8 +39,8 @@ const AllOvens = () => {
   const paginationPages = Math.ceil(ovensForRender.length / 10);
 
   const compare = (a, b) => {
-    const balanceA = mutateBigNumber(a.balance);
-    const balanceB = mutateBigNumber(b.balance);
+    const balanceA = mutateBigNumber(a.balance, CONSTANTS.MUTEZ_IN_TEZOS);
+    const balanceB = mutateBigNumber(b.balance, CONSTANTS.MUTEZ_IN_TEZOS);
 
     let paramA;
     let paramB;
@@ -47,21 +48,33 @@ const AllOvens = () => {
       paramA = balanceA;
       paramB = balanceB;
     } else {
-      const collateralValueA = mutateBigNumber(balanceA * tezosPrice.price);
-      const collateralValueB = mutateBigNumber(balanceB * tezosPrice.price);
+      const collateralValueA = mutateBigNumber(
+        balanceA * tezosPrice.price,
+        CONSTANTS.MUTEZ_IN_TEZOS,
+      );
+      const collateralValueB = mutateBigNumber(
+        balanceB * tezosPrice.price,
+        CONSTANTS.MUTEZ_IN_TEZOS,
+      );
 
-      const loanA = mutateBigNumber(a.outstandingTokens, 1e18);
-      const loanB = mutateBigNumber(b.outstandingTokens, 1e18);
+      const loanA = mutateBigNumber(
+        a.outstandingTokens,
+        CONSTANTS.KOLIBRI_IN_TEZOS,
+      );
+      const loanB = mutateBigNumber(
+        b.outstandingTokens,
+        CONSTANTS.KOLIBRI_IN_TEZOS,
+      );
 
       paramA = (loanA / collateralValueA) * 200;
       paramB = (loanB / collateralValueB) * 200;
     }
 
-    if (+paramA > +paramB) {
+    if (paramA > paramB) {
       return -1;
     }
 
-    if (+paramA < +paramB) {
+    if (paramA < paramB) {
       return 1;
     }
 

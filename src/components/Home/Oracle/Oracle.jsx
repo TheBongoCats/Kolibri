@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
-import { isDesktop, mutateBigNumber } from '../../../utils';
+import { isDesktop, mutateBigNumber } from '../../../utils/helpers';
 import CONSTANTS from '../../../utils/constants';
 import Loader from '../../Loader';
 import {
@@ -29,7 +29,7 @@ const Oracle = () => {
 
   const desktop = isDesktop();
 
-  const price = mutateBigNumber(tezosPrice?.price);
+  const price = mutateBigNumber(tezosPrice?.price, CONSTANTS.MUTEZ_IN_TEZOS);
   const time = tezosPrice?.time;
 
   const lastUpdate = () => {
@@ -86,7 +86,7 @@ const Oracle = () => {
         )}
       </div>
       <div className={styled.oracle__updated}>
-        {oracleUpdate[lang]} {+minutes ? lastUpdate() : <Loader />}
+        {oracleUpdate[lang]} {minutes ? lastUpdate() : <Loader />}
         {desktop && (
           <button
             onClick={handleSetNotify}

@@ -19,10 +19,6 @@
     "en": "Collateral value",
     "ua": "Ціна застави"
   },
-  "moreButton": {
-    "en": "MORE",
-    "ua": "БІЛЬШЕ"
-  },
   "connectWalletParagraph": {
     "en": "Connect Your Wallet To Manage Your Ovens",
     "ua": "Підключіть Ваш гаманець для управління пічками"
@@ -34,9 +30,5 @@
   "deployButton": {
     "en": "Deploy Oven",
     "ua": "Створити пічку"
-  },
-  "loaderText": {
-    "en": "Looking for your ovens",
-    "ua": "Шукаємо Ваші пічки"
   }
 }

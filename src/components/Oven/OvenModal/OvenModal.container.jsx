@@ -12,7 +12,7 @@ import { useI18nStateContext } from '../../../contexts/i18nContext';
 import OvenModal from './OvenModal.component';
 
 import CONSTANTS from '../../../utils/constants';
-import { mutateOvenData, mutateBigNumber } from '../../../utils';
+import { mutateOvenData, mutateBigNumber } from '../../../utils/helpers';
 import { OvenDataType } from '../../../utils/types';
 import textsAction from '../textsAction.json';
 
@@ -24,7 +24,7 @@ const OvenModalContainer = ({ ovenData, section }) => {
   const { setComponent } = useModalDispatchContext();
   const { lang } = useI18nStateContext();
 
-  const [newCollateralRatio, setNewCollateralRatio] = useState('');
+  const [newCollateralRatio, setNewCollateralRatio] = useState(0);
   const [modalId, setModalId] = useState(section);
   const [amount, setAmount] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
@@ -38,20 +38,16 @@ const OvenModalContainer = ({ ovenData, section }) => {
       const transaction = await callback();
       setComponent(null);
       await transaction.confirmation();
-
       const newData = await getDataFromAddress(ovenData.ovenAddress);
-
       getKUSDTokens();
-
       setMyOvens((prevState) => {
         return prevState.map((oven) => {
           return oven.ovenAddress === newData.ovenAddress ? newData : oven;
         });
       });
-
-      setLoadingOven('');
+      setLoadingOven(null);
     } catch (e) {
-      setLoadingOven('');
+      setLoadingOven(null);
       setComponent(null);
     }
   };
@@ -69,11 +65,15 @@ const OvenModalContainer = ({ ovenData, section }) => {
   };
 
   const handleBorrow = () => {
-    ovenAction(() => ovenData.ovenClient.borrow(amount * 1e18));
+    ovenAction(() =>
+      ovenData.ovenClient.borrow(amount * CONSTANTS.KOLIBRI_IN_TEZOS),
+    );
   };
 
   const handleRepay = () => {
-    ovenAction(() => ovenData.ovenClient.repay(amount * 1e18));
+    ovenAction(() =>
+      ovenData.ovenClient.repay(amount * CONSTANTS.KOLIBRI_IN_TEZOS),
+    );
   };
 
   const handleWithdraw = () => {
@@ -102,7 +102,7 @@ const OvenModalContainer = ({ ovenData, section }) => {
       isDisabled:
         amount > mutatedData.loan ||
         amount <= 0 ||
-        amount > mutateBigNumber(myTokens, 1e18),
+        amount > mutateBigNumber(myTokens, CONSTANTS.KOLIBRI_IN_TEZOS),
     },
     withdraw: {
       section: textsAction.withdraw[lang],
@@ -123,7 +123,7 @@ const OvenModalContainer = ({ ovenData, section }) => {
       case 'borrow':
         setNewCollateralRatio(
           (
-            ((+mutatedData.loan + +amount) / mutatedData.collateralValue) *
+            ((mutatedData.loan + +amount) / mutatedData.collateralValue) *
             200
           ).toFixed(2),
         );
@@ -137,7 +137,7 @@ const OvenModalContainer = ({ ovenData, section }) => {
             ).toFixed(2),
           );
         } else {
-          setNewCollateralRatio('0.00');
+          setNewCollateralRatio(0);
         }
         break;
       case 'withdraw':
@@ -146,6 +146,7 @@ const OvenModalContainer = ({ ovenData, section }) => {
             (mutatedData.loan /
               mutateBigNumber(
                 (mutatedData.balance - amount) * tezosPrice.price,
+                CONSTANTS.MUTEZ_IN_TEZOS,
               )) *
             200
           ).toFixed(2),
@@ -153,15 +154,16 @@ const OvenModalContainer = ({ ovenData, section }) => {
         break;
       case 'deposit':
         setNewCollateralRatio(
-          +mutatedData.loan
+          mutatedData.loan
             ? (
                 (mutatedData.loan /
                   mutateBigNumber(
-                    (+mutatedData.balance + +amount) * tezosPrice.price,
+                    (mutatedData.balance + +amount) * tezosPrice.price,
+                    CONSTANTS.MUTEZ_IN_TEZOS,
                   )) *
                 200
               ).toFixed(2)
-            : '0.00',
+            : 0,
         );
         break;
       default:

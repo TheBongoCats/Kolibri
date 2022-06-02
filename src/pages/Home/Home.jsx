@@ -12,7 +12,6 @@ import {
 } from '../../contexts/beaconContext';
 
 import Button from '../../components/Button';
-// import Loader from '../../components/Loader';
 import Metric from '../../components/Oven/Metric';
 import Peg from '../../components/Home/Peg';
 import Oracle from '../../components/Home/Oracle/Oracle';
@@ -27,10 +26,8 @@ import {
   activeOvensCount,
   stabilityFeeCount,
   collateralValueCount,
-  // moreButton,
   connectWalletParagraph,
   connectButton,
-  // loaderText,
   deployButton,
 } from './texts.json';
 import useWindowWidth from '../../hooks/useWindowWidth';
@@ -69,7 +66,6 @@ const Home = () => {
               <Button
                 callback={() => null}
                 text={learnMoreButton[lang]}
-                isTransparent
                 isRounded
               />
             </Link>
@@ -81,7 +77,6 @@ const Home = () => {
               <Button
                 callback={() => null}
                 text={metricsButton[lang]}
-                isTransparent
                 isRounded
               />
             </a>
@@ -108,41 +103,24 @@ const Home = () => {
             size="l"
           />
         </div>
-        {/* <div className={styled.home__line}>
-          <button type="button" className={styled.home__more}>
-            {moreButton[lang]}
-          </button>
-        </div> */}
         <Peg />
         <Oracle />
       </div>
+
       {isLogin ? (
-        myOvens.length > 0 ? (
-          <>
-            <Button
-              callback={handleDeployOven}
-              text={deployButton[lang]}
-              isBig
-              isDisabled={isDisabled}
-            />
-            <OvenList ovens={myOvens} />
-          </>
-        ) : (
+        <>
           <Button
             callback={handleDeployOven}
             text={deployButton[lang]}
             isBig
             isDisabled={isDisabled}
           />
-        )
+          {myOvens.length > 0 && <OvenList ovens={myOvens} />}
+        </>
       ) : (
         <>
           <p className={styled.home__connect}>{connectWalletParagraph[lang]}</p>
-          <Button
-            callback={() => connectWallet(true)}
-            text={connectButton[lang]}
-            isBig
-          />
+          <Button callback={connectWallet} text={connectButton[lang]} isBig />
         </>
       )}
     </div>

@@ -1,15 +1,15 @@
-import { heading, terms, policy } from './texts.json';
+import { ukraine, terms, policy } from './texts.json';
 import styles from './Policy.module.scss';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 
 const Policy = () => {
-  // const { heading, terms, policy } = texts;
   const { lang } = useI18nStateContext();
 
   return (
     <div className={styles.policy}>
-      <div>
-        {heading[lang]}{' '}
+      <p>{ukraine[lang]}</p>
+      <p>
+        Inspired by:{' '}
         <a
           href="https://hover.engineering"
           target="_blank"
@@ -18,7 +18,7 @@ const Policy = () => {
         >
           Hover Labs
         </a>
-      </div>
+      </p>
       <div>
         <a
           href="https://testnet.kolibri.finance/terms-of-service"

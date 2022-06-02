@@ -11,7 +11,7 @@ import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import axios from 'axios';
 import CONSTANTS from '../utils/constants';
 import { useBeaconStateContext } from './beaconContext';
-import { getRateForSwap, mutateBigNumber } from '../utils';
+import { getRateForSwap, mutateBigNumber } from '../utils/helpers';
 import { useErrorState } from './errorContext';
 
 // state context
@@ -62,18 +62,18 @@ const KolibriProvider = ({ children }) => {
 
   const harbingerClient = new HarbingerClient(
     CONSTANTS.NODE_URL,
-    CONTRACTS.TEST.HARBINGER_NORMALIZER,
+    CONTRACTS.MAIN.HARBINGER_NORMALIZER,
   );
 
   const stableCoinClient = new StableCoinClient(
     CONSTANTS.NODE_URL,
-    Network.Hangzhou,
-    CONTRACTS.TEST.OVEN_REGISTRY,
-    CONTRACTS.TEST.MINTER,
-    CONTRACTS.TEST.OVEN_FACTORY,
+    Network.Mainnet,
+    CONTRACTS.MAIN.OVEN_REGISTRY,
+    CONTRACTS.MAIN.MINTER,
+    CONTRACTS.MAIN.OVEN_FACTORY,
   );
 
-  const tokenClient = new TokenClient(CONSTANTS.NODE_URL, CONTRACTS.TEST.TOKEN);
+  const tokenClient = new TokenClient(CONSTANTS.NODE_URL, CONTRACTS.MAIN.TOKEN);
 
   const getDataFromAddress = async (ovenAddress, isOwn = true) => {
     const ovenClient = new OvenClient(
@@ -90,7 +90,7 @@ const KolibriProvider = ({ children }) => {
       borrowedTokens: await ovenClient.getBorrowedTokens(),
       isLiquidated: await ovenClient.isLiquidated(),
       outstandingTokens: await ovenClient.getTotalOutstandingTokens(),
-      ovenAddress: await ovenClient.ovenAddress,
+      ovenAddress: ovenClient.ovenAddress,
       ovenOwner: await ovenClient.getOwner(),
       stabilityFees: await ovenClient.getStabilityFees(),
       loading: false,
@@ -197,7 +197,7 @@ const KolibriProvider = ({ children }) => {
   const getStabilityFeeYear = async () => {
     try {
       const result = await stableCoinClient.getStabilityFeeApy();
-      setStabilityFeeYear(result.toFixed(2));
+      setStabilityFeeYear(mutateBigNumber(result));
     } catch {
       setStabilityFeeYear('0.00');
       addError("ERROR: We can't get stability fee");
@@ -207,7 +207,7 @@ const KolibriProvider = ({ children }) => {
   const getCollateralRatio = async () => {
     try {
       const result = await stableCoinClient.getRequiredCollateralizationRatio();
-      setCollaterlRatio(mutateBigNumber(result, 1e18, 0));
+      setCollaterlRatio(mutateBigNumber(result, CONSTANTS.KOLIBRI_IN_TEZOS, 0));
     } catch {
       setCollaterlRatio('0');
       addError("ERROR: We can't get collateral ration");
@@ -222,12 +222,13 @@ const KolibriProvider = ({ children }) => {
     try {
       const rateForSwap = await getRateForSwap(tezos);
 
-      const price = mutateBigNumber(
-        tezosPrice.price / rateForSwap,
-        undefined,
-        2,
-      );
-      setkUSDPrice(price);
+      if (rateForSwap) {
+        const price = ((tezosPrice.price * 1e6) / rateForSwap).toFixed(2);
+
+        setkUSDPrice(price);
+      } else {
+        setkUSDPrice(0);
+      }
     } catch {
       setkUSDPrice(0);
     }

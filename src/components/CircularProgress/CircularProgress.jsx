@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { useThemeState } from '../../contexts/themeContext';
-import { getPathColor } from '../../utils';
+import { getPathColor } from '../../utils/helpers';
 
 const CircularProgress = ({ percents }) => {
   const { theme } = useThemeState();
@@ -22,5 +22,5 @@ const CircularProgress = ({ percents }) => {
 export default CircularProgress;
 
 CircularProgress.propTypes = {
-  percents: propTypes.string.isRequired,
+  percents: propTypes.number.isRequired,
 };

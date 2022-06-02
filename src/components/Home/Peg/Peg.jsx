@@ -5,12 +5,15 @@ import Loader from '../../Loader';
 const Peg = () => {
   const { kUSDPrice } = useKolibriStateContext();
 
-  const percents = ((kUSDPrice - 1) * 100).toFixed(0);
+  const percents = ((kUSDPrice - 1) * 100).toFixed(1);
   const remainder = 50 + (50 * percents) / 100;
 
   return kUSDPrice ? (
     <div className={styled.peg}>
-      <p className={styled.peg__title}>
+      <p
+        className={styled.peg__title}
+        data-title="* according to Quipuswap rate"
+      >
         <span>
           kUSD price <b>${kUSDPrice}</b>
         </span>

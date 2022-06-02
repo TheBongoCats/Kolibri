@@ -13,11 +13,11 @@ export const OvenDataType = propTypes.shape({
 });
 
 export const mutatedDataType = propTypes.shape({
-  balance: propTypes.string,
-  collateralValue: propTypes.string,
-  loan: propTypes.string,
-  stabilityFees: propTypes.string,
-  stabilityFeesFull: propTypes.string,
-  collateralRatio: propTypes.string,
-  liquidatablePrice: propTypes.string,
+  balance: propTypes.number,
+  collateralValue: propTypes.number,
+  loan: propTypes.number,
+  stabilityFees: propTypes.number,
+  stabilityFeesFull: propTypes.number,
+  collateralRatio: propTypes.number,
+  liquidatablePrice: propTypes.number,
 });

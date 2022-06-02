@@ -17,29 +17,18 @@ const OvenNav = ({ ovenData }) => {
     { text: texts.repay[lang], modalId: 'repay' },
   ];
 
+  const onButtonClick = (button) =>
+    handleOpenModal(<OvenModal ovenData={ovenData} section={button.modalId} />);
+
   return (
     <ul className={styled['oven-nav']}>
       {NAV_CONFIG.map((button) => (
         <li key={button.text} className={styled['oven-nav__button']}>
           {+ovenData.balance === 0 && button.modalId !== 'deposit' ? (
-            <Button
-              callback={() =>
-                handleOpenModal(
-                  <OvenModal ovenData={ovenData} section={button.modalId} />,
-                )
-              }
-              text={button.text}
-              isRounded
-              isTransparent
-              isDisabled
-            />
+            <Button text={button.text} isRounded isTransparent isDisabled />
           ) : (
             <Button
-              callback={() =>
-                handleOpenModal(
-                  <OvenModal ovenData={ovenData} section={button.modalId} />,
-                )
-              }
+              callback={() => onButtonClick(button)}
               text={button.text}
               isRounded
               isTransparent

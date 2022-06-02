@@ -16,7 +16,6 @@ const Logo = ({ isSubLogo, isBig }) => {
         }
         alt="Kolibri"
       />
-      {isSubLogo || 'Kolibri'}
     </Link>
   );
 };

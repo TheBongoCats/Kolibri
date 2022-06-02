@@ -5,8 +5,9 @@ import { useBeaconStateContext } from '../../../contexts/beaconContext';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
 import { useI18nStateContext } from '../../../contexts/i18nContext';
 
-import { mutateBigNumber } from '../../../utils';
+import { mutateBigNumber } from '../../../utils/helpers';
 import { mutatedDataType } from '../../../utils/types';
+import CONSTANTS from '../../../utils/constants';
 
 import texts from './textsOvenModalInfo.json';
 import styled from './OvenModal.module.scss';
@@ -15,7 +16,7 @@ const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
 
-  const tokens = mutateBigNumber(myTokens, 1e18);
+  const tokens = mutateBigNumber(myTokens, CONSTANTS.KOLIBRI_IN_TEZOS);
 
   const renderSwitch = () => {
     const { lang } = useI18nStateContext();
@@ -121,6 +122,6 @@ export default OvenModalInfo;
 
 OvenModalInfo.propTypes = {
   mutatedData: mutatedDataType.isRequired,
-  newCollateralRatio: propTypes.string.isRequired,
+  newCollateralRatio: propTypes.number.isRequired,
   modalId: propTypes.string.isRequired,
 };

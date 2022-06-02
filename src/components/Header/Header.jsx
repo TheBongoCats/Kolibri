@@ -46,10 +46,7 @@ const Header = () => {
       {isLogin ? (
         <Button callback={disconnectWallet} text={walletDisconnect[lang]} />
       ) : (
-        <Button
-          callback={() => connectWallet(true)}
-          text={walletConnect[lang]}
-        />
+        <Button callback={connectWallet} text={walletConnect[lang]} />
       )}
       {width <= 700 && <Aside isOpen={isOpen} handleIsOpen={handleIsOpen} />}
     </header>

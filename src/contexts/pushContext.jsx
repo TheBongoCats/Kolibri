@@ -8,7 +8,8 @@ import {
 } from 'react';
 import propTypes from 'prop-types';
 import { useKolibriStateContext } from './kolibriContext';
-import { isDesktop, mutateBigNumber } from '../utils';
+import { isDesktop, mutateBigNumber } from '../utils/helpers';
+import CONSTANTS from '../utils/constants';
 
 // state context
 const PushStateContext = createContext({});
@@ -94,7 +95,10 @@ const PushProvider = ({ children }) => {
       if (notifyOracle) {
         // eslint-disable-next-line no-new
         new Notification('Hey! Kolibri Oracle has updated!', {
-          body: `New XTZ/USD price is ${mutateBigNumber(tezosPrice.price)}$`,
+          body: `New XTZ/USD price is ${mutateBigNumber(
+            tezosPrice.price,
+            CONSTANTS.MUTEZ_IN_TEZOS,
+          )}$`,
         });
       }
     }
