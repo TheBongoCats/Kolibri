@@ -75,7 +75,7 @@ const KolibriProvider = ({ children }) => {
 
   const tokenClient = new TokenClient(CONSTANTS.NODE_URL, CONTRACTS.MAIN.TOKEN);
 
-  const getDataFromAddress = async (ovenAddress, isOwn = true) => {
+  const getDataFromAddress = async (ovenAddress) => {
     const ovenClient = new OvenClient(
       CONSTANTS.NODE_URL,
       beaconWalletData,
@@ -94,7 +94,7 @@ const KolibriProvider = ({ children }) => {
       ovenOwner: await ovenClient.getOwner(),
       stabilityFees: await ovenClient.getStabilityFees(),
       loading: false,
-      ovenClient: isOwn && ovenClient,
+      ovenClient,
     };
   };
 
