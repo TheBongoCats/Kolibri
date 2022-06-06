@@ -5,7 +5,7 @@ import Button from '../../Button';
 import CircularProgress from '../../CircularProgress';
 import OvenModalInfo from './OvenModalInfo';
 
-import styled from './OvenModal.module.scss';
+import styles from './OvenModal.module.scss';
 
 const OvenModal = ({
   modalConfig,
@@ -17,13 +17,13 @@ const OvenModal = ({
   handleChangeSection,
   handleChangeAmount,
 }) => (
-  <div className={styled.modal}>
-    <nav className={styled.modal__nav}>
+  <div className={styles.modal}>
+    <nav className={styles.modal__nav}>
       {Object.keys(modalConfig).map((id) => {
         return (
           <button
-            className={`${styled.modal__section} ${
-              modalId === id ? styled['modal__section--active'] : null
+            className={`${styles.modal__section} ${
+              modalId === id ? styles['modal__section--active'] : null
             }`}
             type="button"
             key={id}
@@ -35,19 +35,19 @@ const OvenModal = ({
         );
       })}
     </nav>
-    <div className={styled.modal__container}>
-      <div className={styled.modal__info}>
-        <div className={styled.modal__amount}>
+    <div className={styles.modal__container}>
+      <div className={styles.modal__info}>
+        <div className={styles.modal__amount}>
           <span>Amount:</span>
           <input
             type="text"
             onChange={handleChangeAmount}
             value={amount}
-            className={styled.modal__input}
+            className={styles.modal__input}
             style={{ width: `${(amount.length + 1) * 14}px` }}
             placeholder="0"
           />
-          <span className={styled.modal__unit}>
+          <span className={styles.modal__unit}>
             {modalConfig[modalId].unit}
           </span>
         </div>
@@ -57,7 +57,7 @@ const OvenModal = ({
           modalId={modalId}
         />
       </div>
-      <div className={styled.modal__progress}>
+      <div className={styles.modal__progress}>
         <CircularProgress percents={newCollateralRatio} />
       </div>
     </div>

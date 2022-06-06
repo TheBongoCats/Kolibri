@@ -37,5 +37,24 @@
   "metricStability": {
     "en": "Stability fees:",
     "ua": "Плата за стабільність:"
+  },
+  "withdraw": {
+    "en": "Withdraw ꜩ",
+    "ua": "Вивести ꜩ"
+  },
+
+  "deposit": {
+    "en": "Deposit ꜩ",
+    "ua": "Депозит ꜩ"
+  },
+
+  "borrow": {
+    "en": "Borrow kUSD",
+    "ua": "Позичити kUSD"
+  },
+
+  "repay": {
+    "en": "Repay kUSD",
+    "ua": "Погасити kUSD"
   }
 }

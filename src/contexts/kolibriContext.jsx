@@ -116,53 +116,12 @@ const KolibriProvider = ({ children }) => {
 
   const getAllOvens = async () => {
     try {
-      const ovens = await stableCoinClient.getAllOvens();
-      const ovensData = await Promise.all(
-        ovens.map(async (oven) => {
-          return getDataFromAddress(oven.ovenAddress, false);
-        }),
-      );
-
-      setAllOvens(ovensData);
-    } catch {
-      setAllOvens([]);
-      addError("ERROR: We can't load all ovens");
-    }
-  };
-
-  const getOvens = async () => {
-    try {
       const response = await axios(
         'https://kolibri-data.s3.amazonaws.com/mainnet/oven-data.json',
       );
-
       setAllOvens(response.data.allOvenData);
-
-      if (beaconWalletData) {
-        const myOvensList = response.data.allOvenData
-          .filter((oven) => oven.ovenOwner === beaconAddress)
-          .map((oven) => {
-            const ovenClient = new OvenClient(
-              CONSTANTS.NODE_URL,
-              beaconWalletData,
-              oven.ovenAddress,
-              stableCoinClient,
-              harbingerClient,
-            );
-
-            return {
-              ...oven,
-              ovenClient,
-            };
-          });
-
-        setMyOvens(myOvensList);
-      }
     } catch {
-      if (beaconWalletData) {
-        getMyOvens();
-      }
-      getAllOvens();
+      addError("ERROR: We can't load all ovens");
     }
   };
 
@@ -242,7 +201,10 @@ const KolibriProvider = ({ children }) => {
       getStabilityFeeYear();
       getCollateralRatio();
       await getActualPrice();
-      getOvens();
+      getAllOvens();
+      if (beaconWalletData) {
+        getMyOvens();
+      }
     })();
   }, [beaconWalletData]);
 

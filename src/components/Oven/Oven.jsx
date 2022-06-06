@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
 import { mutateOvenData } from '../../utils/helpers';
 import texts from './texts.json';
@@ -6,7 +5,7 @@ import texts from './texts.json';
 import OvenNav from './OvenNav/OvenNav';
 import Metric from './Metric/Metric';
 
-import styled from './Oven.module.scss';
+import styles from './Oven.module.scss';
 import CircularProgress from '../CircularProgress';
 import Loader from '../Loader';
 import { useI18nStateContext } from '../../contexts/i18nContext';
@@ -27,21 +26,21 @@ const Oven = ({ ovenData }) => {
   } = mutateOvenData(ovenData, tezosPrice);
 
   return (
-    <div className={styled.oven}>
+    <div className={styles.oven}>
       {loadingOven === ovenAddress ? (
         <Loader text={texts.loader[lang]} />
       ) : (
         <>
           <a
-            className={styled.oven__title}
+            className={styles.oven__title}
             href={`https://tzkt.io/${ovenAddress}/operations/`}
             target="_blank"
             rel="noreferrer noopener"
           >
             {ovenAddress}
           </a>
-          <div className={styled.oven__flexbox}>
-            <div className={styled.oven__info}>
+          <div className={styles.oven__flexbox}>
+            <div className={styles.oven__info}>
               <Metric
                 title={texts.metricBaker[lang]}
                 value={baker}
@@ -66,11 +65,11 @@ const Oven = ({ ovenData }) => {
                 />
               )}
             </div>
-            <div className={styled.oven__progress}>
+            <div className={styles.oven__progress}>
               <CircularProgress percents={collateralRatio} />
             </div>
           </div>
-          <div className={styled.oven__metrics}>
+          <div className={styles.oven__metrics}>
             <Metric
               title={texts.metricCollateral[lang]}
               value={collateralValue}

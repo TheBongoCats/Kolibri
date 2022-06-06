@@ -11,7 +11,7 @@ import {
   hoursUpdate,
 } from './text.json';
 
-import styled from './Oracle.module.scss';
+import styles from './Oracle.module.scss';
 import { useI18nStateContext } from '../../../contexts/i18nContext';
 import {
   usePushDispatchContext,
@@ -37,7 +37,7 @@ const Oracle = () => {
       case minutes > 60:
         return (
           <span
-            className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
+            className={`${styles.oracle__time} ${styles['oracle__time--s--error']}`}
           >
             {hoursUpdate[lang]}
           </span>
@@ -45,7 +45,7 @@ const Oracle = () => {
       case minutes >= 30:
         return (
           <span
-            className={`${styled.oracle__time} ${styled['oracle__time--s--error']}`}
+            className={`${styles.oracle__time} ${styles['oracle__time--s--error']}`}
           >
             {minutes} {minutesUpdate[lang]}
           </span>
@@ -53,7 +53,7 @@ const Oracle = () => {
       default:
         return (
           <span
-            className={`${styled.oracle__time} ${styled['oracle__time--s--ok']}`}
+            className={`${styles.oracle__time} ${styles['oracle__time--s--ok']}`}
           >
             {minutes} {minutesUpdate[lang]}
           </span>
@@ -76,29 +76,29 @@ const Oracle = () => {
   }, [minutes]);
 
   return (
-    <div className={styled.oracle}>
-      <div className={styled.oracle__title}>
+    <div className={styles.oracle}>
+      <div className={styles.oracle__title}>
         {latest[lang]} <b>XTZ/USD Oracle</b> {priceText[lang]}
         {tezosPrice ? (
-          <span className={styled.oracle__price}> ${price}</span>
+          <span className={styles.oracle__price}> ${price}</span>
         ) : (
           <Loader />
         )}
       </div>
-      <div className={styled.oracle__updated}>
+      <div className={styles.oracle__updated}>
         {oracleUpdate[lang]} {minutes ? lastUpdate() : <Loader />}
         {desktop && (
           <button
             onClick={handleSetNotify}
             type="button"
-            className={styled.oracle__button}
+            className={styles.oracle__button}
           >
             {notifyOracle ? (
               <Bell
-                className={`${styled.oracle__bell} ${styled['oracle__bell--filled']}`}
+                className={`${styles.oracle__bell} ${styles['oracle__bell--filled']}`}
               />
             ) : (
-              <Bell className={styled.oracle__bell} />
+              <Bell className={styles.oracle__bell} />
             )}
           </button>
         )}

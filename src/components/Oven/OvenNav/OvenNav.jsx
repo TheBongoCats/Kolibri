@@ -2,8 +2,8 @@ import propTypes from 'prop-types';
 import { useModalDispatchContext } from '../../../contexts/modalContext';
 import Button from '../../Button';
 import OvenModal from '../OvenModal/OvenModal.container';
-import styled from './OvenNav.module.scss';
-import texts from '../textsAction.json';
+import styles from './OvenNav.module.scss';
+import texts from '../texts.json';
 import { useI18nStateContext } from '../../../contexts/i18nContext';
 
 const OvenNav = ({ ovenData }) => {
@@ -21,9 +21,9 @@ const OvenNav = ({ ovenData }) => {
     handleOpenModal(<OvenModal ovenData={ovenData} section={button.modalId} />);
 
   return (
-    <ul className={styled['oven-nav']}>
+    <ul className={styles['oven-nav']}>
       {NAV_CONFIG.map((button) => (
-        <li key={button.text} className={styled['oven-nav__button']}>
+        <li key={button.text} className={styles['oven-nav__button']}>
           {+ovenData.balance === 0 && button.modalId !== 'deposit' ? (
             <Button text={button.text} isRounded isTransparent isDisabled />
           ) : (

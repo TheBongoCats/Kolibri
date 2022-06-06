@@ -19,7 +19,7 @@ import OvenList from '../../components/OvenList';
 import UserData from '../../components/UserData';
 import Logo from '../../components/Logo';
 
-import styled from './Home.module.scss';
+import styles from './Home.module.scss';
 import {
   metricsButton,
   learnMoreButton,
@@ -54,14 +54,14 @@ const Home = () => {
   };
 
   return (
-    <div className={styled.home}>
+    <div className={styles.home}>
       {isLogin && width >= 700 && <UserData />}
-      <div className={styled.home__head}>
+      <div className={styles.home__head}>
         {width >= 700 && <Logo isBig />}
-        <div className={styled.home__info}>
-          <span className={styled.home__title}>Kolibri</span>
-          <span className={styled.home__subtitle}>Stablecoin</span>
-          <div className={styled.home__buttons}>
+        <div className={styles.home__info}>
+          <span className={styles.home__title}>Kolibri</span>
+          <span className={styles.home__subtitle}>Stablecoin</span>
+          <div className={styles.home__buttons}>
             <Link to="/docs" target="_blank">
               <Button
                 callback={() => null}
@@ -83,8 +83,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className={styled.home__container}>
-        <div className={styled.home__metrics}>
+      <div className={styles.home__container}>
+        <div className={styles.home__metrics}>
           <Metric
             title={activeOvensCount[lang]}
             value={allOvens?.length}
@@ -119,7 +119,7 @@ const Home = () => {
         </>
       ) : (
         <>
-          <p className={styled.home__connect}>{connectWalletParagraph[lang]}</p>
+          <p className={styles.home__connect}>{connectWalletParagraph[lang]}</p>
           <Button callback={connectWallet} text={connectButton[lang]} isBig />
         </>
       )}

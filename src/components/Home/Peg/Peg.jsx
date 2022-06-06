@@ -1,4 +1,4 @@
-import styled from './Peg.module.scss';
+import styles from './Peg.module.scss';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
 import Loader from '../../Loader';
 
@@ -9,9 +9,9 @@ const Peg = () => {
   const remainder = 50 + (50 * percents) / 100;
 
   return kUSDPrice ? (
-    <div className={styled.peg}>
+    <div className={styles.peg}>
       <p
-        className={styled.peg__title}
+        className={styles.peg__title}
         data-title="* according to Quipuswap rate"
       >
         <span>
@@ -24,7 +24,7 @@ const Peg = () => {
         </span>
       </p>
       <div
-        className={styled.peg__progress}
+        className={styles.peg__progress}
         style={
           percents > 0
             ? {
@@ -35,16 +35,16 @@ const Peg = () => {
               }
         }
       >
-        <div className={styled.peg__separator} />
-        <div className={styled.peg__separator} />
-        <div className={styled.peg__separator} />
-        <div className={styled.peg__separator} />
-        <div className={styled.peg__separator} />
-        <div className={styled.peg__separator} />
-        <div className={styled.peg__separator} />
-        <div className={styled.peg__separator} />
-        <div className={styled.peg__separator} />
-        <div className={styled.peg__separator} />
+        <div className={styles.peg__separator} />
+        <div className={styles.peg__separator} />
+        <div className={styles.peg__separator} />
+        <div className={styles.peg__separator} />
+        <div className={styles.peg__separator} />
+        <div className={styles.peg__separator} />
+        <div className={styles.peg__separator} />
+        <div className={styles.peg__separator} />
+        <div className={styles.peg__separator} />
+        <div className={styles.peg__separator} />
       </div>
     </div>
   ) : (

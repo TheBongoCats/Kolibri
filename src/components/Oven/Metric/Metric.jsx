@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
 import Loader from '../../Loader';
-import styled from './Metric.module.scss';
+import styles from './Metric.module.scss';
 
 const Metric = ({
   title,
@@ -14,18 +14,18 @@ const Metric = ({
   const shouldShowLoader = showZeroValue ? value >= 0 : value;
 
   return (
-    <div className={`${styled.metric} ${styled[`metric--pos--${position}`]}`}>
+    <div className={`${styles.metric} ${styles[`metric--pos--${position}`]}`}>
       <p
-        className={`${styled.metric__title} ${
-          styled[`metric__title--s--${size}`]
+        className={`${styles.metric__title} ${
+          styles[`metric__title--s--${size}`]
         }`}
       >
         {title}
       </p>
       {shouldShowLoader ? (
         <p
-          className={`${styled.metric__value} ${
-            styled[`metric__value--s--${size}`]
+          className={`${styles.metric__value} ${
+            styles[`metric__value--s--${size}`]
           }`}
           data-title={dataTitle || null}
         >

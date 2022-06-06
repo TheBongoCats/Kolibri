@@ -1,11 +1,11 @@
 import propTypes from 'prop-types';
 import Oven from '../Oven';
 
-import styled from './OvenList.module.scss';
+import styles from './OvenList.module.scss';
 
 const OvenList = ({ ovens }) => {
   return (
-    <div className={styled['oven-list']}>
+    <div className={styles['oven-list']}>
       {ovens.map((ovenData) => {
         return <Oven key={ovenData.ovenAddress} ovenData={ovenData} />;
       })}

@@ -1,5 +1,5 @@
 import { useI18nDispatchContext } from '../../contexts/i18nContext';
-import styled from './I18n.module.scss';
+import styles from './I18n.module.scss';
 
 const i18nConfig = [
   { value: 'en', text: 'EN' },
@@ -15,7 +15,7 @@ const I18n = () => {
         handleSetLang(e.target.value);
       }}
       defaultValue={localStorage.lang || 'en'}
-      className={styled.i18n}
+      className={styles.i18n}
     >
       {i18nConfig.map((item) => {
         const { value, text } = item;

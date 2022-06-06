@@ -10,7 +10,7 @@ import { mutatedDataType } from '../../../utils/types';
 import CONSTANTS from '../../../utils/constants';
 
 import texts from './textsOvenModalInfo.json';
-import styled from './OvenModal.module.scss';
+import styles from './OvenModal.module.scss';
 
 const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
@@ -115,7 +115,7 @@ const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
         break;
     }
   };
-  return <div className={styled.modal__info}>{renderSwitch()}</div>;
+  return <div className={styles.modal__info}>{renderSwitch()}</div>;
 };
 
 export default OvenModalInfo;

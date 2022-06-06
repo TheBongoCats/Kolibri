@@ -5,7 +5,7 @@ import {
   useModalStateContext,
 } from '../../contexts/modalContext';
 
-import styled from './Modal.module.scss';
+import styles from './Modal.module.scss';
 
 const Modal = () => {
   const { handleCloseModal, closeEscape } = useModalDispatchContext();
@@ -23,7 +23,7 @@ const Modal = () => {
   }, [component]);
 
   return component ? (
-    <div className={styled.backdrop} onClick={handleCloseModal} role="none">
+    <div className={styles.backdrop} onClick={handleCloseModal} role="none">
       {component}
     </div>
   ) : null;

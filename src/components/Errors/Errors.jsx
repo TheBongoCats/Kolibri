@@ -1,15 +1,15 @@
 import propTypes from 'prop-types';
 import { useEffect } from 'react';
-import styled from './Errors.module.scss';
+import styles from './Errors.module.scss';
 
 const Errors = ({ errors, handleUnmount }) => {
   useEffect(() => {
     return () => handleUnmount();
   }, []);
   return (
-    <div className={styled.errors}>
+    <div className={styles.errors}>
       {errors.map((error) => (
-        <p className={styled.errors__item} key={error}>
+        <p className={styles.errors__item} key={error}>
           {error}
         </p>
       ))}
