@@ -3,8 +3,16 @@ import { estimateSwap } from '@quipuswap/sdk';
 import { CONTRACTS } from '@hover-labs/kolibri-js';
 import CONSTANTS from './constants';
 
-export const mutateBigNumber = (number, div = 1, dp = 2) =>
-  new BigNumber(number).div(div).dp(dp).toNumber();
+export const mutateBigNumber = (number, div = 1, dp = 2) => {
+  const value = BigNumber.isBigNumber(number) ? number : new BigNumber(number);
+  const full = value > 0 ? value.div(div).toNumber() : 0;
+  const decimal = full ? full.toFixed(dp) : '0.00';
+
+  return {
+    full,
+    decimal,
+  };
+};
 
 export const getPathColor = (percentage, theme) => {
   let color = theme === 'light' ? '#8c82f2' : '#307ff4';
@@ -18,10 +26,10 @@ export const getPathColor = (percentage, theme) => {
   return color;
 };
 
-export const mutateOvenData = (ovenData, tezosPrice) => {
+export const calculateOvenMetrics = (ovenData, tezosPrice) => {
   const balance = mutateBigNumber(ovenData.balance, CONSTANTS.MUTEZ_IN_TEZOS);
   const collateralValue = mutateBigNumber(
-    balance * tezosPrice.price,
+    balance.full * tezosPrice.price,
     CONSTANTS.MUTEZ_IN_TEZOS,
   );
   const loan = mutateBigNumber(
@@ -39,11 +47,10 @@ export const mutateOvenData = (ovenData, tezosPrice) => {
     12,
   );
   const collateralRatio = mutateBigNumber(
-    (loan / collateralValue) * 200 || 0,
-    1,
+    (loan.full / collateralValue.full) * 200 || 0,
   );
   const liquidatablePrice = mutateBigNumber(
-    tezosPrice.price * collateralRatio,
+    tezosPrice.price * collateralRatio.full,
     1e8,
   );
 
@@ -90,3 +97,7 @@ export const getRateForSwap = async (tezos) => {
     return 0;
   }
 };
+
+export const shouldDisableAction = (ovenMetrics, modalId) =>
+  (ovenMetrics.balance.full === 0 && modalId !== 'deposit') ||
+  (ovenMetrics.loan.full === 0 && modalId === 'repay');

@@ -12,7 +12,7 @@ export const OvenDataType = propTypes.shape({
   ovenClient: () => null,
 });
 
-export const mutatedDataType = propTypes.shape({
+export const ovenMetricsType = propTypes.shape({
   balance: propTypes.number,
   collateralValue: propTypes.number,
   loan: propTypes.number,

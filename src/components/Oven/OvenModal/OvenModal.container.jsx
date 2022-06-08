@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable react/forbid-prop-types */
+import { useState } from 'react';
 import propTypes from 'prop-types';
 
 import {
@@ -12,11 +13,12 @@ import { useI18nStateContext } from '../../../contexts/i18nContext';
 import OvenModal from './OvenModal.component';
 
 import CONSTANTS from '../../../utils/constants';
-import { mutateOvenData, mutateBigNumber } from '../../../utils/helpers';
+import { mutateBigNumber } from '../../../utils/helpers';
 import { OvenDataType } from '../../../utils/types';
-import textsAction from '../textsAction.json';
+import texts from '../texts.json';
+import useNewCollateralRatio from './hooks';
 
-const OvenModalContainer = ({ ovenData, section }) => {
+const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
   const { getDataFromAddress, setMyOvens, setLoadingOven, getKUSDTokens } =
@@ -24,12 +26,22 @@ const OvenModalContainer = ({ ovenData, section }) => {
   const { setComponent } = useModalDispatchContext();
   const { lang } = useI18nStateContext();
 
-  const [newCollateralRatio, setNewCollateralRatio] = useState(0);
   const [modalId, setModalId] = useState(section);
   const [amount, setAmount] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const mutatedData = mutateOvenData(ovenData, tezosPrice);
+  const newCollateralRatio = useNewCollateralRatio(
+    modalId,
+    ovenMetrics,
+    amount,
+    tezosPrice,
+  );
+
+  const amountKolibriInTezos = amount * CONSTANTS.KOLIBRI_IN_TEZOS;
+  const amountMutezInTezos = amount * CONSTANTS.MUTEZ_IN_TEZOS;
+  const tokens = mutateBigNumber(myTokens, CONSTANTS.KOLIBRI_IN_TEZOS);
+  const isAmountZero = amount <= 0;
+  const isCollateralValueExcess = newCollateralRatio > 100;
 
   const ovenAction = async (callback) => {
     try {
@@ -65,110 +77,48 @@ const OvenModalContainer = ({ ovenData, section }) => {
   };
 
   const handleBorrow = () => {
-    ovenAction(() =>
-      ovenData.ovenClient.borrow(amount * CONSTANTS.KOLIBRI_IN_TEZOS),
-    );
+    ovenAction(() => ovenData.ovenClient.borrow(amountKolibriInTezos));
   };
 
   const handleRepay = () => {
-    ovenAction(() =>
-      ovenData.ovenClient.repay(amount * CONSTANTS.KOLIBRI_IN_TEZOS),
-    );
+    ovenAction(() => ovenData.ovenClient.repay(amountKolibriInTezos));
   };
 
   const handleWithdraw = () => {
-    ovenAction(() =>
-      ovenData.ovenClient.withdraw(amount * CONSTANTS.MUTEZ_IN_TEZOS),
-    );
+    ovenAction(() => ovenData.ovenClient.withdraw(amountMutezInTezos));
   };
 
   const handleDeposit = () => {
-    ovenAction(() =>
-      ovenData.ovenClient.deposit(amount * CONSTANTS.MUTEZ_IN_TEZOS),
-    );
+    ovenAction(() => ovenData.ovenClient.deposit(amountMutezInTezos));
   };
 
   const MODAL_CONFIG = {
     borrow: {
-      section: textsAction.borrow[lang],
+      section: texts.borrow[lang],
       unit: 'kUSD',
       handleClick: handleBorrow,
-      isDisabled: newCollateralRatio > 100 || amount <= 0,
+      isDisabled: isCollateralValueExcess || isAmountZero,
     },
     repay: {
-      section: textsAction.repay[lang],
+      section: texts.repay[lang],
       unit: 'kUSD',
       handleClick: handleRepay,
       isDisabled:
-        amount > mutatedData.loan ||
-        amount <= 0 ||
-        amount > mutateBigNumber(myTokens, CONSTANTS.KOLIBRI_IN_TEZOS),
+        amount > ovenMetrics.loan.full || amount > tokens.full || isAmountZero,
     },
     withdraw: {
-      section: textsAction.withdraw[lang],
+      section: texts.withdraw[lang],
       unit: 'ꜩ',
       handleClick: handleWithdraw,
-      isDisabled: newCollateralRatio >= 100 || amount <= 0,
+      isDisabled: isCollateralValueExcess || isAmountZero,
     },
     deposit: {
-      section: textsAction.deposit[lang],
+      section: texts.deposit[lang],
       unit: 'ꜩ',
       handleClick: handleDeposit,
-      isDisabled: amount > beaconBalance || amount <= 0,
+      isDisabled: amount > beaconBalance || isAmountZero,
     },
   };
-
-  useEffect(() => {
-    switch (modalId) {
-      case 'borrow':
-        setNewCollateralRatio(
-          (
-            ((mutatedData.loan + +amount) / mutatedData.collateralValue) *
-            200
-          ).toFixed(2),
-        );
-        break;
-      case 'repay':
-        if (mutatedData.loan - amount > 0) {
-          setNewCollateralRatio(
-            (
-              ((mutatedData.loan - amount) / mutatedData.collateralValue) *
-              200
-            ).toFixed(2),
-          );
-        } else {
-          setNewCollateralRatio(0);
-        }
-        break;
-      case 'withdraw':
-        setNewCollateralRatio(
-          (
-            (mutatedData.loan /
-              mutateBigNumber(
-                (mutatedData.balance - amount) * tezosPrice.price,
-                CONSTANTS.MUTEZ_IN_TEZOS,
-              )) *
-            200
-          ).toFixed(2),
-        );
-        break;
-      case 'deposit':
-        setNewCollateralRatio(
-          mutatedData.loan
-            ? (
-                (mutatedData.loan /
-                  mutateBigNumber(
-                    (mutatedData.balance + +amount) * tezosPrice.price,
-                    CONSTANTS.MUTEZ_IN_TEZOS,
-                  )) *
-                200
-              ).toFixed(2)
-            : 0,
-        );
-        break;
-      default:
-    }
-  }, [amount]);
 
   return (
     <OvenModal
@@ -176,9 +126,10 @@ const OvenModalContainer = ({ ovenData, section }) => {
       modalId={modalId}
       ovenData={ovenData}
       amount={amount}
-      mutatedData={mutatedData}
+      ovenMetrics={ovenMetrics}
       newCollateralRatio={newCollateralRatio}
       isDisabled={isDisabled}
+      tokens={tokens}
       handleChangeAmount={handleChangeAmount}
       handleChangeSection={handleChangeSection}
     />
@@ -189,5 +140,6 @@ export default OvenModalContainer;
 
 OvenModalContainer.propTypes = {
   ovenData: OvenDataType.isRequired,
+  ovenMetrics: propTypes.object.isRequired,
   section: propTypes.string.isRequired,
 };

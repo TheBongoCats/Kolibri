@@ -15,6 +15,7 @@ const UserData = () => {
   const address =
     beaconAddress &&
     `${beaconAddress.slice(0, 8)}...${beaconAddress.slice(-8)}`;
+  const tokens = mutateBigNumber(myTokens, CONSTANTS.KOLIBRI_IN_TEZOS);
 
   return (
     <div className={styles['user-data']}>
@@ -34,10 +35,7 @@ const UserData = () => {
                   kUSD Holdings
                 </span>
                 <span className={styles['user-data__amount']}>
-                  {myTokens
-                    ? mutateBigNumber(myTokens, CONSTANTS.KOLIBRI_IN_TEZOS)
-                    : '0.00'}{' '}
-                  kUSD
+                  {tokens.decimal} kUSD
                 </span>
               </div>
               <div>

@@ -24,11 +24,9 @@ const Oracle = () => {
   const { tezosPrice } = useKolibriStateContext();
   const { handleSetNotify } = usePushDispatchContext();
   const { notifyOracle } = usePushStateContext();
-
   const [minutes, setMinutes] = useState(0);
 
   const desktop = isDesktop();
-
   const price = mutateBigNumber(tezosPrice?.price, CONSTANTS.MUTEZ_IN_TEZOS);
   const time = tezosPrice?.time;
 
@@ -62,14 +60,22 @@ const Oracle = () => {
   };
 
   useEffect(() => {
-    setMinutes(mutateBigNumber(Date.now() - time, CONSTANTS.MS_PER_MINUTE, 0));
+    const newMinutes = mutateBigNumber(
+      Date.now() - time,
+      CONSTANTS.MS_PER_MINUTE,
+      0,
+    );
+    setMinutes(newMinutes.decimal);
   }, [tezosPrice]);
 
   useEffect(() => {
     const timeoutId = setInterval(() => {
-      setMinutes(
-        mutateBigNumber(Date.now() - time, CONSTANTS.MS_PER_MINUTE, 0),
+      const newMinutes = mutateBigNumber(
+        Date.now() - time,
+        CONSTANTS.MS_PER_MINUTE,
+        0,
       );
+      setMinutes(newMinutes.decimal);
     }, 60000);
 
     return () => clearInterval(timeoutId);
@@ -80,7 +86,7 @@ const Oracle = () => {
       <div className={styles.oracle__title}>
         {latest[lang]} <b>XTZ/USD Oracle</b> {priceText[lang]}
         {tezosPrice ? (
-          <span className={styles.oracle__price}> ${price}</span>
+          <span className={styles.oracle__price}> ${price.decimal}</span>
         ) : (
           <Loader />
         )}

@@ -1,5 +1,5 @@
 import { useKolibriStateContext } from '../../contexts/kolibriContext';
-import { mutateOvenData } from '../../utils/helpers';
+import { calculateOvenMetrics } from '../../utils/helpers';
 import texts from './texts.json';
 
 import OvenNav from './OvenNav/OvenNav';
@@ -15,6 +15,7 @@ const Oven = ({ ovenData }) => {
   const { lang } = useI18nStateContext();
   const { tezosPrice, loadingOven } = useKolibriStateContext();
   const { ovenOwner, ovenClient, ovenAddress, baker } = ovenData;
+  const ovenMetrics = calculateOvenMetrics(ovenData, tezosPrice);
   const {
     liquidatablePrice,
     collateralRatio,
@@ -22,8 +23,7 @@ const Oven = ({ ovenData }) => {
     balance,
     loan,
     stabilityFees,
-    stabilityFeesFull,
-  } = mutateOvenData(ovenData, tezosPrice);
+  } = ovenMetrics;
 
   return (
     <div className={styles.oven}>
@@ -50,7 +50,8 @@ const Oven = ({ ovenData }) => {
               {ovenClient ? (
                 <Metric
                   title={texts.metricLiquidity[lang]}
-                  value={liquidatablePrice}
+                  value={liquidatablePrice.decimal}
+                  dataTitle={liquidatablePrice.full}
                   showZeroValue
                   unit="$"
                   position="left"
@@ -66,37 +67,42 @@ const Oven = ({ ovenData }) => {
               )}
             </div>
             <div className={styles.oven__progress}>
-              <CircularProgress percents={collateralRatio} />
+              <CircularProgress percents={collateralRatio.decimal} />
             </div>
           </div>
           <div className={styles.oven__metrics}>
             <Metric
               title={texts.metricCollateral[lang]}
-              value={collateralValue}
+              value={collateralValue.decimal}
+              dataTitle={collateralValue.full}
               unit=" USD"
               showZeroValue
             />
             <Metric
               title={texts.metricBalance[lang]}
-              value={balance}
+              value={balance.decimal}
+              dataTitle={balance.full < 1 ? balance.full : null}
               unit=" ꜩ"
               showZeroValue
             />
             <Metric
               title={texts.metricLoan[lang]}
-              value={loan}
+              value={loan.decimal}
+              dataTitle={loan.full}
               unit=" kUSD"
               showZeroValue
             />
             <Metric
               title={texts.metricStability[lang]}
-              value={stabilityFees}
+              value={stabilityFees.decimal}
+              dataTitle={stabilityFees.full}
               unit=" kUSD"
-              dataTitle={stabilityFeesFull}
               showZeroValue
             />
           </div>
-          {ovenClient && <OvenNav ovenData={ovenData} />}
+          {ovenClient && (
+            <OvenNav ovenData={ovenData} ovenMetrics={ovenMetrics} />
+          )}
         </>
       )}
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import propTypes from 'prop-types';
 import { useModalDispatchContext } from '../../../contexts/modalContext';
 import Button from '../../Button';
@@ -5,8 +6,9 @@ import OvenModal from '../OvenModal/OvenModal.container';
 import styles from './OvenNav.module.scss';
 import texts from '../texts.json';
 import { useI18nStateContext } from '../../../contexts/i18nContext';
+import { shouldDisableAction } from '../../../utils/helpers';
 
-const OvenNav = ({ ovenData }) => {
+const OvenNav = ({ ovenData, ovenMetrics }) => {
   const { lang } = useI18nStateContext();
   const { handleOpenModal } = useModalDispatchContext();
 
@@ -18,13 +20,19 @@ const OvenNav = ({ ovenData }) => {
   ];
 
   const onButtonClick = (button) =>
-    handleOpenModal(<OvenModal ovenData={ovenData} section={button.modalId} />);
+    handleOpenModal(
+      <OvenModal
+        ovenData={ovenData}
+        section={button.modalId}
+        ovenMetrics={ovenMetrics}
+      />,
+    );
 
   return (
     <ul className={styles['oven-nav']}>
       {NAV_CONFIG.map((button) => (
         <li key={button.text} className={styles['oven-nav__button']}>
-          {+ovenData.balance === 0 && button.modalId !== 'deposit' ? (
+          {shouldDisableAction(ovenMetrics, button.modalId) ? (
             <Button text={button.text} isRounded isTransparent isDisabled />
           ) : (
             <Button
@@ -43,18 +51,6 @@ const OvenNav = ({ ovenData }) => {
 export default OvenNav;
 
 OvenNav.propTypes = {
-  ovenData: propTypes.shape({
-    baker: propTypes.string,
-    balance: propTypes.oneOfType([propTypes.object, propTypes.string]),
-    borrowedTokens: propTypes.oneOfType([propTypes.object, propTypes.string]),
-    isLiquidated: propTypes.bool,
-    outstandingTokens: propTypes.oneOfType([
-      propTypes.object,
-      propTypes.string,
-    ]),
-    ovenAddress: propTypes.string,
-    ovenOwner: propTypes.string,
-    stabilityFees: propTypes.oneOfType([propTypes.object, propTypes.string]),
-    ovenClient: () => null,
-  }).isRequired,
+  ovenData: propTypes.object.isRequired,
+  ovenMetrics: propTypes.object.isRequired,
 };

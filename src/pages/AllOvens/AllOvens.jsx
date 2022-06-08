@@ -39,8 +39,8 @@ const AllOvens = () => {
   const paginationPages = Math.ceil(ovensForRender.length / 10);
 
   const compare = (a, b) => {
-    const balanceA = mutateBigNumber(a.balance, CONSTANTS.MUTEZ_IN_TEZOS);
-    const balanceB = mutateBigNumber(b.balance, CONSTANTS.MUTEZ_IN_TEZOS);
+    const balanceA = mutateBigNumber(a.balance, CONSTANTS.MUTEZ_IN_TEZOS).full;
+    const balanceB = mutateBigNumber(b.balance, CONSTANTS.MUTEZ_IN_TEZOS).full;
 
     let paramA;
     let paramB;
@@ -51,20 +51,20 @@ const AllOvens = () => {
       const collateralValueA = mutateBigNumber(
         balanceA * tezosPrice.price,
         CONSTANTS.MUTEZ_IN_TEZOS,
-      );
+      ).full;
       const collateralValueB = mutateBigNumber(
         balanceB * tezosPrice.price,
         CONSTANTS.MUTEZ_IN_TEZOS,
-      );
+      ).full;
 
       const loanA = mutateBigNumber(
         a.outstandingTokens,
         CONSTANTS.KOLIBRI_IN_TEZOS,
-      );
+      ).full;
       const loanB = mutateBigNumber(
         b.outstandingTokens,
         CONSTANTS.KOLIBRI_IN_TEZOS,
-      );
+      ).full;
 
       paramA = (loanA / collateralValueA) * 200;
       paramB = (loanB / collateralValueB) * 200;

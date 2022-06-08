@@ -1,9 +1,10 @@
+/* eslint-disable react/forbid-prop-types */
 import propTypes from 'prop-types';
-import { mutatedDataType } from '../../../utils/types';
 
 import Button from '../../Button';
 import CircularProgress from '../../CircularProgress';
 import OvenModalInfo from './OvenModalInfo';
+import { shouldDisableAction } from '../../../utils/helpers';
 
 import styles from './OvenModal.module.scss';
 
@@ -11,11 +12,12 @@ const OvenModal = ({
   modalConfig,
   modalId,
   amount,
-  mutatedData,
+  ovenMetrics,
   newCollateralRatio,
   isDisabled,
   handleChangeSection,
   handleChangeAmount,
+  tokens,
 }) => (
   <div className={styles.modal}>
     <nav className={styles.modal__nav}>
@@ -28,7 +30,7 @@ const OvenModal = ({
             type="button"
             key={id}
             onClick={() => handleChangeSection(id)}
-            disabled={modalId === id || mutatedData.balance === 0}
+            disabled={shouldDisableAction(ovenMetrics, id)}
           >
             {modalConfig[id].section}
           </button>
@@ -52,13 +54,14 @@ const OvenModal = ({
           </span>
         </div>
         <OvenModalInfo
-          mutatedData={mutatedData}
+          ovenMetrics={ovenMetrics}
           newCollateralRatio={newCollateralRatio}
           modalId={modalId}
+          tokens={tokens}
         />
       </div>
       <div className={styles.modal__progress}>
-        <CircularProgress percents={newCollateralRatio} />
+        <CircularProgress percents={newCollateralRatio.decimal} />
       </div>
     </div>
 
@@ -77,11 +80,12 @@ export default OvenModal;
 OvenModal.propTypes = {
   modalId: propTypes.string.isRequired,
   amount: propTypes.string.isRequired,
-  mutatedData: mutatedDataType.isRequired,
-  newCollateralRatio: propTypes.number.isRequired,
+  ovenMetrics: propTypes.object.isRequired,
+  newCollateralRatio: propTypes.object.isRequired,
   isDisabled: propTypes.bool.isRequired,
   handleChangeSection: propTypes.func.isRequired,
   handleChangeAmount: propTypes.func.isRequired,
+  tokens: propTypes.object.isRequired,
   modalConfig: propTypes.shape({
     section: propTypes.string,
     unit: propTypes.string,

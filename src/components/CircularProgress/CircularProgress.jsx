@@ -22,5 +22,5 @@ const CircularProgress = ({ percents }) => {
 export default CircularProgress;
 
 CircularProgress.propTypes = {
-  percents: propTypes.number.isRequired,
+  percents: propTypes.string.isRequired,
 };

@@ -92,13 +92,13 @@ const Home = () => {
           />
           <Metric
             title={stabilityFeeCount[lang]}
-            value={stabilityFeeYear}
+            value={stabilityFeeYear && stabilityFeeYear.decimal}
             unit="%"
             size="l"
           />
           <Metric
             title={collateralValueCount[lang]}
-            value={collateralRatio}
+            value={collateralRatio && collateralRatio.decimal}
             unit="%"
             size="l"
           />

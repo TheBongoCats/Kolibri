@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import propTypes from 'prop-types';
 import Loader from '../../Loader';
 import styles from './Metric.module.scss';

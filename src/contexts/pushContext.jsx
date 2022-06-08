@@ -87,6 +87,11 @@ const PushProvider = ({ children }) => {
 
   useEffect(() => {
     if (tezosPrice) {
+      const newPrice = mutateBigNumber(
+        tezosPrice.price,
+        CONSTANTS.MUTEZ_IN_TEZOS,
+      );
+
       if (firstUpdate.current) {
         firstUpdate.current = false;
         return;
@@ -95,10 +100,7 @@ const PushProvider = ({ children }) => {
       if (notifyOracle) {
         // eslint-disable-next-line no-new
         new Notification('Hey! Kolibri Oracle has updated!', {
-          body: `New XTZ/USD price is ${mutateBigNumber(
-            tezosPrice.price,
-            CONSTANTS.MUTEZ_IN_TEZOS,
-          )}$`,
+          body: `New XTZ/USD price is ${newPrice.decimal}$`,
         });
       }
     }

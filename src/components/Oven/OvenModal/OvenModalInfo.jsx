@@ -1,22 +1,29 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable consistent-return */
 import propTypes from 'prop-types';
 
 import { useBeaconStateContext } from '../../../contexts/beaconContext';
 import { useKolibriStateContext } from '../../../contexts/kolibriContext';
 import { useI18nStateContext } from '../../../contexts/i18nContext';
-
 import { mutateBigNumber } from '../../../utils/helpers';
-import { mutatedDataType } from '../../../utils/types';
-import CONSTANTS from '../../../utils/constants';
 
 import texts from './textsOvenModalInfo.json';
 import styles from './OvenModal.module.scss';
+import { calcMaxBorrow, calcMaxWithdraw, calcNewLiquidatable } from './helpers';
 
-const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
-  const { tezosPrice, myTokens } = useKolibriStateContext();
+const OvenModalInfo = ({
+  ovenMetrics,
+  newCollateralRatio,
+  modalId,
+  tokens,
+}) => {
+  const { tezosPrice } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
 
-  const tokens = mutateBigNumber(myTokens, CONSTANTS.KOLIBRI_IN_TEZOS);
+  const balance = mutateBigNumber(beaconBalance);
+  const maxBorrow = calcMaxBorrow(ovenMetrics);
+  const newLiquidatable = calcNewLiquidatable(tezosPrice, newCollateralRatio);
+  const maxWithdraw = calcMaxWithdraw(ovenMetrics);
 
   const renderSwitch = () => {
     const { lang } = useI18nStateContext();
@@ -26,22 +33,21 @@ const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
         return (
           <div>
             <p>
-              {`${texts.borrowed[lang]}`} {mutatedData.loan} kUSD
+              {`${texts.borrowed[lang]}`} {ovenMetrics.loan.decimal} kUSD
             </p>
             <p>
-              {texts.maxBorrowed[lang]}{' '}
-              {(mutatedData.collateralValue / 2 - mutatedData.loan).toFixed(2)}{' '}
-              kUSD
+              {texts.maxBorrowed[lang]} {maxBorrow.decimal} kUSD
             </p>
             <p>
-              {texts.currentCollateral[lang]} {mutatedData.collateralRatio}%
+              {texts.currentCollateral[lang]}{' '}
+              {ovenMetrics.collateralRatio.decimal}%
             </p>
             <p>
-              {texts.newCollateral[lang]} {newCollateralRatio}%
+              {texts.newCollateral[lang]} {newCollateralRatio.decimal}%
             </p>
             <p>
               {texts.liquidatable[lang]}
-              {mutateBigNumber(tezosPrice.price * newCollateralRatio, 1e8)}
+              {newLiquidatable.decimal}
             </p>
           </div>
         );
@@ -49,23 +55,24 @@ const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
         return (
           <div>
             <p>
-              {texts.borrowed[lang]} {mutatedData.loan} kUSD
+              {texts.borrowed[lang]} {ovenMetrics.loan.decimal} kUSD
             </p>
             <p>
-              {texts.walletHolding[lang]} {tokens} kUSD
+              {texts.walletHolding[lang]} {tokens.decimal} kUSD
             </p>
             <p>
-              {texts.maxPayback[lang]} {mutatedData.loan} kUSD
+              {texts.maxPayback[lang]} {ovenMetrics.loan.decimal} kUSD
             </p>
             <p>
-              {texts.currentCollateral[lang]} {mutatedData.collateralRatio}%
+              {texts.currentCollateral[lang]}{' '}
+              {ovenMetrics.collateralRatio.decimal}%
             </p>
             <p>
-              {texts.newCollateral[lang]} {newCollateralRatio}%
+              {texts.newCollateral[lang]} {newCollateralRatio.decimal}%
             </p>
             <p>
               {texts.liquidatable[lang]}
-              {mutateBigNumber(tezosPrice.price * newCollateralRatio, 1e8)}
+              {newLiquidatable.decimal}
             </p>
           </div>
         );
@@ -73,21 +80,17 @@ const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
         return (
           <div>
             <p>
-              {texts.ovenCollateral[lang]} {mutatedData.balance} ꜩ
+              {texts.ovenCollateral[lang]} {ovenMetrics.balance.decimal} ꜩ
             </p>
             <p>
-              {texts.maxWithdraw[lang]}{' '}
-              {(
-                mutatedData.balance *
-                (1 - (mutatedData.loan / mutatedData.collateralValue) * 2)
-              ).toFixed(2)}{' '}
-              ꜩ
+              {texts.maxWithdraw[lang]} {maxWithdraw.decimal} ꜩ
             </p>
             <p>
-              {texts.currentCollateral[lang]} {mutatedData.collateralRatio}%
+              {texts.currentCollateral[lang]}{' '}
+              {ovenMetrics.collateralRatio.decimal}%
             </p>
             <p>
-              {texts.newCollateral[lang]} {newCollateralRatio}%
+              {texts.newCollateral[lang]} {newCollateralRatio.decimal}%
             </p>
           </div>
         );
@@ -95,19 +98,20 @@ const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
         return (
           <div>
             <p>
-              {texts.ovenCollateral[lang]} {mutatedData.balance} ꜩ
+              {texts.ovenCollateral[lang]} {ovenMetrics.balance.decimal} ꜩ
             </p>
             <p>
-              {texts.walletHolding[lang]} {beaconBalance.toFixed(2)} ꜩ
+              {texts.walletHolding[lang]} {balance.decimal} ꜩ
             </p>
             <p>
-              {texts.maxDeposit[lang]} {beaconBalance.toFixed(2)} ꜩ
+              {texts.maxDeposit[lang]} {balance.decimal} ꜩ
             </p>
             <p>
-              {texts.currentCollateral[lang]} {mutatedData.collateralRatio}%
+              {texts.currentCollateral[lang]}{' '}
+              {ovenMetrics.collateralRatio.decimal}%
             </p>
             <p>
-              {texts.newCollateral[lang]} {newCollateralRatio}%
+              {texts.newCollateral[lang]} {newCollateralRatio.decimal}%
             </p>
           </div>
         );
@@ -121,7 +125,8 @@ const OvenModalInfo = ({ mutatedData, newCollateralRatio, modalId }) => {
 export default OvenModalInfo;
 
 OvenModalInfo.propTypes = {
-  mutatedData: mutatedDataType.isRequired,
-  newCollateralRatio: propTypes.number.isRequired,
+  ovenMetrics: propTypes.object.isRequired,
+  newCollateralRatio: propTypes.object.isRequired,
   modalId: propTypes.string.isRequired,
+  tokens: propTypes.object.isRequired,
 };
