@@ -55,7 +55,6 @@ const KolibriProvider = ({ children }) => {
   const [myTokens, setMyTokens] = useState();
   const [stabilityFeeYear, setStabilityFeeYear] = useState();
   const [collateralRatio, setCollaterlRatio] = useState();
-  const [loadingOven, setLoadingOven] = useState('');
 
   const { beaconWalletData, beaconAddress, tezos } = useBeaconStateContext();
   const { addError } = useErrorState();
@@ -101,6 +100,12 @@ const KolibriProvider = ({ children }) => {
   const getMyOvens = async () => {
     try {
       const ovens = await stableCoinClient.ovensOwnedByAddress(beaconAddress);
+      setMyOvens(
+        ovens.map((oven) => ({
+          ovenAddress: oven,
+          loading: true,
+        })),
+      );
       const ovensData = await Promise.all(
         ovens.map(async (ovenAddress) => {
           return getDataFromAddress(ovenAddress);
@@ -224,7 +229,6 @@ const KolibriProvider = ({ children }) => {
       stabilityFeeYear,
       collateralRatio,
       myTokens,
-      loadingOven,
       kUSDPrice,
     }),
     [
@@ -234,7 +238,6 @@ const KolibriProvider = ({ children }) => {
       stabilityFeeYear,
       collateralRatio,
       myTokens,
-      loadingOven,
       kUSDPrice,
     ],
   );
@@ -244,10 +247,9 @@ const KolibriProvider = ({ children }) => {
       deployOven,
       getDataFromAddress,
       setMyOvens,
-      setLoadingOven,
       getKUSDTokens,
     }),
-    [deployOven, getDataFromAddress, setMyOvens, setLoadingOven, getKUSDTokens],
+    [deployOven, getDataFromAddress, setMyOvens, getKUSDTokens],
   );
 
   return (

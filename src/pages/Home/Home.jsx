@@ -33,8 +33,7 @@ import {
 import useWindowWidth from '../../hooks/useWindowWidth';
 
 const Home = () => {
-  const { myOvens, allOvens, stabilityFeeYear, collateralRatio } =
-    useKolibriStateContext();
+  const { myOvens, allOvens, stabilityFeeYear } = useKolibriStateContext();
   const { deployOven } = useKolibriDispatchContext();
   const { connectWallet } = useBeaconDispatchContext();
   const { isLogin } = useBeaconStateContext();
@@ -98,7 +97,7 @@ const Home = () => {
           />
           <Metric
             title={collateralValueCount[lang]}
-            value={collateralRatio && collateralRatio.decimal}
+            value={stabilityFeeYear && 180}
             unit="%"
             size="l"
           />

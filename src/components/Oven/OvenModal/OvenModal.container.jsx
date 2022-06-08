@@ -21,7 +21,7 @@ import useNewCollateralRatio from './hooks';
 const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
-  const { getDataFromAddress, setMyOvens, setLoadingOven, getKUSDTokens } =
+  const { getDataFromAddress, setMyOvens, getKUSDTokens } =
     useKolibriDispatchContext();
   const { setComponent } = useModalDispatchContext();
   const { lang } = useI18nStateContext();
@@ -46,20 +46,27 @@ const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
   const ovenAction = async (callback) => {
     try {
       setIsDisabled(true);
-      setLoadingOven(ovenData.ovenAddress);
+      setMyOvens((prevState) =>
+        prevState.map((oven) =>
+          oven.ovenAddress === ovenData.ovenAddress
+            ? {
+                ovenAddress: ovenData.ovenAddress,
+                loading: true,
+              }
+            : oven,
+        ),
+      );
       const transaction = await callback();
       setComponent(null);
       await transaction.confirmation();
       const newData = await getDataFromAddress(ovenData.ovenAddress);
       getKUSDTokens();
-      setMyOvens((prevState) => {
-        return prevState.map((oven) => {
-          return oven.ovenAddress === newData.ovenAddress ? newData : oven;
-        });
-      });
-      setLoadingOven(null);
+      setMyOvens((prevState) =>
+        prevState.map((oven) =>
+          oven.ovenAddress === newData.ovenAddress ? newData : oven,
+        ),
+      );
     } catch (e) {
-      setLoadingOven(null);
       setComponent(null);
     }
   };

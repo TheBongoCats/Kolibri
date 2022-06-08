@@ -1,12 +1,12 @@
 {
   "loader": {
-    "en": "Transaction pending...",
-    "ua": "Транзакція обробляється..."
+    "en": "Oven data is loading...",
+    "ua": "Дані пічки в процесі..."
   },
 
   "metricBaker": {
-    "en": "DELEGATED BAKER:",
-    "ua": "ДЕЛИГОВАНИЙ ПЕКАР:"
+    "en": "Delegated baker:",
+    "ua": "Делегований пекар:"
   },
 
   "metricLiquidity": {

@@ -13,7 +13,7 @@ import { OvenDataType } from '../../utils/types';
 
 const Oven = ({ ovenData }) => {
   const { lang } = useI18nStateContext();
-  const { tezosPrice, loadingOven } = useKolibriStateContext();
+  const { tezosPrice } = useKolibriStateContext();
   const { ovenOwner, ovenClient, ovenAddress, baker } = ovenData;
   const ovenMetrics = calculateOvenMetrics(ovenData, tezosPrice);
   const {
@@ -27,18 +27,18 @@ const Oven = ({ ovenData }) => {
 
   return (
     <div className={styles.oven}>
-      {loadingOven === ovenAddress ? (
+      <a
+        className={styles.oven__title}
+        href={`https://tzkt.io/${ovenAddress}/operations/`}
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        {ovenAddress}
+      </a>
+      {ovenData.loading ? (
         <Loader text={texts.loader[lang]} />
       ) : (
         <>
-          <a
-            className={styles.oven__title}
-            href={`https://tzkt.io/${ovenAddress}/operations/`}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            {ovenAddress}
-          </a>
           <div className={styles.oven__flexbox}>
             <div className={styles.oven__info}>
               <Metric
