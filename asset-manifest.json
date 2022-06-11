@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Kolibri/static/css/main.38d7cef9.chunk.css",
-    "main.js": "/Kolibri/static/js/main.eadc157b.chunk.js",
-    "main.js.map": "/Kolibri/static/js/main.eadc157b.chunk.js.map",
+    "main.css": "/Kolibri/static/css/main.2e60208f.chunk.css",
+    "main.js": "/Kolibri/static/js/main.b760c955.chunk.js",
+    "main.js.map": "/Kolibri/static/js/main.b760c955.chunk.js.map",
     "runtime-main.js": "/Kolibri/static/js/runtime-main.537e06f6.js",
     "runtime-main.js.map": "/Kolibri/static/js/runtime-main.537e06f6.js.map",
-    "static/js/2.53374925.chunk.js": "/Kolibri/static/js/2.53374925.chunk.js",
-    "static/js/2.53374925.chunk.js.map": "/Kolibri/static/js/2.53374925.chunk.js.map",
+    "static/js/2.132739c2.chunk.js": "/Kolibri/static/js/2.132739c2.chunk.js",
+    "static/js/2.132739c2.chunk.js.map": "/Kolibri/static/js/2.132739c2.chunk.js.map",
     "index.html": "/Kolibri/index.html",
-    "static/css/main.38d7cef9.chunk.css.map": "/Kolibri/static/css/main.38d7cef9.chunk.css.map",
-    "static/js/2.53374925.chunk.js.LICENSE.txt": "/Kolibri/static/js/2.53374925.chunk.js.LICENSE.txt",
+    "static/css/main.2e60208f.chunk.css.map": "/Kolibri/static/css/main.2e60208f.chunk.css.map",
+    "static/js/2.132739c2.chunk.js.LICENSE.txt": "/Kolibri/static/js/2.132739c2.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/Kolibri/static/media/lines-right.e5772955.svg",
     "static/media/bell.8985d36e.svg": "/Kolibri/static/media/bell.8985d36e.svg",
     "static/media/discord.8a4e3122.svg": "/Kolibri/static/media/discord.8a4e3122.svg",
@@ -25,8 +25,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.537e06f6.js",
-    "static/js/2.53374925.chunk.js",
-    "static/css/main.38d7cef9.chunk.css",
-    "static/js/main.eadc157b.chunk.js"
+    "static/js/2.132739c2.chunk.js",
+    "static/css/main.2e60208f.chunk.css",
+    "static/js/main.b760c955.chunk.js"
   ]
 }
