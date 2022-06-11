@@ -15,7 +15,7 @@ import OvenModal from './OvenModal.component';
 import CONSTANTS from '../../../utils/constants';
 import { mutateBigNumber } from '../../../utils/helpers';
 import texts from '../texts.json';
-import useNewCollateralRatio from './hooks';
+import useNewCollateralRatio from '../hooks';
 
 const OvenModalContainer = ({ ovenData, section }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();

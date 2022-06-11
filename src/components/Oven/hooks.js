@@ -4,7 +4,7 @@ import {
   calcRepayNewCollateralValue,
   calcWithdrawNewCollateralValue,
   calcDepositNewCollateralValue,
-} from '../helpers';
+} from './helpers';
 
 const useNewCollateralRatio = (modalId, ovenData, amount, tezosPrice) => {
   const [newCollateralRatio, setNewCollateralRatio] = useState({
