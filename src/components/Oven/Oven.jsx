@@ -27,18 +27,18 @@ const Oven = ({ ovenData }) => {
 
   return (
     <div className={styles.oven}>
-      <a
-        className={styles.oven__title}
-        href={`https://tzkt.io/${ovenAddress}/operations/`}
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        {ovenAddress}
-      </a>
       {ovenData.loading ? (
         <Loader text={texts.loader[lang]} />
       ) : (
         <>
+          <a
+            className={styles.oven__title}
+            href={`https://tzkt.io/${ovenAddress}/operations/`}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            {ovenAddress}
+          </a>
           <div className={styles.oven__flexbox}>
             <div className={styles.oven__info}>
               <Metric
