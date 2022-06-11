@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import Button from '../../Button';
 import CircularProgress from '../../CircularProgress';
 import OvenModalInfo from './OvenModalInfo';
-import { shouldDisableAction } from '../../../utils/helpers';
+import { shouldDisableAction } from '../helpers';
 
 import styles from './OvenModal.module.scss';
 
@@ -12,7 +12,7 @@ const OvenModal = ({
   modalConfig,
   modalId,
   amount,
-  ovenMetrics,
+  ovenData,
   newCollateralRatio,
   isDisabled,
   handleChangeSection,
@@ -30,7 +30,7 @@ const OvenModal = ({
             type="button"
             key={id}
             onClick={() => handleChangeSection(id)}
-            disabled={shouldDisableAction(ovenMetrics, id)}
+            disabled={shouldDisableAction(ovenData, id)}
           >
             {modalConfig[id].section}
           </button>
@@ -54,7 +54,7 @@ const OvenModal = ({
           </span>
         </div>
         <OvenModalInfo
-          ovenMetrics={ovenMetrics}
+          ovenData={ovenData}
           newCollateralRatio={newCollateralRatio}
           modalId={modalId}
           tokens={tokens}
@@ -80,7 +80,7 @@ export default OvenModal;
 OvenModal.propTypes = {
   modalId: propTypes.string.isRequired,
   amount: propTypes.string.isRequired,
-  ovenMetrics: propTypes.object.isRequired,
+  ovenData: propTypes.object.isRequired,
   newCollateralRatio: propTypes.object.isRequired,
   isDisabled: propTypes.bool.isRequired,
   handleChangeSection: propTypes.func.isRequired,

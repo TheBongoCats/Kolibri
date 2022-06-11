@@ -9,21 +9,20 @@ import { mutateBigNumber } from '../../../utils/helpers';
 
 import texts from './textsOvenModalInfo.json';
 import styles from './OvenModal.module.scss';
-import { calcMaxBorrow, calcMaxWithdraw, calcNewLiquidatable } from './helpers';
+import {
+  calcMaxBorrow,
+  calcMaxWithdraw,
+  calcNewLiquidatable,
+} from '../helpers';
 
-const OvenModalInfo = ({
-  ovenMetrics,
-  newCollateralRatio,
-  modalId,
-  tokens,
-}) => {
+const OvenModalInfo = ({ ovenData, newCollateralRatio, modalId, tokens }) => {
   const { tezosPrice } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
 
   const balance = mutateBigNumber(beaconBalance);
-  const maxBorrow = calcMaxBorrow(ovenMetrics);
+  const maxBorrow = calcMaxBorrow(ovenData);
   const newLiquidatable = calcNewLiquidatable(tezosPrice, newCollateralRatio);
-  const maxWithdraw = calcMaxWithdraw(ovenMetrics);
+  const maxWithdraw = calcMaxWithdraw(ovenData);
 
   const renderSwitch = () => {
     const { lang } = useI18nStateContext();
@@ -33,14 +32,14 @@ const OvenModalInfo = ({
         return (
           <div>
             <p>
-              {`${texts.borrowed[lang]}`} {ovenMetrics.loan.decimal} kUSD
+              {`${texts.borrowed[lang]}`} {ovenData.loan.decimal} kUSD
             </p>
             <p>
               {texts.maxBorrowed[lang]} {maxBorrow.decimal} kUSD
             </p>
             <p>
-              {texts.currentCollateral[lang]}{' '}
-              {ovenMetrics.collateralRatio.decimal}%
+              {texts.currentCollateral[lang]} {ovenData.collateralRatio.decimal}
+              %
             </p>
             <p>
               {texts.newCollateral[lang]} {newCollateralRatio.decimal}%
@@ -55,17 +54,17 @@ const OvenModalInfo = ({
         return (
           <div>
             <p>
-              {texts.borrowed[lang]} {ovenMetrics.loan.decimal} kUSD
+              {texts.borrowed[lang]} {ovenData.loan.decimal} kUSD
             </p>
             <p>
               {texts.walletHolding[lang]} {tokens.decimal} kUSD
             </p>
             <p>
-              {texts.maxPayback[lang]} {ovenMetrics.loan.decimal} kUSD
+              {texts.maxPayback[lang]} {ovenData.loan.decimal} kUSD
             </p>
             <p>
-              {texts.currentCollateral[lang]}{' '}
-              {ovenMetrics.collateralRatio.decimal}%
+              {texts.currentCollateral[lang]} {ovenData.collateralRatio.decimal}
+              %
             </p>
             <p>
               {texts.newCollateral[lang]} {newCollateralRatio.decimal}%
@@ -80,14 +79,14 @@ const OvenModalInfo = ({
         return (
           <div>
             <p>
-              {texts.ovenCollateral[lang]} {ovenMetrics.balance.decimal} ꜩ
+              {texts.ovenCollateral[lang]} {ovenData.balance.decimal} ꜩ
             </p>
             <p>
               {texts.maxWithdraw[lang]} {maxWithdraw.decimal} ꜩ
             </p>
             <p>
-              {texts.currentCollateral[lang]}{' '}
-              {ovenMetrics.collateralRatio.decimal}%
+              {texts.currentCollateral[lang]} {ovenData.collateralRatio.decimal}
+              %
             </p>
             <p>
               {texts.newCollateral[lang]} {newCollateralRatio.decimal}%
@@ -98,7 +97,7 @@ const OvenModalInfo = ({
         return (
           <div>
             <p>
-              {texts.ovenCollateral[lang]} {ovenMetrics.balance.decimal} ꜩ
+              {texts.ovenCollateral[lang]} {ovenData.balance.decimal} ꜩ
             </p>
             <p>
               {texts.walletHolding[lang]} {balance.decimal} ꜩ
@@ -107,8 +106,8 @@ const OvenModalInfo = ({
               {texts.maxDeposit[lang]} {balance.decimal} ꜩ
             </p>
             <p>
-              {texts.currentCollateral[lang]}{' '}
-              {ovenMetrics.collateralRatio.decimal}%
+              {texts.currentCollateral[lang]} {ovenData.collateralRatio.decimal}
+              %
             </p>
             <p>
               {texts.newCollateral[lang]} {newCollateralRatio.decimal}%
@@ -125,7 +124,7 @@ const OvenModalInfo = ({
 export default OvenModalInfo;
 
 OvenModalInfo.propTypes = {
-  ovenMetrics: propTypes.object.isRequired,
+  ovenData: propTypes.object.isRequired,
   newCollateralRatio: propTypes.object.isRequired,
   modalId: propTypes.string.isRequired,
   tokens: propTypes.object.isRequired,

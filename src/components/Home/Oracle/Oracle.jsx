@@ -86,7 +86,10 @@ const Oracle = () => {
       <div className={styles.oracle__title}>
         {latest[lang]} <b>XTZ/USD Oracle</b> {priceText[lang]}
         {tezosPrice ? (
-          <span className={styles.oracle__price}> ${price.decimal}</span>
+          <span className={styles.oracle__price} data-title={price.full}>
+            {' '}
+            ${price.decimal}
+          </span>
         ) : (
           <Loader />
         )}

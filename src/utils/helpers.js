@@ -27,24 +27,17 @@ export const getPathColor = (percentage, theme) => {
 };
 
 export const calculateOvenMetrics = (ovenData, tezosPrice) => {
-  const balance = mutateBigNumber(ovenData.balance, CONSTANTS.MUTEZ_IN_TEZOS);
+  const { balance, outstandingTokens, stabilityFees, ...otherData } = ovenData;
+  const balanceCalculated = mutateBigNumber(balance, CONSTANTS.MUTEZ_IN_TEZOS);
   const collateralValue = mutateBigNumber(
-    balance.full * tezosPrice.price,
+    balanceCalculated.full * tezosPrice.price,
     CONSTANTS.MUTEZ_IN_TEZOS,
   );
-  const loan = mutateBigNumber(
-    ovenData.outstandingTokens,
-    CONSTANTS.KOLIBRI_IN_TEZOS,
-  );
-  const stabilityFees = mutateBigNumber(
-    ovenData.stabilityFees,
+  const loan = mutateBigNumber(outstandingTokens, CONSTANTS.KOLIBRI_IN_TEZOS);
+  const stabilityFeesCalculated = mutateBigNumber(
+    stabilityFees,
     CONSTANTS.KOLIBRI_IN_TEZOS,
     6,
-  );
-  const stabilityFeesFull = mutateBigNumber(
-    ovenData.stabilityFees,
-    CONSTANTS.KOLIBRI_IN_TEZOS,
-    12,
   );
   const collateralRatio = mutateBigNumber(
     (loan.full / collateralValue.full) * 200 || 0,
@@ -55,13 +48,13 @@ export const calculateOvenMetrics = (ovenData, tezosPrice) => {
   );
 
   return {
-    balance,
+    balance: balanceCalculated,
     collateralValue,
     loan,
-    stabilityFees,
-    stabilityFeesFull,
+    stabilityFees: stabilityFeesCalculated,
     collateralRatio,
     liquidatablePrice,
+    ...otherData,
   };
 };
 
@@ -97,7 +90,3 @@ export const getRateForSwap = async (tezos) => {
     return 0;
   }
 };
-
-export const shouldDisableAction = (ovenMetrics, modalId) =>
-  (ovenMetrics.balance.full === 0 && modalId !== 'deposit') ||
-  (ovenMetrics.loan.full === 0 && modalId === 'repay');

@@ -6,8 +6,8 @@ import styles from './OvenList.module.scss';
 const OvenList = ({ ovens }) => {
   return (
     <div className={styles['oven-list']}>
-      {ovens.map((ovenData) => {
-        return <Oven key={ovenData.ovenAddress} ovenData={ovenData} />;
+      {ovens.map((oven) => {
+        return <Oven key={oven.ovenAddress} oven={oven} />;
       })}
     </div>
   );

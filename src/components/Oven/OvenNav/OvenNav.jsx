@@ -6,9 +6,9 @@ import OvenModal from '../OvenModal/OvenModal.container';
 import styles from './OvenNav.module.scss';
 import texts from '../texts.json';
 import { useI18nStateContext } from '../../../contexts/i18nContext';
-import { shouldDisableAction } from '../../../utils/helpers';
+import { shouldDisableAction } from '../helpers';
 
-const OvenNav = ({ ovenData, ovenMetrics }) => {
+const OvenNav = ({ ovenData }) => {
   const { lang } = useI18nStateContext();
   const { handleOpenModal } = useModalDispatchContext();
 
@@ -20,19 +20,13 @@ const OvenNav = ({ ovenData, ovenMetrics }) => {
   ];
 
   const onButtonClick = (button) =>
-    handleOpenModal(
-      <OvenModal
-        ovenData={ovenData}
-        section={button.modalId}
-        ovenMetrics={ovenMetrics}
-      />,
-    );
+    handleOpenModal(<OvenModal ovenData={ovenData} section={button.modalId} />);
 
   return (
     <ul className={styles['oven-nav']}>
       {NAV_CONFIG.map((button) => (
         <li key={button.text} className={styles['oven-nav__button']}>
-          {shouldDisableAction(ovenMetrics, button.modalId) ? (
+          {shouldDisableAction(ovenData, button.modalId) ? (
             <Button text={button.text} isRounded isTransparent isDisabled />
           ) : (
             <Button
@@ -52,5 +46,4 @@ export default OvenNav;
 
 OvenNav.propTypes = {
   ovenData: propTypes.object.isRequired,
-  ovenMetrics: propTypes.object.isRequired,
 };

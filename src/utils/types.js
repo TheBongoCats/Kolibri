@@ -17,7 +17,6 @@ export const ovenMetricsType = propTypes.shape({
   collateralValue: propTypes.number,
   loan: propTypes.number,
   stabilityFees: propTypes.number,
-  stabilityFeesFull: propTypes.number,
   collateralRatio: propTypes.number,
   liquidatablePrice: propTypes.number,
 });

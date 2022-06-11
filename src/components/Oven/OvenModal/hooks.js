@@ -4,9 +4,9 @@ import {
   calcRepayNewCollateralValue,
   calcWithdrawNewCollateralValue,
   calcDepositNewCollateralValue,
-} from './helpers';
+} from '../helpers';
 
-const useNewCollateralRatio = (modalId, ovenMetrics, amount, tezosPrice) => {
+const useNewCollateralRatio = (modalId, ovenData, amount, tezosPrice) => {
   const [newCollateralRatio, setNewCollateralRatio] = useState({
     full: 0,
     decimal: '0.00',
@@ -16,17 +16,13 @@ const useNewCollateralRatio = (modalId, ovenMetrics, amount, tezosPrice) => {
     setNewCollateralRatio(() => {
       switch (modalId) {
         case 'borrow':
-          return calcBorrowNewCollateralValue(ovenMetrics, amount);
+          return calcBorrowNewCollateralValue(ovenData, amount);
         case 'repay':
-          return calcRepayNewCollateralValue(ovenMetrics, amount);
+          return calcRepayNewCollateralValue(ovenData, amount);
         case 'withdraw':
-          return calcWithdrawNewCollateralValue(
-            ovenMetrics,
-            amount,
-            tezosPrice,
-          );
+          return calcWithdrawNewCollateralValue(ovenData, amount, tezosPrice);
         case 'deposit':
-          return calcDepositNewCollateralValue(ovenMetrics, amount, tezosPrice);
+          return calcDepositNewCollateralValue(ovenData, amount, tezosPrice);
         default:
           return { full: 0, decimal: '0.00' };
       }

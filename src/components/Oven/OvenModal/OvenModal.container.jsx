@@ -14,11 +14,10 @@ import OvenModal from './OvenModal.component';
 
 import CONSTANTS from '../../../utils/constants';
 import { mutateBigNumber } from '../../../utils/helpers';
-import { OvenDataType } from '../../../utils/types';
 import texts from '../texts.json';
 import useNewCollateralRatio from './hooks';
 
-const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
+const OvenModalContainer = ({ ovenData, section }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
   const { beaconBalance } = useBeaconStateContext();
   const { getDataFromAddress, setMyOvens, getKUSDTokens } =
@@ -32,10 +31,15 @@ const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
 
   const newCollateralRatio = useNewCollateralRatio(
     modalId,
-    ovenMetrics,
+    ovenData,
     amount,
     tezosPrice,
   );
+
+  const {
+    ovenAddress,
+    ovenClient: { borrow, repay, withdraw, deposit },
+  } = ovenData;
 
   const amountKolibriInTezos = amount * CONSTANTS.KOLIBRI_IN_TEZOS;
   const amountMutezInTezos = amount * CONSTANTS.MUTEZ_IN_TEZOS;
@@ -48,9 +52,9 @@ const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
       setIsDisabled(true);
       setMyOvens((prevState) =>
         prevState.map((oven) =>
-          oven.ovenAddress === ovenData.ovenAddress
+          oven.ovenAddress === ovenAddress
             ? {
-                ovenAddress: ovenData.ovenAddress,
+                ovenAddress,
                 loading: true,
               }
             : oven,
@@ -59,7 +63,7 @@ const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
       const transaction = await callback();
       setComponent(null);
       await transaction.confirmation();
-      const newData = await getDataFromAddress(ovenData.ovenAddress);
+      const newData = await getDataFromAddress(ovenAddress);
       getKUSDTokens();
       setMyOvens((prevState) =>
         prevState.map((oven) =>
@@ -84,19 +88,19 @@ const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
   };
 
   const handleBorrow = () => {
-    ovenAction(() => ovenData.ovenClient.borrow(amountKolibriInTezos));
+    ovenAction(() => borrow(amountKolibriInTezos));
   };
 
   const handleRepay = () => {
-    ovenAction(() => ovenData.ovenClient.repay(amountKolibriInTezos));
+    ovenAction(() => repay(amountKolibriInTezos));
   };
 
   const handleWithdraw = () => {
-    ovenAction(() => ovenData.ovenClient.withdraw(amountMutezInTezos));
+    ovenAction(() => withdraw(amountMutezInTezos));
   };
 
   const handleDeposit = () => {
-    ovenAction(() => ovenData.ovenClient.deposit(amountMutezInTezos));
+    ovenAction(() => deposit(amountMutezInTezos));
   };
 
   const MODAL_CONFIG = {
@@ -111,7 +115,7 @@ const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
       unit: 'kUSD',
       handleClick: handleRepay,
       isDisabled:
-        amount > ovenMetrics.loan.full || amount > tokens.full || isAmountZero,
+        amount > ovenData.loan.full || amount > tokens.full || isAmountZero,
     },
     withdraw: {
       section: texts.withdraw[lang],
@@ -133,7 +137,6 @@ const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
       modalId={modalId}
       ovenData={ovenData}
       amount={amount}
-      ovenMetrics={ovenMetrics}
       newCollateralRatio={newCollateralRatio}
       isDisabled={isDisabled}
       tokens={tokens}
@@ -146,7 +149,6 @@ const OvenModalContainer = ({ ovenData, ovenMetrics, section }) => {
 export default OvenModalContainer;
 
 OvenModalContainer.propTypes = {
-  ovenData: OvenDataType.isRequired,
-  ovenMetrics: propTypes.object.isRequired,
+  ovenData: propTypes.object.isRequired,
   section: propTypes.string.isRequired,
 };

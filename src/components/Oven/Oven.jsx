@@ -1,21 +1,22 @@
-import { useKolibriStateContext } from '../../contexts/kolibriContext';
-import { calculateOvenMetrics } from '../../utils/helpers';
+import { useMemo } from 'react';
 import texts from './texts.json';
-
 import OvenNav from './OvenNav/OvenNav';
 import Metric from './Metric/Metric';
-
 import styles from './Oven.module.scss';
 import CircularProgress from '../CircularProgress';
 import Loader from '../Loader';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import { OvenDataType } from '../../utils/types';
+import { calculateOvenMetrics } from '../../utils/helpers';
+import { useKolibriStateContext } from '../../contexts/kolibriContext';
 
-const Oven = ({ ovenData }) => {
+const Oven = ({ oven }) => {
   const { lang } = useI18nStateContext();
   const { tezosPrice } = useKolibriStateContext();
-  const { ovenOwner, ovenClient, ovenAddress, baker } = ovenData;
-  const ovenMetrics = calculateOvenMetrics(ovenData, tezosPrice);
+  const ovenData = useMemo(() => {
+    return calculateOvenMetrics(oven, tezosPrice);
+  }, [oven, tezosPrice]);
+
   const {
     liquidatablePrice,
     collateralRatio,
@@ -23,11 +24,16 @@ const Oven = ({ ovenData }) => {
     balance,
     loan,
     stabilityFees,
-  } = ovenMetrics;
+    ovenOwner,
+    ovenClient,
+    ovenAddress,
+    baker,
+    loading,
+  } = ovenData;
 
   return (
     <div className={styles.oven}>
-      {ovenData.loading ? (
+      {loading ? (
         <Loader text={texts.loader[lang]} />
       ) : (
         <>
@@ -100,9 +106,7 @@ const Oven = ({ ovenData }) => {
               showZeroValue
             />
           </div>
-          {ovenClient && (
-            <OvenNav ovenData={ovenData} ovenMetrics={ovenMetrics} />
-          )}
+          {ovenClient && <OvenNav ovenData={ovenData} />}
         </>
       )}
     </div>
@@ -112,9 +116,9 @@ const Oven = ({ ovenData }) => {
 export default Oven;
 
 Oven.propTypes = {
-  ovenData: OvenDataType,
+  oven: OvenDataType,
 };
 
 Oven.defaultProps = {
-  ovenData: {},
+  oven: {},
 };

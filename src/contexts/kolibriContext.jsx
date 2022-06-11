@@ -189,9 +189,9 @@ const KolibriProvider = ({ children }) => {
       if (rateForSwap) {
         const price = mutateBigNumber((tezosPrice.price * 1e6) / rateForSwap);
 
-        setkUSDPrice(price.decimal);
+        setkUSDPrice(price);
       } else {
-        setkUSDPrice('0.00');
+        setkUSDPrice({ full: 0, decimal: '0.00' });
       }
     } catch {
       setkUSDPrice(0);
