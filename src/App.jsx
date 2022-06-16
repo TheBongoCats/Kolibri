@@ -1,4 +1,4 @@
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import AppContextProvider from './contexts/AppContextProvider';
 import AppRouter from './route/AppRouter';
@@ -12,12 +12,12 @@ import './styles/index.scss';
 const App = () => {
   return (
     <AppContextProvider>
-      <HashRouter>
+      <BrowserRouter>
         <Header />
         <AppRouter />
         <Footer />
         <Modal />
-      </HashRouter>
+      </BrowserRouter>
     </AppContextProvider>
   );
 };

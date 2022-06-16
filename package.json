@@ -2,7 +2,6 @@
   "name": "kolibri-js",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://thebongocats.github.io/Kolibri/",
   "dependencies": {
     "@airgap/beacon-sdk": "^2.3.9",
     "@hover-labs/kolibri-js": "^4.1.3",
