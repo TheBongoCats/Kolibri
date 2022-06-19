@@ -16,6 +16,7 @@ import CONSTANTS from '../../../utils/constants';
 import { mutateBigNumber } from '../../../utils/helpers';
 import texts from '../texts.json';
 import useNewCollateralRatio from '../hooks';
+import { calcMaxWithdraw } from '../helpers';
 
 const OvenModalContainer = ({ ovenData, section }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
@@ -43,9 +44,10 @@ const OvenModalContainer = ({ ovenData, section }) => {
 
   const amountKolibriInTezos = amount * CONSTANTS.KOLIBRI_IN_TEZOS;
   const amountMutezInTezos = amount * CONSTANTS.MUTEZ_IN_TEZOS;
+  const maxWithdraw = calcMaxWithdraw(ovenData).full;
   const tokens = mutateBigNumber(myTokens, CONSTANTS.KOLIBRI_IN_TEZOS);
   const isAmountZero = amount <= 0;
-  const isCollateralValueExcess = newCollateralRatio > 100;
+  const isCollateralValueExcess = newCollateralRatio.full > 100;
 
   const ovenAction = async (callback) => {
     try {
@@ -121,7 +123,7 @@ const OvenModalContainer = ({ ovenData, section }) => {
       section: texts.withdraw[lang],
       unit: 'ꜩ',
       handleClick: handleWithdraw,
-      isDisabled: isCollateralValueExcess || isAmountZero,
+      isDisabled: amount > maxWithdraw || isAmountZero,
     },
     deposit: {
       section: texts.deposit[lang],

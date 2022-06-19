@@ -1,7 +1,7 @@
 {
   "loader": {
-    "en": "Oven data is loading...",
-    "ua": "Дані пічки в процесі..."
+    "en": "Oven is loading...",
+    "ua": "Пічка завантажується..."
   },
 
   "metricBaker": {

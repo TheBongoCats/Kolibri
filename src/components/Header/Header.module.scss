@@ -7,4 +7,14 @@
   @media only screen and (max-width: 700px) {
     padding: 10px;
   }
+
+  &__sideWrapper {
+    max-width: 250px;
+    width: 100%;
+
+    &Right {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
 }

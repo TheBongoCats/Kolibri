@@ -22,7 +22,7 @@ const Navigation = ({ isAside }) => {
   const NAVIGATION_CONFIG = [
     { path: '/', text: homeNav[lang] },
     { path: '/all-ovens', text: allOvensNav[lang] },
-    { path: '/docs/intro', text: docsNav[lang] },
+    { path: 'https://kolibri.finance/', text: docsNav[lang], isExternal: true },
   ];
 
   if (isAside) {
@@ -61,10 +61,16 @@ const Navigation = ({ isAside }) => {
     <nav className={styles.navigation}>
       <ul className={styles.navigation__list}>
         {NAVIGATION_CONFIG.map((navItem) => {
-          const { path, text } = navItem;
+          const { path, text, isExternal } = navItem;
           return (
             <li key={path} className={styles.navigation__item}>
-              <Link to={path}>{text}</Link>
+              {isExternal ? (
+                <a target="_blank" href={path} rel="noreferrer noopener">
+                  {text}
+                </a>
+              ) : (
+                <Link to={path}>{text}</Link>
+              )}
             </li>
           );
         })}

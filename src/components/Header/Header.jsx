@@ -35,19 +35,24 @@ const Header = () => {
   };
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <header className={styles.header}>
-      <Logo />
+      <div className={styles.header__sideWrapper}>
+        <Logo />
+      </div>
       {width > 700 ? (
         <Navigation />
       ) : (
         <Burger isOpen={isOpen} callback={handleIsOpen} />
       )}
-      {isLogin ? (
-        <Button callback={disconnectWallet} text={walletDisconnect[lang]} />
-      ) : (
-        <Button callback={connectWallet} text={walletConnect[lang]} />
-      )}
+      <div
+        className={`${styles.header__sideWrapper} ${styles.header__sideWrapperRight}`}
+      >
+        {isLogin ? (
+          <Button callback={disconnectWallet} text={walletDisconnect[lang]} />
+        ) : (
+          <Button callback={connectWallet} text={walletConnect[lang]} />
+        )}
+      </div>
       {width <= 700 && <Aside isOpen={isOpen} handleIsOpen={handleIsOpen} />}
     </header>
   );

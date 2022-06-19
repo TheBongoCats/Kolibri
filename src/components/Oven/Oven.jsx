@@ -34,7 +34,7 @@ const Oven = ({ oven }) => {
   return (
     <div className={styles.oven}>
       {loading ? (
-        <Loader text={texts.loader[lang]} />
+        <Loader text={`${texts.loader[lang]} ${ovenAddress}`} />
       ) : (
         <>
           <a

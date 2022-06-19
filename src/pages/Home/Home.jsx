@@ -1,5 +1,4 @@
 /* eslint-disable no-nested-ternary */
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import {
   useKolibriDispatchContext,
@@ -61,13 +60,13 @@ const Home = () => {
           <span className={styles.home__title}>Kolibri</span>
           <span className={styles.home__subtitle}>Stablecoin</span>
           <div className={styles.home__buttons}>
-            <Link to="/docs" target="_blank">
-              <Button
-                callback={() => null}
-                text={learnMoreButton[lang]}
-                isRounded
-              />
-            </Link>
+            <a
+              href="https://kolibri.finance/docs/general/intro"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button text={learnMoreButton[lang]} isRounded />
+            </a>
             <a
               href="https://metrics.kolibri.finance/"
               rel="noreferrer"

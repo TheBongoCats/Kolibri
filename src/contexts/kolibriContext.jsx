@@ -200,14 +200,12 @@ const KolibriProvider = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      if (beaconWalletData) {
-        getKUSDTokens();
-      }
       getStabilityFeeYear();
       getCollateralRatio();
       await getActualPrice();
       getAllOvens();
       if (beaconWalletData) {
+        getKUSDTokens();
         getMyOvens();
       }
     })();
