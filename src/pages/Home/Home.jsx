@@ -85,20 +85,23 @@ const Home = () => {
         <div className={styles.home__metrics}>
           <Metric
             title={activeOvensCount[lang]}
-            value={allOvens?.length}
+            value={allOvens.length}
             size="l"
+            isLoading={allOvens.length === 0}
           />
           <Metric
             title={stabilityFeeCount[lang]}
-            value={stabilityFeeYear && stabilityFeeYear.decimal}
+            value={stabilityFeeYear.decimal}
             unit="%"
             size="l"
+            isLoading={stabilityFeeYear.full === 0}
           />
           <Metric
             title={collateralValueCount[lang]}
-            value={stabilityFeeYear && 180}
+            value={180}
             unit="%"
             size="l"
+            isLoading={stabilityFeeYear.full === 0}
           />
         </div>
         <Peg />

@@ -66,12 +66,34 @@
   }
 
   &__progress {
-    width: 160px;
-    padding: 20px;
+    position: relative;
+    width: 140px;
+    height: 140px;
 
     @media only screen and (max-width: 700px) {
-      padding: 5px;
       width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
     }
+
+    &Hover:hover .oven__liquidate {
+      display: inline;
+    }
+  }
+
+  &__liquidate {
+    @extend .oven__progress;
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 100%;
+    background-color: $red;
+    color: $white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    border: none;
   }
 }

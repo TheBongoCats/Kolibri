@@ -86,7 +86,7 @@ const PushProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if (tezosPrice) {
+    if (tezosPrice.price > 0) {
       const newPrice = mutateBigNumber(
         tezosPrice.price,
         CONSTANTS.MUTEZ_IN_TEZOS,

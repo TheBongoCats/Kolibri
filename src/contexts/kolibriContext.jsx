@@ -49,12 +49,18 @@ const useKolibriDispatchContext = () => {
 // Provider
 const KolibriProvider = ({ children }) => {
   const [allOvens, setAllOvens] = useState([]);
-  const [tezosPrice, setTezosPrice] = useState();
-  const [kUSDPrice, setkUSDPrice] = useState();
+  const [tezosPrice, setTezosPrice] = useState({ time: '', price: 0 });
+  const [kUSDPrice, setkUSDPrice] = useState({ full: 0, decimal: '0.00' });
   const [myOvens, setMyOvens] = useState([]);
-  const [myTokens, setMyTokens] = useState();
-  const [stabilityFeeYear, setStabilityFeeYear] = useState();
-  const [collateralRatio, setCollaterlRatio] = useState();
+  const [myTokens, setMyTokens] = useState(0);
+  const [stabilityFeeYear, setStabilityFeeYear] = useState({
+    full: 0,
+    decimal: '0.00',
+  });
+  const [collateralRatio, setCollateralRatio] = useState({
+    full: 0,
+    decimal: '0.00',
+  });
 
   const { beaconWalletData, beaconAddress, tezos } = useBeaconStateContext();
   const { addError } = useErrorState();
@@ -95,6 +101,18 @@ const KolibriProvider = ({ children }) => {
       loading: false,
       ovenClient,
     };
+  };
+
+  const handleLiquidate = (ovenAddress) => {
+    const ovenClient = new OvenClient(
+      CONSTANTS.NODE_URL,
+      beaconWalletData,
+      ovenAddress,
+      stableCoinClient,
+      harbingerClient,
+    );
+
+    ovenClient.liquidate();
   };
 
   const getMyOvens = async () => {
@@ -163,7 +181,7 @@ const KolibriProvider = ({ children }) => {
       const result = await stableCoinClient.getStabilityFeeApy();
       setStabilityFeeYear(mutateBigNumber(result));
     } catch {
-      setStabilityFeeYear('0.00');
+      setStabilityFeeYear({ full: 0, decimal: '0.00' });
       addError("ERROR: We can't get stability fee");
     }
   };
@@ -171,9 +189,11 @@ const KolibriProvider = ({ children }) => {
   const getCollateralRatio = async () => {
     try {
       const result = await stableCoinClient.getRequiredCollateralizationRatio();
-      setCollaterlRatio(mutateBigNumber(result, CONSTANTS.KOLIBRI_IN_TEZOS, 0));
+      setCollateralRatio(
+        mutateBigNumber(result, CONSTANTS.KOLIBRI_IN_TEZOS, 0),
+      );
     } catch {
-      setCollaterlRatio('0');
+      setCollateralRatio({ full: 0, decimal: '0.00' });
       addError("ERROR: We can't get collateral ration");
     }
   };
@@ -204,6 +224,11 @@ const KolibriProvider = ({ children }) => {
       getCollateralRatio();
       await getActualPrice();
       getAllOvens();
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
       if (beaconWalletData) {
         getKUSDTokens();
         getMyOvens();
@@ -246,8 +271,15 @@ const KolibriProvider = ({ children }) => {
       getDataFromAddress,
       setMyOvens,
       getKUSDTokens,
+      handleLiquidate,
     }),
-    [deployOven, getDataFromAddress, setMyOvens, getKUSDTokens],
+    [
+      deployOven,
+      getDataFromAddress,
+      setMyOvens,
+      getKUSDTokens,
+      handleLiquidate,
+    ],
   );
 
   return (

@@ -37,11 +37,6 @@ const OvenModalContainer = ({ ovenData, section }) => {
     tezosPrice,
   );
 
-  const {
-    ovenAddress,
-    ovenClient: { borrow, repay, withdraw, deposit },
-  } = ovenData;
-
   const amountKolibriInTezos = amount * CONSTANTS.KOLIBRI_IN_TEZOS;
   const amountMutezInTezos = amount * CONSTANTS.MUTEZ_IN_TEZOS;
   const maxWithdraw = calcMaxWithdraw(ovenData).full;
@@ -52,20 +47,20 @@ const OvenModalContainer = ({ ovenData, section }) => {
   const ovenAction = async (callback) => {
     try {
       setIsDisabled(true);
+      const transaction = await callback();
       setMyOvens((prevState) =>
         prevState.map((oven) =>
-          oven.ovenAddress === ovenAddress
+          oven.ovenAddress === ovenData.ovenAddress
             ? {
-                ovenAddress,
+                ...oven,
                 loading: true,
               }
             : oven,
         ),
       );
-      const transaction = await callback();
       setComponent(null);
       await transaction.confirmation();
-      const newData = await getDataFromAddress(ovenAddress);
+      const newData = await getDataFromAddress(ovenData.ovenAddress);
       getKUSDTokens();
       setMyOvens((prevState) =>
         prevState.map((oven) =>
@@ -90,19 +85,19 @@ const OvenModalContainer = ({ ovenData, section }) => {
   };
 
   const handleBorrow = () => {
-    ovenAction(() => borrow(amountKolibriInTezos));
+    ovenAction(() => ovenData.ovenClient.borrow(amountKolibriInTezos));
   };
 
   const handleRepay = () => {
-    ovenAction(() => repay(amountKolibriInTezos));
+    ovenAction(() => ovenData.ovenClient.repay(amountKolibriInTezos));
   };
 
   const handleWithdraw = () => {
-    ovenAction(() => withdraw(amountMutezInTezos));
+    ovenAction(() => ovenData.ovenClient.withdraw(amountMutezInTezos));
   };
 
   const handleDeposit = () => {
-    ovenAction(() => deposit(amountMutezInTezos));
+    ovenAction(() => ovenData.ovenClient.deposit(amountMutezInTezos));
   };
 
   const MODAL_CONFIG = {
