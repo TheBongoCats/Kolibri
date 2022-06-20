@@ -25,7 +25,6 @@
   &__link {
     display: flex;
     align-items: center;
-    justify-content: center;
 
     @include useTheme('color', 'logo-small');
   }

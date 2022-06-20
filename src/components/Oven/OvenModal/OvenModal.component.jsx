@@ -61,10 +61,9 @@ const OvenModal = ({
         />
       </div>
       <div className={styles.modal__progress}>
-        <CircularProgress percents={newCollateralRatio.decimal} />
+        <CircularProgress collateralRatio={newCollateralRatio} />
       </div>
     </div>
-
     <Button
       text={modalConfig[modalId].section}
       isRounded

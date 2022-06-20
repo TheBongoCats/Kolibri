@@ -25,7 +25,9 @@ export const calcWithdrawNewCollateralValue = (
     CONSTANTS.MUTEZ_IN_TEZOS,
   );
 
-  return mutateBigNumber((ovenData.loan.full / collateralValue.full) * 200);
+  return collateralValue.full
+    ? mutateBigNumber((ovenData.loan.full / collateralValue.full) * 200)
+    : { full: 0, decimal: '0.00' };
 };
 
 export const calcDepositNewCollateralValue = (ovenData, amount, tezosPrice) => {

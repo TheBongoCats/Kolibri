@@ -81,18 +81,14 @@ const Oracle = () => {
     return () => clearInterval(timeoutId);
   }, [minutes]);
 
-  return (
+  return tezosPrice.price ? (
     <div className={styles.oracle}>
       <div className={styles.oracle__title}>
         {latest[lang]} <b>XTZ/USD Oracle</b> {priceText[lang]}
-        {tezosPrice ? (
-          <span className={styles.oracle__price} data-title={price.full}>
-            {' '}
-            ${price.decimal}
-          </span>
-        ) : (
-          <Loader />
-        )}
+        <span className={styles.oracle__price} data-title={price.full}>
+          {' '}
+          ${price.decimal}
+        </span>
       </div>
       <div className={styles.oracle__updated}>
         {oracleUpdate[lang]} {minutes ? lastUpdate() : <Loader />}
@@ -113,6 +109,8 @@ const Oracle = () => {
         )}
       </div>
     </div>
+  ) : (
+    <Loader />
   );
 };
 

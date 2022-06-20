@@ -8,11 +8,17 @@ import Loader from '../Loader';
 import { useI18nStateContext } from '../../contexts/i18nContext';
 import { OvenDataType } from '../../utils/types';
 import { calculateOvenMetrics } from '../../utils/helpers';
-import { useKolibriStateContext } from '../../contexts/kolibriContext';
+import {
+  useKolibriDispatchContext,
+  useKolibriStateContext,
+} from '../../contexts/kolibriContext';
+import { useBeaconStateContext } from '../../contexts/beaconContext';
 
 const Oven = ({ oven }) => {
   const { lang } = useI18nStateContext();
   const { tezosPrice } = useKolibriStateContext();
+  const { handleLiquidate } = useKolibriDispatchContext();
+  const { beaconAddress } = useBeaconStateContext();
   const ovenData = useMemo(() => {
     return calculateOvenMetrics(oven, tezosPrice);
   }, [oven, tezosPrice]);
@@ -34,7 +40,7 @@ const Oven = ({ oven }) => {
   return (
     <div className={styles.oven}>
       {loading ? (
-        <Loader text={texts.loader[lang]} />
+        <Loader text={`${texts.loader[lang]} ${ovenAddress}`} />
       ) : (
         <>
           <a
@@ -72,8 +78,21 @@ const Oven = ({ oven }) => {
                 />
               )}
             </div>
-            <div className={styles.oven__progress}>
-              <CircularProgress percents={collateralRatio.decimal} />
+            <div
+              className={`${styles.oven__progress} ${
+                collateralRatio.full > 110 && styles.oven__progressHover
+              }`}
+            >
+              <CircularProgress collateralRatio={collateralRatio} />
+              {collateralRatio.full > 110 && (
+                <button
+                  type="button"
+                  className={styles.oven__liquidate}
+                  onClick={() => handleLiquidate(ovenAddress)}
+                >
+                  Liquidate
+                </button>
+              )}
             </div>
           </div>
           <div className={styles.oven__metrics}>
@@ -106,7 +125,7 @@ const Oven = ({ oven }) => {
               showZeroValue
             />
           </div>
-          {ovenClient && <OvenNav ovenData={ovenData} />}
+          {ovenOwner === beaconAddress && <OvenNav ovenData={ovenData} />}
         </>
       )}
     </div>

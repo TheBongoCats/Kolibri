@@ -10,10 +10,8 @@ const Metric = ({
   dataTitle,
   position,
   size,
-  showZeroValue,
+  isLoading,
 }) => {
-  const shouldShowLoader = showZeroValue ? value >= 0 : value;
-
   return (
     <div className={`${styles.metric} ${styles[`metric--pos--${position}`]}`}>
       <p
@@ -23,7 +21,9 @@ const Metric = ({
       >
         {title}
       </p>
-      {shouldShowLoader ? (
+      {isLoading ? (
+        <Loader />
+      ) : (
         <p
           className={`${styles.metric__value} ${
             styles[`metric__value--s--${size}`]
@@ -33,8 +33,6 @@ const Metric = ({
           {value}
           {unit}
         </p>
-      ) : (
-        <Loader />
       )}
     </div>
   );
@@ -49,7 +47,7 @@ Metric.propTypes = {
   dataTitle: propTypes.number,
   position: propTypes.oneOf(['center', 'left']),
   size: propTypes.oneOf(['s', 'm', 'l']),
-  showZeroValue: propTypes.bool,
+  isLoading: propTypes.bool,
 };
 
 Metric.defaultProps = {
@@ -58,5 +56,5 @@ Metric.defaultProps = {
   dataTitle: null,
   position: 'center',
   size: 'm',
-  showZeroValue: false,
+  isLoading: false,
 };
