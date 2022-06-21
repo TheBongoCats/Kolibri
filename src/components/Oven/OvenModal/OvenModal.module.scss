@@ -82,6 +82,8 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 10px;
+    max-width: 370px;
+    overflow-x: scroll;
   }
 
   &__progress {

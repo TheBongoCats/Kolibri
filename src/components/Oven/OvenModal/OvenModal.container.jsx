@@ -20,9 +20,9 @@ import { calcMaxWithdraw } from '../helpers';
 
 const OvenModalContainer = ({ ovenData, section }) => {
   const { tezosPrice, myTokens } = useKolibriStateContext();
-  const { beaconBalance } = useBeaconStateContext();
-  const { getDataFromAddress, setMyOvens, getKUSDTokens } =
+  const { getDataFromAddress, setMyOvens, getKUSDTokens, handleAction } =
     useKolibriDispatchContext();
+  const { beaconBalance } = useBeaconStateContext();
   const { setComponent } = useModalDispatchContext();
   const { lang } = useI18nStateContext();
 
@@ -85,19 +85,27 @@ const OvenModalContainer = ({ ovenData, section }) => {
   };
 
   const handleBorrow = () => {
-    ovenAction(() => ovenData.ovenClient.borrow(amountKolibriInTezos));
+    ovenAction(
+      handleAction(ovenData.ovenAddress, 'borrow', amountKolibriInTezos),
+    );
   };
 
   const handleRepay = () => {
-    ovenAction(() => ovenData.ovenClient.repay(amountKolibriInTezos));
+    ovenAction(
+      handleAction(ovenData.ovenAddress, 'repay', amountKolibriInTezos),
+    );
   };
 
   const handleWithdraw = () => {
-    ovenAction(() => ovenData.ovenClient.withdraw(amountMutezInTezos));
+    ovenAction(
+      handleAction(ovenData.ovenAddress, 'withdraw', amountMutezInTezos),
+    );
   };
 
   const handleDeposit = () => {
-    ovenAction(() => ovenData.ovenClient.deposit(amountMutezInTezos));
+    ovenAction(
+      handleAction(ovenData.ovenAddress, 'deposit', amountMutezInTezos),
+    );
   };
 
   const MODAL_CONFIG = {

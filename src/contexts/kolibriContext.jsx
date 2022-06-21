@@ -99,11 +99,10 @@ const KolibriProvider = ({ children }) => {
       ovenOwner: await ovenClient.getOwner(),
       stabilityFees: await ovenClient.getStabilityFees(),
       loading: false,
-      ovenClient,
     };
   };
 
-  const handleLiquidate = (ovenAddress) => {
+  const handleAction = (ovenAddress, actionName, amount) => {
     const ovenClient = new OvenClient(
       CONSTANTS.NODE_URL,
       beaconWalletData,
@@ -112,7 +111,20 @@ const KolibriProvider = ({ children }) => {
       harbingerClient,
     );
 
-    ovenClient.liquidate();
+    switch (actionName) {
+      case 'deposit':
+        return async () => ovenClient.deposit(amount);
+      case 'withdraw':
+        return async () => ovenClient.withdraw(amount);
+      case 'borrow':
+        return async () => ovenClient.borrow(amount);
+      case 'repay':
+        return async () => ovenClient.repay(amount);
+      case 'liquidate':
+        return async () => ovenClient.liquidate();
+      default:
+        return () => null;
+    }
   };
 
   const getMyOvens = async () => {
@@ -270,15 +282,17 @@ const KolibriProvider = ({ children }) => {
       deployOven,
       getDataFromAddress,
       setMyOvens,
+      setAllOvens,
       getKUSDTokens,
-      handleLiquidate,
+      handleAction,
     }),
     [
       deployOven,
       getDataFromAddress,
       setMyOvens,
+      setAllOvens,
       getKUSDTokens,
-      handleLiquidate,
+      handleAction,
     ],
   );
 
