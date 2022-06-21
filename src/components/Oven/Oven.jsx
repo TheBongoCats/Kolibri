@@ -1,4 +1,7 @@
+/* eslint-disable react/forbid-prop-types */
 import { useMemo } from 'react';
+import propTypes from 'prop-types';
+
 import texts from './texts.json';
 import OvenNav from './OvenNav/OvenNav';
 import Metric from './Metric/Metric';
@@ -6,7 +9,6 @@ import styles from './Oven.module.scss';
 import CircularProgress from '../CircularProgress';
 import Loader from '../Loader';
 import { useI18nStateContext } from '../../contexts/i18nContext';
-import { OvenDataType } from '../../utils/types';
 import { calculateOvenMetrics } from '../../utils/helpers';
 import {
   useKolibriDispatchContext,
@@ -17,7 +19,8 @@ import { useBeaconStateContext } from '../../contexts/beaconContext';
 const Oven = ({ oven }) => {
   const { lang } = useI18nStateContext();
   const { tezosPrice } = useKolibriStateContext();
-  const { handleLiquidate } = useKolibriDispatchContext();
+  const { handleAction, setAllOvens, getDataFromAddress } =
+    useKolibriDispatchContext();
   const { beaconAddress } = useBeaconStateContext();
   const ovenData = useMemo(() => {
     return calculateOvenMetrics(oven, tezosPrice);
@@ -31,14 +34,41 @@ const Oven = ({ oven }) => {
     loan,
     stabilityFees,
     ovenOwner,
-    ovenClient,
     ovenAddress,
     baker,
     loading,
   } = ovenData;
+  const shouldShowLiquidate =
+    collateralRatio.full > 110 && ovenOwner !== beaconAddress;
+
+  const onLiquidate = async (callback) => {
+    const transaction = await callback();
+    setAllOvens((prevState) =>
+      prevState.map((prevOven) =>
+        prevOven.ovenAddress === ovenData.ovenAddress
+          ? {
+              ...prevOven,
+              loading: true,
+            }
+          : prevOven,
+      ),
+    );
+    await transaction.confirmation();
+    const newData = await getDataFromAddress(ovenData.ovenAddress);
+    setAllOvens((prevState) =>
+      prevState.map((prevOven) =>
+        prevOven.ovenAddress === newData.ovenAddress ? newData : prevOven,
+      ),
+    );
+  };
+
+  const handleClick = () => onLiquidate(handleAction(ovenAddress, 'liquidate'));
 
   return (
     <div className={styles.oven}>
+      {oven.isLiquidated && (
+        <div className={styles.oven__isLiquidated}>Liquidated</div>
+      )}
       {loading ? (
         <Loader text={`${texts.loader[lang]} ${ovenAddress}`} />
       ) : (
@@ -59,7 +89,7 @@ const Oven = ({ oven }) => {
                 position="left"
                 size="s"
               />
-              {ovenClient ? (
+              {ovenOwner === beaconAddress ? (
                 <Metric
                   title={texts.metricLiquidity[lang]}
                   value={liquidatablePrice.decimal}
@@ -80,15 +110,15 @@ const Oven = ({ oven }) => {
             </div>
             <div
               className={`${styles.oven__progress} ${
-                collateralRatio.full > 110 && styles.oven__progressHover
+                shouldShowLiquidate && styles.oven__progressHover
               }`}
             >
               <CircularProgress collateralRatio={collateralRatio} />
-              {collateralRatio.full > 110 && (
+              {shouldShowLiquidate && (
                 <button
                   type="button"
                   className={styles.oven__liquidate}
-                  onClick={() => handleLiquidate(ovenAddress)}
+                  onClick={handleClick}
                 >
                   Liquidate
                 </button>
@@ -135,7 +165,7 @@ const Oven = ({ oven }) => {
 export default Oven;
 
 Oven.propTypes = {
-  oven: OvenDataType,
+  oven: propTypes.object,
 };
 
 Oven.defaultProps = {
