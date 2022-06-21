@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import { useMemo } from 'react';
+import { useMatch } from 'react-router-dom';
 import propTypes from 'prop-types';
 
 import texts from './texts.json';
@@ -22,9 +23,11 @@ const Oven = ({ oven }) => {
   const { handleAction, setAllOvens, getDataFromAddress } =
     useKolibriDispatchContext();
   const { beaconAddress } = useBeaconStateContext();
-  const ovenData = useMemo(() => {
-    return calculateOvenMetrics(oven, tezosPrice);
-  }, [oven, tezosPrice]);
+  const ovenData = useMemo(
+    () => calculateOvenMetrics(oven, tezosPrice),
+    [oven, tezosPrice],
+  );
+  const isMatch = useMatch('/');
 
   const {
     liquidatablePrice,
@@ -37,6 +40,7 @@ const Oven = ({ oven }) => {
     ovenAddress,
     baker,
     loading,
+    isLiquidated,
   } = ovenData;
   const shouldShowLiquidate =
     collateralRatio.full > 110 && ovenOwner !== beaconAddress;
@@ -45,7 +49,7 @@ const Oven = ({ oven }) => {
     const transaction = await callback();
     setAllOvens((prevState) =>
       prevState.map((prevOven) =>
-        prevOven.ovenAddress === ovenData.ovenAddress
+        prevOven.ovenAddress === ovenAddress
           ? {
               ...prevOven,
               loading: true,
@@ -54,7 +58,7 @@ const Oven = ({ oven }) => {
       ),
     );
     await transaction.confirmation();
-    const newData = await getDataFromAddress(ovenData.ovenAddress);
+    const newData = await getDataFromAddress(ovenAddress);
     setAllOvens((prevState) =>
       prevState.map((prevOven) =>
         prevOven.ovenAddress === newData.ovenAddress ? newData : prevOven,
@@ -66,7 +70,7 @@ const Oven = ({ oven }) => {
 
   return (
     <div className={styles.oven}>
-      {oven.isLiquidated && (
+      {isLiquidated && (
         <div className={styles.oven__isLiquidated}>Liquidated</div>
       )}
       {loading ? (
@@ -155,7 +159,9 @@ const Oven = ({ oven }) => {
               showZeroValue
             />
           </div>
-          {ovenOwner === beaconAddress && <OvenNav ovenData={ovenData} />}
+          {ovenOwner === beaconAddress && isMatch && (
+            <OvenNav ovenData={ovenData} />
+          )}
         </>
       )}
     </div>
