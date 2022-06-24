@@ -12,6 +12,10 @@
     max-width: 250px;
     width: 100%;
 
+    @media only screen and (max-width: 980px) {
+      max-width: 160px;
+    }
+
     &Right {
       display: flex;
       justify-content: flex-end;

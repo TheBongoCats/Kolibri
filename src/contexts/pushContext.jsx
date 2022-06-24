@@ -8,7 +8,7 @@ import {
 } from 'react';
 import propTypes from 'prop-types';
 import { useKolibriStateContext } from './kolibriContext';
-import { isDesktop, mutateBigNumber } from '../utils/helpers';
+import { mutateBigNumber } from '../utils/helpers';
 import CONSTANTS from '../utils/constants';
 
 // state context
@@ -45,13 +45,13 @@ const PushProvider = ({ children }) => {
   const [permission, setPermission] = useState(false);
   const [notifyOracle, setNotifyOracle] = useState(false);
   const firstUpdate = useRef(true);
-  const desktop = isDesktop();
 
   const requestPermission = () => {
-    if (desktop) {
+    try {
       return Notification.requestPermission();
+    } catch {
+      return () => null;
     }
-    return () => null;
   };
 
   let handleSetNotify;
@@ -107,8 +107,10 @@ const PushProvider = ({ children }) => {
   }, [tezosPrice]);
 
   useEffect(() => {
-    if (desktop) {
+    try {
       setPermission(Notification.permission === 'granted');
+    } catch {
+      setPermission(false);
     }
   }, []);
 
