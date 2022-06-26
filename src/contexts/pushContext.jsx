@@ -54,36 +54,16 @@ const PushProvider = ({ children }) => {
     }
   };
 
-  let handleSetNotify;
+  const storage = localStorage;
 
-  try {
-    const storage = localStorage;
-
-    handleSetNotify = () => {
-      if (permission) {
-        setNotifyOracle(!notifyOracle);
-        storage.setItem('oracleNotify', !notifyOracle);
-      } else {
-        requestPermission();
-      }
-    };
-
-    useEffect(() => {
-      const storageOracleNotify = JSON.parse(storage.getItem('oracleNotify'));
-
-      return storageOracleNotify
-        ? setNotifyOracle(storageOracleNotify)
-        : storage.setItem('oracleNotify', false);
-    }, []);
-  } catch {
-    handleSetNotify = () => {
-      if (permission) {
-        setNotifyOracle(!notifyOracle);
-      } else {
-        requestPermission();
-      }
-    };
-  }
+  const handleSetNotify = () => {
+    if (permission) {
+      setNotifyOracle(!notifyOracle);
+      storage.setItem('oracleNotify', !notifyOracle);
+    } else {
+      requestPermission();
+    }
+  };
 
   useEffect(() => {
     if (tezosPrice.price > 0) {
@@ -114,10 +94,15 @@ const PushProvider = ({ children }) => {
     }
   }, []);
 
-  const stateValue = useMemo(
-    () => ({ permission, notifyOracle }),
-    [permission, notifyOracle],
-  );
+  useEffect(() => {
+    const storageOracleNotify = JSON.parse(storage.getItem('oracleNotify'));
+
+    return storageOracleNotify
+      ? setNotifyOracle(storageOracleNotify)
+      : storage.setItem('oracleNotify', false);
+  }, []);
+
+  const stateValue = useMemo(() => ({ notifyOracle }), [notifyOracle]);
 
   const dispatchValue = useMemo(
     () => ({ requestPermission, handleSetNotify }),
